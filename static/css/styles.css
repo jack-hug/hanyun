@@ -65,3 +65,67 @@
 .transition_style:hover {
     transform: scale(1.02);
 }
+
+.main-low-margin {
+
+}
+
+.product-image {
+    height: 300px;
+    width: auto;
+}
+
+.thumbnail-image {
+    width: 70px;
+    height: 70px;
+    margin: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.thumbnail-image:hover, .thumbnail-image.active {
+    border-color: #0067d0;
+}
+
+.breadcrumb-style {
+    padding: 5px;
+    margin: 5px;
+    background-color: #f4f3f3;
+}
+
+.facebook-icon {
+    color: #8b8b8b;
+    transition: color 0.2s ease; /* 添加过渡效果 */
+}
+
+.facebook-icon:hover {
+    color: #1877F2; /* 鼠标划过时的颜色 */
+}
+
+.line-icon {
+    color: #8b8b8b;
+    transition: color 0.2s ease; /* 添加过渡效果 */
+}
+
+.line-icon:hover {
+    color: #00C300; /* 鼠标划过时的颜色 */
+}
+
+.twitter-icon {
+    color: #8b8b8b;
+    transition: color 0.2s ease; /* 添加过渡效果 */
+}
+
+.twitter-icon:hover {
+    color: #1651ce; /* 鼠标划过时的颜色 */
+}
+
+.skype-icon {
+    color: #8b8b8b;
+    transition: color 0.2s ease; /* 添加过渡效果 */
+}
+
+.skype-icon:hover {
+    color: #00aff0; /* 鼠标划过时的颜色 */
+}

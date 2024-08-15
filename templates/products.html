@@ -1,21 +1,63 @@
 {% extends 'base.html' %}
 
 {% block title %}Product{% endblock %}
+{% block nav_products %}
+    active
+{% endblock %}
 
-<div class="section bg-dark">
-    <div class="container">
-        <div class="row custom-container text-light">
-            <div class="col-md-10 offset-md-1 col-sm-10 offset-sm-1">
-                <h2>Precision Machining</h2>
-                <h6>
-                    Precision Machining are continually expanding our range of modern CNC Mill machines, which are
-                    capable of precision machining complex multi-axis precision components, in batches from 1's to
-                    1000's. Having the capabilities to work with a wide range of materials such as Steel,Stainless,
-                    SteelTungsten,Titanium,Inconel,Hastelloy,Tool Steels,Aluminum,Brass,Plastics etc, gives us the
-                    flexibility to work on all CNC Manufacturing projects and we can advise you on the most suitable
-                    material for your engineering requirements.
-                </h6>
+{% block content %}
+    <div class="section bg-secondary py-5 custom-container">
+        <div class="container">
+            <div class="row text-light">
+                <div class="col-md-10 offset-md-1 col-sm-10 offset-sm-1">
+                    <h2>Product Introduce</h2>
+                    <h6 class="lh-lg">
+                        some text some text some text some text some text some text some text some text some text some
+                        text some text some text some text some text some text some text some text some text some text
+                        some text some text some text some text some text some text some text some text some text some
+                        text some text some text some text some text some text some text some text some text some text
+                        some text some text some text some text some text some text some text some text some text some
+                        text some text some text some text some text some text some text some text some text some text
+                        some text some text some text some text some text some text some text some text some text some
+                        text some text some text some text some text some text some text
+                    </h6>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <section class="text-center bg-light">
+        <div class="container">
+                <nav aria-label="breadcrumb" class="my-2">
+                    <ol class="breadcrumb p-2 breadcrumb-style">
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('index') }}"
+                               class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">HOME
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">PRODUCTS</li>
+                    </ol>
+                </nav>
+            <hr>
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-3 col-sm-6 col-12 my-2">
+                        <div class="card mb-3 shadow-sm bg-light transition_style">
+                            <a href="#">
+                                <img class="card-img-top"
+                                     src="{{ url_for('static', filename='img/500px350.jpg') }}"
+                                     alt="Card image cap">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text"
+                                   style="height: 5rem;overflow: hidden;">{{ product.description }}</p>
+                                <a href="{{ url_for('product', product_id=product.id) }}"
+                                   class="btn btn-primary">View</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
