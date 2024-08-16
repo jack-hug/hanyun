@@ -2,7 +2,7 @@
 
 {% block title %}Home{% endblock %}
 {% block nav_home %}
-active
+    active
 {% endblock %}
 
 {% block content %}
@@ -84,126 +84,24 @@ active
                 some text
             </p>
             <div class="row">
-                <div class="col-md-3 col-sm-6 col-12 my-2">
-                    <div class="card mb-3 shadow-sm bg-light transition_style">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{{ url_for('static', filename='img/500px350.jpg') }}"
-                                 alt="Card image cap">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title">product name</h5>
-                            <p class="card-text">some introduce text some introduce text some introduce text some
-                                introduce text</p>
-                            <a href="#" class="btn btn-primary">Read More</a>
+                {% for product in products %}
+                    <div class="col-md-3 col-sm-6 col-12 my-2">
+                        <div class="card mb-3 shadow-sm bg-light transition_style">
+                            <a href="#" class="light-move">
+                                <img class="card-img-top"
+                                     src="{{ url_for('static', filename='img/500px350.jpg') }}"
+                                     alt="Card image cap">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text"
+                                   style="height: 5rem;overflow: hidden;">{{ product.description }}</p>
+                                <a href="{{ url_for('product', product_id=product.id) }}"
+                                   class="btn btn-primary">Read More</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-12 my-2">
-                    <div class="card mb-3 shadow-sm bg-light transition_style">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{{ url_for('static', filename='img/500px350.jpg') }}"
-                                 alt="Card image cap">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title">product name</h5>
-                            <p class="card-text">some introduce text some introduce text some introduce text some
-                                introduce text</p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-12 my-2">
-                    <div class="card mb-3 shadow-sm bg-light transition_style">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{{ url_for('static', filename='img/500px350.jpg') }}"
-                                 alt="Card image cap">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title">product name</h5>
-                            <p class="card-text">some introduce text some introduce text some introduce text some
-                                introduce text</p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-12 my-2">
-                    <div class="card mb-3 shadow-sm bg-light transition_style">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{{ url_for('static', filename='img/500px350.jpg') }}"
-                                 alt="Card image cap">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title">product name</h5>
-                            <p class="card-text">some introduce text some introduce text some introduce text some
-                                introduce text</p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-12 my-2">
-                    <div class="card mb-3 shadow-sm bg-light transition_style">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{{ url_for('static', filename='img/500px350.jpg') }}"
-                                 alt="Card image cap">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title">product name</h5>
-                            <p class="card-text">some introduce text some introduce text some introduce text some
-                                introduce text</p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-12 my-2">
-                    <div class="card mb-3 shadow-sm bg-light transition_style">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{{ url_for('static', filename='img/500px350.jpg') }}"
-                                 alt="Card image cap">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title">product name</h5>
-                            <p class="card-text">some introduce text some introduce text some introduce text some
-                                introduce text</p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-12 my-2">
-                    <div class="card mb-3 shadow-sm bg-light transition_style">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{{ url_for('static', filename='img/500px350.jpg') }}"
-                                 alt="Card image cap">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title">product name</h5>
-                            <p class="card-text">some introduce text some introduce text some introduce text some
-                                introduce text</p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-12 my-2">
-                    <div class="card mb-3 shadow-sm bg-light transition_style">
-                        <a href="#">
-                            <img class="card-img-top"
-                                 src="{{ url_for('static', filename='img/500px350.jpg') }}"
-                                 alt="Card image cap">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title">product name</h5>
-                            <p class="card-text">some introduce text some introduce text some introduce text some
-                                introduce text</p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>

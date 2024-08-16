@@ -129,3 +129,25 @@
 .skype-icon:hover {
     color: #00aff0; /* 鼠标划过时的颜色 */
 }
+
+.light-move {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.light-move:after {
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    content: "";
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-45deg);
+}
+
+.light-move:hover:after {
+    left: 150%;
+    transition: 1s ease;
+}
