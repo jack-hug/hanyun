@@ -94,8 +94,6 @@
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text"
-                                   style="height: 5rem;overflow: hidden;">{{ product.description }}</p>
                                 <a href="{{ url_for('product', product_id=product.id) }}"
                                    class="btn btn-primary">Read More</a>
                             </div>
@@ -108,13 +106,8 @@
     <section class="py-5 text-center bg-white">
         <div class="container">
             <h1>ABOUT US</h1>
-            <p class="lead text-muted">
-                some text some text some text some text some text some text some text some text some text some text some
-                text some text some text some text some text some text some text some text some text some text some text
-                some text some text some text some text some text some text some text some text some text some text some
-                text some text some text some text some text some text some text some text some text some text some text
-                some text some text some text some text some text some text some text some text some text some text some
-                text some text some text some text some text some text some text some text some text
+            <p class="lead text-muted lh-lg">
+                {{ about.content }}
             </p>
         </div>
     </section>
