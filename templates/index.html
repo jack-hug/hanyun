@@ -86,17 +86,16 @@
             <div class="row">
                 {% for product in products %}
                     <div class="col-md-3 col-sm-6 col-12 my-2">
-                        <div class="card mb-3 shadow-sm bg-light transition_style">
-                            <a href="#" class="light-move">
-                                <img class="card-img-top"
-                                     src="{{ url_for('static', filename='img/500px350.jpg') }}"
-                                     alt="Card image cap">
-                            </a>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ product.name }}</h5>
-                                <a href="{{ url_for('product', product_id=product.id) }}"
-                                   class="btn btn-primary">Read More</a>
+                        <div class="card my-3 transition_style">
+                            <div class="light-move">
+                                <a href="{{ url_for('product', product_id=product.id) }}">
+                                    <img class="card-img-top"
+                                         src="{{ url_for('static', filename='img/500px350.jpg') }}"
+                                         alt="Card image cap">
+                                </a>
                             </div>
+                            <a href="{{ url_for('product', product_id=product.id) }}"
+                               class="p-3 btn btn-sm">{{ product.name }}</a>
                         </div>
                     </div>
                 {% endfor %}

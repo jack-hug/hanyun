@@ -60,10 +60,13 @@
 
 .transition_style {
     transition: all 0.5s;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2) ;
 }
 
 .transition_style:hover {
-    transform: scale(1.02);
+    /*transform: scale(1.02);*/
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px #aaa;
 }
 
 .main-low-margin {
