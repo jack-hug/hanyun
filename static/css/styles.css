@@ -154,3 +154,12 @@
     left: 150%;
     transition: 1s ease;
 }
+
+.alert-floating {
+    position: fixed;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050; /* 确保它在其他内容之上 */
+    text-align: center; /* 确保文本居中 */
+}

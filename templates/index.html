@@ -92,7 +92,7 @@
                                     {% set photo = product.photos|first %}
                                     {% if photo %}
                                         <img src="{{ url_for('get_image', filename=photo.filename) }}"
-                                             alt="{{ product.name }}">
+                                             alt="{{ product.name }}" style="width: 300px;height: auto;">
                                     {% else %}
                                         <img class="card-img-top"
                                              src="{{ url_for('static', filename='img/no_product.jpg') }}"

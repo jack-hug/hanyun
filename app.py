@@ -15,8 +15,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length
 from flask_wtf.csrf import CSRFProtect
-from flask_ckeditor import CKEditor
-from flask_ckeditor import CKEditorField
+from flask_ckeditor import CKEditor, CKEditorField
 
 app = Flask(__name__)
 
@@ -80,7 +79,7 @@ class About(db.Model):
 class EditProductForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
     price = StringField('Price', validators=[DataRequired(), Length(1, 20)])
-    description = CKEditorField('Description', validators=[DataRequired(), Length(1, 100)])
+    description = CKEditorField('Description', validators=[DataRequired()])
     photos = FileField('Product Photo:', validators=[FileAllowed(['jpg', 'png', 'gif'], '只能上传图片')])
     submit = SubmitField('Submit')
     cancel = SubmitField('Cancel')
@@ -134,28 +133,30 @@ def admin():
     return render_template('admin.html')
 
 
-@app.route('/edit_products/<int:product_id>', methods=['GET', 'POST'])  # 编辑产品
-def edit_products(product_id):
+@app.route('/edit_product/<int:product_id>', methods=['GET', 'POST'])  # 编辑产品
+def edit_product(product_id):
     form = EditProductForm()
-    product = Product.query.get(product_id)
+    product = Product.query.get_or_404(product_id)
     if form.validate_on_submit():
         product.name = form.name.data
         product.price = form.price.data
         product.description = form.description.data
+        product.timestamp = datetime.now()
         db.session.commit()
-        print('aaa')
         if 'photos' in request.files and request.files['photos'].filename != '':
             photos = save_uploaded_files(request.files, product)
             db.session.add_all(photos)
             db.session.commit()
         flash('添加成功.', 'success')
         return redirect(url_for('admin'))
-    elif form.cancel.data:
-        return redirect(url_for('admin'))
+    else:
+        print('aaa')
+    # if form.cancel.data:
+    #     return redirect(url_for('admin'))
     form.name.data = product.name
     form.price.data = product.price
     form.description.data = product.description
-    return render_template('edit_products.html', form=form, product=product)
+    return render_template('edit_product.html', form=form, product=product)
 
 
 @app.route('/delete_product/<int:product_id>', methods=['GET', 'POST'])
@@ -169,25 +170,25 @@ def delete_product(product_id):
 @app.route('/add_product', methods=['GET', 'POST'])
 def add_product():
     form = AddProductForm()
-    if form.validate_on_submit():
-        product = Product(
-            name=form.name.data,
-            price=form.price.data,
-            description=form.description.data,
-            clicks=0,
-            timestamp=datetime.now()
-        )
-        db.session.add(product)
-        db.session.commit()
-
-        if 'photos' in request.files and request.files['photos'].filename != '':
-            photos = save_uploaded_files(request.files, product)
-            db.session.add_all(photos)
-            db.session.commit()
-        flash('添加成功.', 'success')
-        return redirect(url_for('edit_products'))
-    elif form.cancel.data:
-        return redirect(url_for('admin'))
+    # if form.validate_on_submit():
+    #     product = Product(
+    #         name=form.name.data,
+    #         price=form.price.data,
+    #         description=form.description.data,
+    #         clicks=0,
+    #         timestamp=datetime.now()
+    #     )
+    #     db.session.add(product)
+    #     db.session.commit()
+    #
+    #     if 'photos' in request.files and request.files['photos'].filename != '':
+    #         photos = save_uploaded_files(request.files, product)
+    #         db.session.add_all(photos)
+    #         db.session.commit()
+    #     flash('添加成功.', 'success')
+    #     return redirect(url_for('edit_products'))
+    # elif form.cancel.data:
+    #     return redirect(url_for('admin'))
     return render_template('add_product.html', form=form)
 
 
@@ -222,14 +223,14 @@ def forge(product):
 fake_products = DynamicProvider(
     provider_name='products',
     elements=[
-        'KPHF',
-        'SCZN',
         'KOCUF',
-        'SCZA',
-        'MTGL',
         'KOCUS',
+        'KPHF',
+        'MTGL',
+        'SCZA',
+        'SCZAP',
         'SCZNP',
-        'BNPL'
+        'SCZN'
     ],  # 8 products
 )
 
@@ -248,7 +249,7 @@ def fake_products(count=8):
 
         product = Product(
             name=product_name,
-            price=fake.random_int(min=0, max=100),
+            price='0.0',
             description=fake.text(100),
             clicks=random.randint(1, 5000),
             timestamp=fake.date_time_this_year()

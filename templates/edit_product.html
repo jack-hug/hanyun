@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Add product{% endblock %}
+{% block title %}Edit Product{% endblock %}
 
 {% block content %}
     <div class="section bg-white py-5 custom-container">
@@ -14,10 +14,14 @@
                             {{ form.name(class="form-control") }}
                         </div>
                         <div class="mb-3">
+                            {{ form.price.label(class="form-label") }}
+                            {{ form.price(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
                             {{ form.description.label(class="form-label") }}
                             {{ form.description(class="form-control") }}
                             {{ ckeditor.load(custom_url=url_for('static', filename='ckeditor/ckeditor.js')) }}
-                            {{ ckeditor.config(name='description:') }}
+                            {{ ckeditor.config(name='description') }}
                         </div>
                         <div class="mb-3">
                             {{ form.photos.label(class="form-label") }}
