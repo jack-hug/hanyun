@@ -66,7 +66,7 @@
 .transition_style:hover {
     /*transform: scale(1.02);*/
     transform: translateY(-5px);
-    box-shadow: 0 0 10px #aaa;
+    box-shadow: 0 0 5px #aaa;
 }
 
 .main-low-margin {

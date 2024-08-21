@@ -21,22 +21,32 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link {% block nav_home %}{% endblock %}" href="{{ url_for('index') }}">HOME <span class="sr-only"></span></a>
+                    <a class="nav-link {% block nav_home %}{% endblock %}" href="{{ url_for('index') }}">HOME <span
+                            class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% block nav_products %}{% endblock %}" href="{{ url_for('products') }}">PRODUCTS</a>
+                    <a class="nav-link {% block nav_products %}{% endblock %}"
+                       href="{{ url_for('products') }}">PRODUCTS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% block nav_company %}{% endblock %}" href="{{ url_for('company') }}">COMPANY</a>
+                    <a class="nav-link {% block nav_company %}{% endblock %}"
+                       href="{{ url_for('company') }}">COMPANY</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {% block nav_contact %}{% endblock %}" href="{{ url_for('contact') }}">CONTACT</a>
+                    <a class="nav-link {% block nav_contact %}{% endblock %}"
+                       href="{{ url_for('contact') }}">CONTACT</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+{% for message in get_flashed_messages(with_categories = True) %}
+    <div class="alert alert-{{ message[0] }}" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        {{ message[1] }}
+    </div>
+{% endfor %}
 
 {% block content %}
 

@@ -89,9 +89,15 @@
                         <div class="card my-3 transition_style">
                             <div class="light-move">
                                 <a href="{{ url_for('product', product_id=product.id) }}">
-                                    <img class="card-img-top"
-                                         src="{{ url_for('static', filename='img/500px350.jpg') }}"
-                                         alt="Card image cap">
+                                    {% set photo = product.photos|first %}
+                                    {% if photo %}
+                                        <img src="{{ url_for('get_image', filename=photo.filename) }}"
+                                             alt="{{ product.name }}">
+                                    {% else %}
+                                        <img class="card-img-top"
+                                             src="{{ url_for('static', filename='img/no_product.jpg') }}"
+                                             alt="Card image cap">
+                                    {% endif %}
                                 </a>
                             </div>
                             <a href="{{ url_for('product', product_id=product.id) }}"

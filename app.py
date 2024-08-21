@@ -1,12 +1,22 @@
+import os
 import random
+import uuid
 from datetime import datetime
 
 import click
 from faker import Faker
 from faker.providers import DynamicProvider
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, current_app, flash, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.file import FileField, FileAllowed
+
 from config import config
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms.validators import DataRequired, Length
+from flask_wtf.csrf import CSRFProtect
+from flask_ckeditor import CKEditor
+from flask_ckeditor import CKEditorField
 
 app = Flask(__name__)
 
@@ -14,6 +24,30 @@ app.config.from_object(config['development'])
 
 db = SQLAlchemy(app)
 fake = Faker()
+csrf = CSRFProtect(app)
+ckeditor = CKEditor(app)
+
+
+def random_filename(filename):  # 图片随机命名
+    ext = os.path.splitext(filename)[1]
+    new_filename = uuid.uuid4().hex + ext
+    return new_filename
+
+
+def save_uploaded_files(request_files, product):  # 封装上传图片函数
+    photos = []
+    for f in request_files.getlist('photos'):
+        if f.content_length > current_app.config['MAX_CONTENT_LENGTH']:
+            flash(f'文件 {f.filename} 过大，上传的文件大小不能超过3MB')
+            continue
+        filename = random_filename(f.filename)
+        f.save(os.path.join(current_app.config['HY_UPLOAD_PATH'], filename))
+        photo = Photo(
+            filename=filename,
+            product=product
+        )
+        photos.append(photo)
+    return photos
 
 
 class Product(db.Model):
@@ -43,10 +77,28 @@ class About(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now, index=True)
 
 
+class EditProductForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    price = StringField('Price', validators=[DataRequired(), Length(1, 20)])
+    description = CKEditorField('Description', validators=[DataRequired(), Length(1, 100)])
+    photos = FileField('Product Photo:', validators=[FileAllowed(['jpg', 'png', 'gif'], '只能上传图片')])
+    submit = SubmitField('Submit')
+    cancel = SubmitField('Cancel')
+
+
+class AddProductForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    price = StringField('Price', validators=[DataRequired(), Length(1, 20)])
+    description = StringField('Description', validators=[DataRequired(), Length(1, 100)])
+    photos = FileField('Product Photo:', validators=[FileAllowed(['jpg', 'png', 'gif'], '只能上传图片')])
+    submit = SubmitField('Submit')
+    cancel = SubmitField('Cancel')
+
+
 @app.context_processor
 def make_template_context():
     return dict(
-        products=Product.query.order_by(Product.timestamp.desc()).all(),
+        products=Product.query.order_by(Product.id.asc()).all(),
         about=About.query.order_by(About.timestamp.desc()).first(),
     )
 
@@ -75,6 +127,73 @@ def contact():
 def product(product_id):
     product = Product.query.get(product_id)
     return render_template('product.html', product=product)
+
+
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
+
+
+@app.route('/edit_products/<int:product_id>', methods=['GET', 'POST'])  # 编辑产品
+def edit_products(product_id):
+    form = EditProductForm()
+    product = Product.query.get(product_id)
+    if form.validate_on_submit():
+        product.name = form.name.data
+        product.price = form.price.data
+        product.description = form.description.data
+        db.session.commit()
+        print('aaa')
+        if 'photos' in request.files and request.files['photos'].filename != '':
+            photos = save_uploaded_files(request.files, product)
+            db.session.add_all(photos)
+            db.session.commit()
+        flash('添加成功.', 'success')
+        return redirect(url_for('admin'))
+    elif form.cancel.data:
+        return redirect(url_for('admin'))
+    form.name.data = product.name
+    form.price.data = product.price
+    form.description.data = product.description
+    return render_template('edit_products.html', form=form, product=product)
+
+
+@app.route('/delete_product/<int:product_id>', methods=['GET', 'POST'])
+def delete_product(product_id):
+    product = Product.query.get(product_id)
+    db.session.delete(product)
+    db.session.commit()
+    return redirect(url_for('edit_products'))
+
+
+@app.route('/add_product', methods=['GET', 'POST'])
+def add_product():
+    form = AddProductForm()
+    if form.validate_on_submit():
+        product = Product(
+            name=form.name.data,
+            price=form.price.data,
+            description=form.description.data,
+            clicks=0,
+            timestamp=datetime.now()
+        )
+        db.session.add(product)
+        db.session.commit()
+
+        if 'photos' in request.files and request.files['photos'].filename != '':
+            photos = save_uploaded_files(request.files, product)
+            db.session.add_all(photos)
+            db.session.commit()
+        flash('添加成功.', 'success')
+        return redirect(url_for('edit_products'))
+    elif form.cancel.data:
+        return redirect(url_for('admin'))
+    return render_template('add_product.html', form=form)
+
+
+@app.route('/uploads/<path:filename>')  # 获得上传图片
+def get_image(filename):
+    return send_from_directory(current_app.config['HY_UPLOAD_PATH'], filename)
 
 
 if __name__ == '__main__':
