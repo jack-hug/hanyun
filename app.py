@@ -147,7 +147,7 @@ def edit_product(product_id):
             photos = save_uploaded_files(request.files, product)
             db.session.add_all(photos)
             db.session.commit()
-        flash('添加成功.', 'success')
+        flash('修改成功.', 'success')
         return redirect(url_for('admin'))
     else:
         print('aaa')
