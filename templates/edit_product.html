@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block head %}
+    {{ super() }}
+    {{ ckeditor.load(custom_url=url_for('static', filename='ckeditor/ckeditor.js')) }}
+{% endblock %}
 {% block title %}Edit Product{% endblock %}
 
 {% block content %}
@@ -9,6 +13,7 @@
                 <div class="col-md-6">
                     <form method="POST" enctype="multipart/form-data" class="form">
                         {{ form.hidden_tag() }}
+                        <input type="hidden" name="product_id" value="{{ product_id }}">
                         <div class="mb-3">
                             {{ form.name.label(class="form-label") }}
                             {{ form.name(class="form-control") }}
@@ -20,8 +25,6 @@
                         <div class="mb-3">
                             {{ form.description.label(class="form-label") }}
                             {{ form.description(class="form-control") }}
-                            {{ ckeditor.load(custom_url=url_for('static', filename='ckeditor/ckeditor.js')) }}
-                            {{ ckeditor.config(name='description') }}
                         </div>
                         <div class="mb-3">
                             {{ form.photos.label(class="form-label") }}
@@ -32,6 +35,7 @@
                             {{ form.cancel(class="btn btn-secondary btn-md") }}
                         </div>
                     </form>
+                    {{ ckeditor.config(name='description') }}
                 </div>
             </div>
         </div>

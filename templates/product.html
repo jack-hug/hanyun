@@ -98,7 +98,13 @@
                 <h1 class="pt-3">产品详情</h1>
             </div>
             <div class="d-flex flex-column align-items-center">
-                <p>{{ product.description|safe }}</p>
+                {% for ckeditor_photo in ckeditor_photos %}
+                        <div>
+                            <img src="{{ url_for('get_image', filename=ckeditor_photo.filename) }}" alt="ckeditor-photo"
+                                 class="ckeditor-image img-fluid">
+                        </div>
+                {% endfor %}
+
             </div>
             <div class="d-flex justify-content-between mt-5 p-2">
                 <button class="btn btn-primary">上一个</button>

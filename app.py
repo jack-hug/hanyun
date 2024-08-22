@@ -15,7 +15,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length
 from flask_wtf.csrf import CSRFProtect
-from flask_ckeditor import CKEditor, CKEditorField
+from flask_ckeditor import CKEditor, CKEditorField, upload_fail, upload_success
 
 app = Flask(__name__)
 
@@ -66,6 +66,7 @@ class Photo(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now, index=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     product = db.relationship('Product', backref=db.backref('photos', lazy='dynamic', cascade='all, delete-orphan'))
+    source = db.Column(db.String(200), default='form')  # 区别图片来源
 
 
 class About(db.Model):
@@ -101,6 +102,10 @@ def make_template_context():
         about=About.query.order_by(About.timestamp.desc()).first(),
     )
 
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
 
 @app.route('/')
 def index():
@@ -138,25 +143,50 @@ def edit_product(product_id):
     form = EditProductForm()
     product = Product.query.get_or_404(product_id)
     if form.validate_on_submit():
+        if form.cancel.data:
+            return redirect(url_for('admin'))
         product.name = form.name.data
         product.price = form.price.data
         product.description = form.description.data
         product.timestamp = datetime.now()
         db.session.commit()
+
         if 'photos' in request.files and request.files['photos'].filename != '':
             photos = save_uploaded_files(request.files, product)
             db.session.add_all(photos)
             db.session.commit()
         flash('修改成功.', 'success')
         return redirect(url_for('admin'))
-    else:
-        print('aaa')
-    # if form.cancel.data:
-    #     return redirect(url_for('admin'))
+
     form.name.data = product.name
     form.price.data = product.price
     form.description.data = product.description
     return render_template('edit_product.html', form=form, product=product)
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    print(request.form)
+    f = request.files.get('upload')
+    if not allowed_file(f.filename):
+        return upload_fail(message='File type not allowed!')
+    filename = random_filename(f.filename)
+    f.save(os.path.join(current_app.config['HY_UPLOAD_PATH'], filename))
+    url = url_for('static', filename=os.path.join('uploads', filename))
+
+    product_id = request.form.get('product_id')
+    print(product_id)
+    if not product_id:
+        return upload_fail(message='Product ID is required!')
+
+    photo = Photo(
+        filename=filename,
+        product_id=product_id,
+        source='ckeditor'
+    )
+    db.session.add(photo)
+    db.session.commit()
+
+    return upload_success(url=url)
 
 
 @app.route('/delete_product/<int:product_id>', methods=['GET', 'POST'])

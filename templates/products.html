@@ -27,7 +27,7 @@
     </div>
     <section class="text-center bg-light">
         <div class="container">
-            <nav aria-label="breadcrumb" class="my-2">
+            <nav aria-label="breadcrumb" class="mt-2 mb-3">
                 <ol class="breadcrumb p-2 breadcrumb-style">
                     <li class="breadcrumb-item">
                         <a href="{{ url_for('index') }}"
@@ -37,7 +37,6 @@
                     <li class="breadcrumb-item active" aria-current="page">PRODUCTS</li>
                 </ol>
             </nav>
-            <hr>
             <div class="row">
                 {% for product in products %}
                     <div class="col-md-3 col-sm-6 col-12 my-2">

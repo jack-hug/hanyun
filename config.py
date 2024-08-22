@@ -24,8 +24,12 @@ class BaseConfig:
     CKEDITOR_ENABLE_CSRF = True
     CKEDITOR_SERVE_LOCAL = True
     CKEDITOR_PKG_TYPE = 'standard'
-    CKEDITOR_HEIGHT = 400
+    CKEDITOR_HEIGHT = 200
+    CKEDITOR_FILE_UPLOADER = 'upload'  # ckeditor上传图片的函数
+
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 class DevelopmentConfig(BaseConfig):
+    WTF_CSRF_ENABLED = True
     SQLALCHEMY_DATABASE_URI = prefix + os.path.join(basedir, 'data-dev.db')
 
 
