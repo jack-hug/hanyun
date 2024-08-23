@@ -184,17 +184,21 @@ def upload():
 
 @app.route('/add_product', methods=['GET', 'POST'])
 def add_product():
+    print('aaa2')
     form = AddProductForm()
     if form.validate_on_submit():
         if form.cancel.data:
             return redirect(url_for('admin'))
+        print('bbb')
         product = Product(
             name=form.name.data,
             price=form.price.data,
             description=form.description.data,
+            content=form.content.data,
             clicks=0,
             timestamp=datetime.now()
         )
+        print(product)
         db.session.add(product)
         db.session.commit()
 
@@ -213,7 +217,8 @@ def delete_product(product_id):
     product = Product.query.get(product_id)
     db.session.delete(product)
     db.session.commit()
-    return redirect(url_for('edit_products'))
+    flash('删除成功.', 'success')
+    return redirect(url_for('admin'))
 
 
 @app.route('/uploads/<path:filename>')  # 获得上传图片
