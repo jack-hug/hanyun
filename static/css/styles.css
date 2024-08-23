@@ -164,3 +164,11 @@
     z-index: 1050; /* 确保它在其他内容之上 */
     text-align: center; /* 确保文本居中 */
 }
+
+        .hr-style {
+            border-bottom: 1px dashed #c2aeae; /* 使用 dashed 实现虚线 */
+            width: 80%;
+            margin: 20px auto;
+            text-align: center;
+
+        }

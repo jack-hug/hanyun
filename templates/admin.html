@@ -38,7 +38,7 @@
                                              src="{{ url_for('static', filename='img/no_product.jpg') }}"
                                              alt="Card image cap" style="width: 100px;height: auto;"></td>
                                     {% endif %}
-                                    <td>{{ product.name }}</td>
+                                    <td><a href="{{ url_for('product', product_id=product.id) }}" target="_blank">{{ product.name }}</a></td>
                                     <td style="width: 300px;">{{ product.description|safe }}</td>
                                     <td>{{ product.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
                                     <td>
