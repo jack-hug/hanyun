@@ -118,25 +118,23 @@
                 <div class="col-md-7">
                     <h3>ABOUT US</h3>
                     <br>
-                    <p class="lh-lg">HANYUN MOLD was founded in 2010, is a factory specializing in the production of
-                        standard slide core unit, precision positioning, various types of sliders, non-standard slide
-                        core units.</p>
+                    <p class="lh-lg">{{ about.content }}</p>
                     <br>
                     <a href="{{ url_for('company') }}" class="btn btn-primary">Read More</a>
                 </div>
             </div>
         </div>
     </section>
-    <section class="py-5 text-center bg-light">
+    <section class="text-center bg-light">
         <div class="container">
             <div class="row py-lg-5">
-                    <h2 class="fw-light">ADVANTAGE</h2>
+                    <h2 class="fw-light mb-5">ADVANTAGE</h2>
                         <div class="col-md-3 mx-0">
                             <div class="card">
                                 <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
                                      alt="advantage">
                                 <div class="card-body">
-                                    <h5 class="card-title">Accepted customization</h5>
+                                    <h4 class="card-title">Accepted customization</h4>
                                     <p class="card-text">some text</p>
                                 </div>
                             </div>
@@ -146,7 +144,7 @@
                                 <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
                                      alt="advantage">
                                 <div class="card-body">
-                                    <h5 class="card-title">Accepted customization</h5>
+                                    <h4 class="card-title">Big Stock</h4>
                                     <p class="card-text">some text</p>
                                 </div>
                             </div>
@@ -156,7 +154,7 @@
                                 <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
                                      alt="advantage">
                                 <div class="card-body">
-                                    <h5 class="card-title">Accepted customization</h5>
+                                    <h4 class="card-title">Factory</h4>
                                     <p class="card-text">some text</p>
                                 </div>
                             </div>
@@ -166,7 +164,7 @@
                                 <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
                                      alt="advantage">
                                 <div class="card-body">
-                                    <h5 class="card-title">Accepted customization</h5>
+                                    <h4 class="card-title">100% Inspection</h4>
                                     <p class="card-text">some text</p>
                                 </div>
                             </div>
