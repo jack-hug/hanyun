@@ -78,6 +78,14 @@ class About(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now, index=True)
 
 
+class Advantage(db.Model):
+    __tablename__ = 'advantage'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    content = db.Column(db.Text())
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now, index=True)
+
+
 class EditProductForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
     price = StringField('Price', validators=[DataRequired(), Length(1, 20)])
@@ -103,6 +111,7 @@ def make_template_context():
     return dict(
         products=Product.query.order_by(Product.id.asc()).all(),
         about=About.query.order_by(About.timestamp.desc()).first(),
+        advantages=Advantage.query.order_by(Advantage.id.asc()).all()
     )
 
 
@@ -247,6 +256,8 @@ def forge(product):
     fake_products(product)
     click.echo('Generating about_us text...')
     fake_about()
+    click.echo('Generating advantage text...')
+    fake_advantage()
 
 
 fake_products = DynamicProvider(
@@ -300,4 +311,31 @@ Because we have provided customers with advantageous prices and high-quality sli
         timestamp=fake.date_time_this_year()
     )
     db.session.add(about)
+    db.session.commit()
+
+def fake_advantage():
+    advantage01 = Advantage(
+        name='Accepted customization',
+        content='some text some text',
+        timestamp=datetime.now()
+    )
+    advantage02 = Advantage(
+        name='Big Stock',
+        content='some text some text',
+        timestamp=datetime.now()
+    )
+    advantage03 = Advantage(
+        name='Factory',
+        content='some text some text',
+        timestamp=datetime.now()
+    )
+    advantage04 = Advantage(
+        name='100% Inspection',
+        content='some text some text',
+        timestamp=datetime.now()
+    )
+    db.session.add(advantage01)
+    db.session.add(advantage02)
+    db.session.add(advantage03)
+    db.session.add(advantage04)
     db.session.commit()
