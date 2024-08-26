@@ -181,3 +181,21 @@
 
 }
 
+.advantage-image-hover {
+    transition: transform 0.5s;
+    width: 325px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.advantage-image-hover:hover {
+    transform: scale(1.02);
+    transform-origin: center center;
+}
+
+.advantage-image-wrapper {
+    width: 325px;
+    overflow: hidden; /* 隐藏超出部分 */
+}
+
