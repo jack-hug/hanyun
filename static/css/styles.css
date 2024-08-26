@@ -60,7 +60,7 @@
 
 .transition_style {
     transition: all 0.5s;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2) ;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .transition_style:hover {
@@ -165,10 +165,11 @@
     text-align: center; /* 确保文本居中 */
 }
 
-        .hr-style {
-            border-bottom: 1px dashed #c2aeae; /* 使用 dashed 实现虚线 */
-            width: 80%;
-            margin: 20px auto;
-            text-align: center;
+.hr-style {
+    border-bottom: 1px dashed #c2aeae; /* 使用 dashed 实现虚线 */
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
 
-        }
+}
+

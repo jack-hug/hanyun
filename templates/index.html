@@ -87,19 +87,19 @@
                 {% for product in products %}
                     <div class="col-md-3 col-sm-6 col-12 my-2">
                         <div class="card my-3 transition_style">
-                                <div class="light-move">
-                                    <a href="{{ url_for('product', product_id=product.id) }}">
-                                        {% set photo = product.photos|first %}
-                                        {% if photo %}
-                                            <img src="{{ url_for('get_image', filename=photo.filename) }}"
-                                                 alt="{{ product.name }}" style="width: 300px;height: auto;">
-                                        {% else %}
-                                            <img class="card-img-top"
-                                                 src="{{ url_for('static', filename='img/no_product.jpg') }}"
-                                                 alt="Card image cap">
-                                        {% endif %}
-                                    </a>
-                                </div>
+                            <div class="light-move">
+                                <a href="{{ url_for('product', product_id=product.id) }}">
+                                    {% set photo = product.photos|first %}
+                                    {% if photo %}
+                                        <img src="{{ url_for('get_image', filename=photo.filename) }}"
+                                             alt="{{ product.name }}" style="width: 300px;height: auto;">
+                                    {% else %}
+                                        <img class="card-img-top"
+                                             src="{{ url_for('static', filename='img/no_product.jpg') }}"
+                                             alt="Card image cap">
+                                    {% endif %}
+                                </a>
+                            </div>
                             <a href="{{ url_for('product', product_id=product.id) }}"
                                class="p-3 btn btn-sm">{{ product.name }}</a>
                         </div>
@@ -108,24 +108,70 @@
             </div>
         </div>
     </section>
-    <section class="py-5 text-center bg-white">
+    <section class="py-5 bg-white">
         <div class="container">
-            <h1>ABOUT US</h1>
-            <p class="lead text-muted lh-lg">
-                {{ about.content }}
-            </p>
+            <div class="row py-lg-5 d-flex align-items-center">
+                <div class="col-md-5">
+                    <img alt="about-us" src="{{ url_for('static', filename='img/about_us_image.png') }}"
+                         style="width: 520px;height: auto;" class="transition_img">
+                </div>
+                <div class="col-md-7">
+                    <h3>ABOUT US</h3>
+                    <br>
+                    <p class="lh-lg">HANYUN MOLD was founded in 2010, is a factory specializing in the production of
+                        standard slide core unit, precision positioning, various types of sliders, non-standard slide
+                        core units.</p>
+                    <br>
+                    <a href="{{ url_for('company') }}" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
         </div>
     </section>
     <section class="py-5 text-center bg-light">
         <div class="container">
             <div class="row py-lg-5">
-                <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">ADVANTAGE</h1>
-                    <p class="lead text-body-secondary">Something short and leading about the collection below—its
-                        contents,
-                        the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it
-                        entirely.</p>
-                </div>
+                    <h2 class="fw-light">ADVANTAGE</h2>
+                        <div class="col-md-3 mx-0">
+                            <div class="card">
+                                <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
+                                     alt="advantage">
+                                <div class="card-body">
+                                    <h5 class="card-title">Accepted customization</h5>
+                                    <p class="card-text">some text</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
+                                     alt="advantage">
+                                <div class="card-body">
+                                    <h5 class="card-title">Accepted customization</h5>
+                                    <p class="card-text">some text</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
+                                     alt="advantage">
+                                <div class="card-body">
+                                    <h5 class="card-title">Accepted customization</h5>
+                                    <p class="card-text">some text</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
+                                     alt="advantage">
+                                <div class="card-body">
+                                    <h5 class="card-title">Accepted customization</h5>
+                                    <p class="card-text">some text</p>
+                                </div>
+                            </div>
+                        </div>
+
             </div>
         </div>
     </section>
