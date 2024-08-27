@@ -256,3 +256,31 @@
     box-shadow: 0 0 15px #aaa;
 }
 
+.process-image {
+    background-image: url("/static/img/custom process.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    min-height: 600px;
+    width: 100%;
+}
+
+.photo-container {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+    border: 1px solid grey;
+}
+
+.photo-container img {
+    width: 100px;
+    height: auto;
+}
+
+.photo-container .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+}

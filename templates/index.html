@@ -40,7 +40,7 @@
             </button>
         </div>
     </div>
-        <!-- four advantage icons -->
+    <!-- four advantage icons -->
     <section class="py-5 text-center bg-white">
         <div class="container">
             <div class="row py-lg-5">
@@ -79,7 +79,7 @@
             </div>
         </div>
     </section>
-        <!-- product -->
+    <!-- products display -->
     <section class="py-5 text-center bg-light">
         <div class="container">
             <h1>PRODUCTS</h1>
@@ -111,7 +111,7 @@
             </div>
         </div>
     </section>
-        <!-- about us -->
+    <!-- about us -->
     <section class="py-5 bg-white about-background">
         <div class="container about-container">
             <div class="row py-lg-5">
@@ -122,9 +122,9 @@
                 <div class="col-md-7 g-0 about-us-style d-flex align-items-center">
                     <div>
                         <h3 class="mb-5">ABOUT US</h3>
-                        <p class="lh-lg mb-5">{{ about.content}}</p>
+                        <p class="lh-lg mb-5">{{ about.content }}</p>
                         <div class="d-flex justify-content-end me-5">
-                        <a href="{{ url_for('company') }}" class="btn btn-primary ms-auto">Read More</a>
+                            <a href="{{ url_for('company') }}" class="btn btn-primary ms-auto">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -133,38 +133,9 @@
     </section>
 
     <!-- advantage -->
-    <section class="text-center bg-light">
-        <div class="container">
-            <div class="row py-lg-5 g-0">
-                <h2 class="fw-light mb-4">OUR ADVANTAGE</h2>
-                {% for advantage in advantages %}
-                    {% if advantage.id%2 != 0 %}
-                        <div class="col-md-3 mx-0 mb-1">
-                            <div class="advantage-image-hover">
-                                <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
-                                     alt="advantage" class="">
-                            </div>
-                            <div class="advantage-style">
-                                <h2 class="text-primary">{{ advantage.name }}</h2>
-                                <p class="lh-lg">{{ advantage.content | safe }}
-                                </p>
-                            </div>
-                        </div>
-                    {% else %}
-                        <div class="col-md-3 mx-0">
-                            <div class="advantage-style">
-                                <h2 class="text-primary">{{ advantage.name }}</h2>
-                                <p class="lh-lg">{{ advantage.content | safe }}
-                                </p>
-                            </div>
-                            <div class="advantage-image-hover">
-                                <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
-                                     alt="advantage" class="">
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-
+    <section class="text-center mt-3">
+        <div class="container-fluid">
+            <div class="process-image">
             </div>
         </div>
     </section>

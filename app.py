@@ -191,30 +191,29 @@ def upload():
 
 @app.route('/add_product', methods=['GET', 'POST'])
 def add_product():
-    print('aaa2')
     form = AddProductForm()
-    if form.validate_on_submit():
+    if request.method == 'POST':
         if form.cancel.data:
             return redirect(url_for('admin'))
-        print('bbb')
-        product = Product(
-            name=form.name.data,
-            price=form.price.data,
-            description=form.description.data,
-            content=form.content.data,
-            clicks=0,
-            timestamp=datetime.now()
-        )
-        print(product)
-        db.session.add(product)
-        db.session.commit()
 
-        if 'photos' in request.files and request.files['photos'].filename != '':
-            photos = save_uploaded_files(request.files, product)
-            db.session.add_all(photos)
+        if form.validate_on_submit():
+            product = Product(
+                name=form.name.data,
+                price=form.price.data,
+                description=form.description.data,
+                content=form.content.data,
+                clicks=0,
+                timestamp=datetime.now()
+            )
+            db.session.add(product)
             db.session.commit()
-        flash('添加成功.', 'success')
-        return redirect(url_for('admin'))
+
+            if 'photos' in request.files and request.files['photos'].filename != '':
+                photos = save_uploaded_files(request.files, product)
+                db.session.add_all(photos)
+                db.session.commit()
+            flash('添加成功.', 'success')
+            return redirect(url_for('admin'))
 
     return render_template('add_product.html', form=form)
 
@@ -226,6 +225,15 @@ def delete_product(product_id):
     db.session.commit()
     flash('删除成功.', 'success')
     return redirect(url_for('admin'))
+
+
+@app.route('/delete_photo/<int:photo_id>', methods=['POST'])
+def delete_photo(photo_id):
+    photo = Photo.query.get_or_404(photo_id)
+    db.session.delete(photo)
+    db.session.commit()
+    flash('图片删除成功.', 'success')
+    return redirect(url_for('edit_product', product_id=photo.product_id))
 
 
 @app.route('/uploads/<path:filename>')  # 获得上传图片
