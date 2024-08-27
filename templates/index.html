@@ -108,67 +108,61 @@
             </div>
         </div>
     </section>
-    <section class="text-center bg-white">
+    <section class="py-5 bg-white about-background">
+        <div class="container about-container">
+            <div class="row py-lg-5">
+                <div class="col-md-5 g-0">
+                    <img alt="about-us" src="{{ url_for('static', filename='img/about_us_image.png') }}"
+                         style="width: 520px;height: auto;" class="image-fluid w-100">
+                </div>
+                <div class="col-md-7 g-0 about-us-style d-flex align-items-center">
+                    <div>
+                        <h3 class="mb-5">ABOUT US</h3>
+                        <p class="lh-lg mb-5">HANYUN MOLD was founded in 2010, is a factory specializing in the production of
+                            standard slide core unit, precision positioning, various types of sliders, non-standard
+                            slide core units.</p>
+                        <div class="d-flex justify-content-end me-5">
+                        <a href="{{ url_for('company') }}" class="btn btn-primary ms-auto">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="text-center bg-light">
         <div class="container">
             <div class="row py-lg-5 g-0">
-                <h2 class="fw-light mb-5">ADVANTAGE</h2>
-                <div class="col-md-3 mx-0">
-                    <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
-                         alt="advantage" class="advantage-image-hover advantage-image-wrapper">
-                    <div class="advantage-style">
-                        <h2 class="text-primary">Accepted customization</h2>
-                        <p class="lh-lg">Our company has advanced processing equipment, a strict management system, and
-                            professional technical and production personnel.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-3 mx-0">
-                    <div class="advantage-style">
-                        <h2 class="text-primary">Big Stock</h2>
-                        <p class="lh-lg">In order to shorten the delivery time, we always keep a large semi-stock and
-                            finished stock all over the year. Customer can get them in 5-7 days.
-                        </p>
-                    </div>
-                    <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
-                         alt="advantage" class="advantage-image-hover advantage-image-wrapper">
-                </div>
-                <div class="col-md-3 mx-0">
-                    <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
-                         alt="advantage" class="advantage-image-hover advantage-image-wrapper">
-                    <div class="advantage-style">
-                        <h2 class="text-primary">100% Inspection</h2>
-                        <p class="lh-lg">Quality is the first, so we will 100% inspect before shipping.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-3 mx-0">
-                    <div class="advantage-style">
-                        <h2 class="text-primary">Advanced Equipment</h2>
-                        <p class="lh-lg">Our company has advanced processing equipment, a strict management system, and
-                            professional technical and production personnel.
-                        </p>
-                    </div>
-                    <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
-                         alt="advantage" class="advantage-image-hover advantage-image-wrapper">
-                </div>
+                <h2 class="fw-light mb-4">OUR ADVANTAGE</h2>
+                {% for advantage in advantages %}
+                    {% if advantage.id%2 != 0 %}
+                        <div class="col-md-3 mx-0 mb-1">
+                            <div class="advantage-image-hover">
+                                <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
+                                     alt="advantage" class="">
+                            </div>
+                            <div class="advantage-style">
+                                <h2 class="text-primary">{{ advantage.name }}</h2>
+                                <p class="lh-lg">{{ advantage.content | safe }}
+                                </p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-md-3 mx-0">
+                            <div class="advantage-style">
+                                <h2 class="text-primary">{{ advantage.name }}</h2>
+                                <p class="lh-lg">{{ advantage.content | safe }}
+                                </p>
+                            </div>
+                            <div class="advantage-image-hover">
+                                <img src="{{ url_for('static', filename='img/advantage_image01.jpg') }}"
+                                     alt="advantage" class="">
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
             </div>
         </div>
     </section>
-    <section class="py-5 bg-light">
-        <div class="container">
-            <div class="row py-lg-5 d-flex align-items-center">
-                <div class="col-md-5">
-                    <img alt="about-us" src="{{ url_for('static', filename='img/about_us_image.png') }}"
-                         style="width: 520px;height: auto;" class="transition_img">
-                </div>
-                <div class="col-md-7">
-                    <h3>ABOUT US</h3>
-                    <br>
-                    <p class="lh-lg">{{ about.content }}</p>
-                    <br>
-                    <a href="{{ url_for('company') }}" class="btn btn-primary">Read More</a>
-                </div>
-            </div>
-        </div>
-    </section>
+
 {% endblock %}

@@ -1,11 +1,9 @@
 import os
-import random
 import uuid
 from datetime import datetime
 
 import click
 from faker import Faker
-from faker.providers import DynamicProvider
 from flask import Flask, render_template, redirect, url_for, current_app, flash, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.file import FileField, FileAllowed
@@ -240,14 +238,9 @@ if __name__ == '__main__':
 
 
 @app.cli.command()
-def initdb():
-    db.create_all()
-    print('Initialized the database.')
-
-
-@app.cli.command()
 @click.option('--product', default=8, help='Quantity of products, default is 8.')
 def forge(product):
+    from fakes import fake_products, fake_about, fake_advantage
     click.echo('Drop tables....')
     db.drop_all()
     click.echo('Initialized database......')
@@ -258,84 +251,3 @@ def forge(product):
     fake_about()
     click.echo('Generating advantage text...')
     fake_advantage()
-
-
-fake_products = DynamicProvider(
-    provider_name='products',
-    elements=[
-        'KOCUF',
-        'KOCUS',
-        'KPHF',
-        'MTGL',
-        'SCZA',
-        'SCZAP',
-        'SCZNP',
-        'SCZN'
-    ],  # 8 products
-)
-
-fake.add_provider(fake_products)
-
-
-def fake_products(count=8):
-    unique_product = set()
-    for i in range(count):
-        while True:
-            product_name = fake.products()
-            if product_name not in unique_product:
-                unique_product.add(product_name)
-                click.echo('Generated unique product name: %s' % product_name)
-                break
-
-        product = Product(
-            name=product_name,
-            price='0.0',
-            description=fake.text(100),
-            clicks=random.randint(1, 5000),
-            timestamp=fake.date_time_this_year()
-        )
-        db.session.add(product)
-    db.session.commit()
-
-
-def fake_about():
-    about_us = '''HANYUN MOLD was founded in 2010, is a factory specializing in the production of standard slide core unit, precision positioning, various types of sliders, non-standard slide core units. The company is located in Dongguan and continues to develop with its superior geographical location. With more than 10 years of experience in tilting top slides, we have mastered every production step and know how to produce high-quality slides at low cost.
-
-In order to shorten the delivery time, we always keep a large amount of semi-inventory and finished products all year round. After receiving the order, we can quickly deliver the products to our customer.
-
-Because we have provided customers with advantageous prices and high-quality slides for many years, we have won the support and trust of our customers.
-'''
-    about = About(
-        name='About Us',
-        content=about_us,
-        timestamp=fake.date_time_this_year()
-    )
-    db.session.add(about)
-    db.session.commit()
-
-def fake_advantage():
-    advantage01 = Advantage(
-        name='Accepted customization',
-        content='some text some text',
-        timestamp=datetime.now()
-    )
-    advantage02 = Advantage(
-        name='Big Stock',
-        content='some text some text',
-        timestamp=datetime.now()
-    )
-    advantage03 = Advantage(
-        name='Factory',
-        content='some text some text',
-        timestamp=datetime.now()
-    )
-    advantage04 = Advantage(
-        name='100% Inspection',
-        content='some text some text',
-        timestamp=datetime.now()
-    )
-    db.session.add(advantage01)
-    db.session.add(advantage02)
-    db.session.add(advantage03)
-    db.session.add(advantage04)
-    db.session.commit()

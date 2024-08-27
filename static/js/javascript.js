@@ -27,23 +27,35 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // 产品页缩略图切换
-        document.addEventListener('DOMContentLoaded', function() {
-            const mainImage = document.getElementById('main-image');
-            const thumbnails = document.querySelectorAll('.thumbnail-image');
+document.addEventListener('DOMContentLoaded', function () {
+    const mainImage = document.getElementById('main-image');
+    const thumbnails = document.querySelectorAll('.thumbnail-image');
 
-            thumbnails.forEach(thumbnail => {
-                thumbnail.addEventListener('mouseover', function() {
-                    const targetImage = this.getAttribute('data-target');
-                    mainImage.src = targetImage;
-                    // 移除所有小图的 active 类
-                    thumbnails.forEach(thumb => thumb.classList.remove('active'));
-                    // 为当前小图添加 active 类
-                    this.classList.add('active');
-                });
-
-                thumbnail.addEventListener('mouseout', function() {
-                    // 移除当前小图的 active 类
-                    this.classList.remove('active');
-                });
-            });
+    thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('mouseover', function () {
+            const targetImage = this.getAttribute('data-target');
+            mainImage.src = targetImage;
+            // 移除所有小图的 active 类
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            // 为当前小图添加 active 类
+            this.classList.add('active');
         });
+
+        thumbnail.addEventListener('mouseout', function () {
+            // 移除当前小图的 active 类
+            this.classList.remove('active');
+        });
+    });
+});
+
+
+// 鼠标划过.advantage-style时出现advantage-image-hover效果
+$(document).ready(function() {
+    $('.advantage-style').on('mouseenter', function() {
+        $(this).siblings('.advantage-image-hover').addClass('hovered');
+    });
+
+    $('.advantage-style').on('mouseleave', function() {
+        $(this).siblings('.advantage-image-hover').removeClass('hovered');
+    });
+});

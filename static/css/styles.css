@@ -176,26 +176,81 @@
 .advantage-style {
     width: 100%;
     height: 325px;
-    background-color: #f4f3f3;
+    background-color: #e8e8e8;
     padding: 50px 20px 6px;
+    box-sizing: border-box;
+    overflow: hidden;
 
 }
 
 .advantage-image-hover {
-    transition: transform 0.5s;
-    width: 325px;
-    height: auto;
-    margin: 0 auto;
-    display: block;
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
 }
 
-.advantage-image-hover:hover {
+.advantage-image-hover:after {
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    content: "";
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-45deg);
+    pointer-events: none;
+}
+
+.advantage-image-hover:hover:after {
+    left: 150%;
+    transition: 1s ease;
+}
+
+.advantage-image-hover img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* 使 img 宽度占满 div */
+    height: 100%; /* 使 img 高度占满 div */
+    object-fit: cover; /* 确保图片覆盖整个 div */
+    transition: transform 0.5s;
+}
+
+.advantage-image-hover img:hover {
     transform: scale(1.02);
     transform-origin: center center;
 }
 
-.advantage-image-wrapper {
-    width: 325px;
-    overflow: hidden; /* 隐藏超出部分 */
+.hovered {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.hovered img {
+    transform: scale(1.05);
+    transform-origin: center center;
+}
+
+.advantage-image-hover.hovered:after {
+    left: 150%;
+    transition: 1s ease;
+}
+
+.about-background {
+    background-image: url("/static/img/about_us_background_img.jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.about-us-style {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 15px;
+    box-shadow: 0 0 15px #aaa;
 }
 
