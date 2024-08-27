@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+    <!-- banner -->
     <div class="container-fluid custom-container">
         <div id="carouselIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -40,8 +41,8 @@
         </div>
     </div>
         <!-- four advantage icons -->
-    <section class="py-5 text-center bg-white mx-5">
-        <div class="container-fluid">
+    <section class="py-5 text-center bg-white">
+        <div class="container">
             <div class="row py-lg-5">
                 <div class="col-md-3 col-sm-6 mx-auto">
                     <div class="circle-box flipElement">
@@ -79,9 +80,9 @@
         </div>
     </section>
         <!-- product -->
-    <section class="py-5 text-center bg-light mx-5">
-        <div class="container-fluid">
-            <h1>PRODUCT</h1>
+    <section class="py-5 text-center bg-light">
+        <div class="container">
+            <h1>PRODUCTS</h1>
             <p class="lead text-muted">
                 some text
             </p>
@@ -111,8 +112,8 @@
         </div>
     </section>
         <!-- about us -->
-    <section class="py-5 bg-white about-background mx-5">
-        <div class="container-fluid about-container">
+    <section class="py-5 bg-white about-background">
+        <div class="container about-container">
             <div class="row py-lg-5">
                 <div class="col-md-5 g-0">
                     <img alt="about-us" src="{{ url_for('static', filename='img/about_us_image.png') }}"
@@ -132,8 +133,8 @@
     </section>
 
     <!-- advantage -->
-    <section class="text-center bg-light mx-5">
-        <div class="container-fluid">
+    <section class="text-center bg-light">
+        <div class="container">
             <div class="row py-lg-5 g-0">
                 <h2 class="fw-light mb-4">OUR ADVANTAGE</h2>
                 {% for advantage in advantages %}
