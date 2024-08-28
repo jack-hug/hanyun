@@ -35,12 +35,11 @@
                         </div>
                         <div class="mb-3">
                             {{ form.submit(class="btn btn-primary btn-md") }}
-                            {{ form.cancel(class="btn btn-secondary btn-md") }}
+                            <a type="submit" class="btn btn-secondary btn-md" href="{{ url_for('admin') }}">Cancel</a>
                         </div>
                     </form>
                     {{ ckeditor.config(name='content') }}
                     <div class="row">
-                        <h5 class="text-center bg-secondary text-white">Product's photos list</h5>
                         {% for photo in product.photos %}
                             <div class="col-md-3">
                                 <div class="photo-container" data-photo-id="{{ photo.id }}">
@@ -56,8 +55,6 @@
                         {% endfor %}
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>

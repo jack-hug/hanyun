@@ -6,21 +6,82 @@
 {% endblock %}
 
 {% block content %}
-    <div class="section bg-secondary py-5 custom-container">
+    <div class="section bg-secondary custom-container">
+        <img src="{{ url_for('static', filename='img/company-image.jpg') }}" alt="background-image" class="img-fluid">
+    </div>
+    <section class="mt-5 bg-white">
         <div class="container">
-            <div class="row text-light">
-                <div class="col-md-10 offset-md-1 col-sm-10 offset-sm-1">
-                    <h2>Company Introduce</h2>
-                    <h6 class="lh-lg">
-                        {{ about.content }}
-                    </h6>
+            <div class="row company-style">
+                <div class="col-md-5 g-0" style="overflow: hidden;">
+                    <img alt="about-us" src="{{ url_for('static', filename='img/about_us01.jpg') }}"
+                         class="image-fluid w-100 company-image-style">
+                </div>
+                <div class="col-md-7 g-0 d-flex align-items-center">
+                    <div class="ms-5">
+                        <h3 class="mb-5">CNC Machine</h3>
+                        <p class="lh-lg mb-5">some text</p>
+                        <div class="d-flex justify-content-end me-5">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <section class="text-center bg-light">
-        <div class="container">
+    </section>
 
+    <section class="mt-5 bg-light">
+        <div class="container">
+            <div class="row company-style">
+                <div class="col-md-7 g-0 d-flex align-items-center">
+                    <div class="ms-5">
+                        <h3 class="mb-5">EDM Machine</h3>
+                        <p class="lh-lg mb-5">some text</p>
+                        <div class="d-flex justify-content-end me-5">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 g-0" style="overflow: hidden;">
+                    <img alt="about-us" src="{{ url_for('static', filename='img/about_us02.jpg') }}"
+                         class="image-fluid w-100 company-image-style">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-5 bg-white">
+        <div class="container">
+            <div class="row company-style">
+                <div class="col-md-5 g-0" style="overflow: hidden;">
+                    <img alt="about-us" src="{{ url_for('static', filename='img/about_us03.jpg') }}"
+                         class="image-fluid w-100 company-image-style">
+                </div>
+                <div class="col-md-7 g-0 d-flex align-items-center">
+                    <div class="ms-5">
+                        <h3 class="mb-5">Milling Machine</h3>
+                        <p class="lh-lg mb-5">some text</p>
+                        <div class="d-flex justify-content-end me-5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-5 bg-light">
+        <div class="container">
+            <div class="row company-style">
+                <div class="col-md-7 g-0 d-flex align-items-center">
+                    <div class="ms-5">
+                        <h3 class="mb-5">Wire Cuttintg</h3>
+                        <p class="lh-lg mb-5">some text</p>
+                        <div class="d-flex justify-content-end me-5">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 g-0" style="overflow: hidden;">
+                    <img alt="about-us" src="{{ url_for('static', filename='img/about_us04.jpg') }}"
+                         class="image-fluid w-100 company-image-style">
+                </div>
+            </div>
         </div>
     </section>
 {% endblock %}

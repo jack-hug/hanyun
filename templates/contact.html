@@ -6,28 +6,35 @@
 {% endblock %}
 
 {% block content %}
-    <div class="section bg-secondary py-5 custom-container">
-        <div class="container">
-            <div class="row text-light">
-                <div class="col-md-10 offset-md-1 col-sm-10 offset-sm-1">
-                    <h2>Product Introduce</h2>
-                    <h6 class="lh-lg">
-                        some text some text some text some text some text some text some text some text some text some
-                        text some text some text some text some text some text some text some text some text some text
-                        some text some text some text some text some text some text some text some text some text some
-                        text some text some text some text some text some text some text some text some text some text
-                        some text some text some text some text some text some text some text some text some text some
-                        text some text some text some text some text some text some text some text some text some text
-                        some text some text some text some text some text some text some text some text some text some
-                        text some text some text some text some text some text some text
-                    </h6>
-                </div>
-            </div>
-        </div>
+    <div class="section bg-secondary custom-container">
+        <img src="{{ url_for('static', filename='img/contact.jpg') }}" alt="background-image" class="img-fluid">
     </div>
-    <section class="text-center bg-light">
-        <div class="container">
 
+    <section class="bg-light">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h5>Hanyun Mold Industrial(ShenZhen) Co., Ltd</h5>
+                    <p>Add:</p>
+                    <p class="mb-5">Email:</p>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Your name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Your name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Your email</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1"
+                               placeholder="Your email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">content</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <button class="btn btn-primary btn-lg">Submit</button>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
         </div>
     </section>
 {% endblock %}

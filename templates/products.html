@@ -6,24 +6,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="section bg-secondary py-5 custom-container">
-        <div class="container">
-            <div class="row text-light">
-                <div class="col-md-10 offset-md-1 col-sm-10 offset-sm-1">
-                    <h2>Product Introduce</h2>
-                    <h6 class="lh-lg">
-                        some text some text some text some text some text some text some text some text some text some
-                        text some text some text some text some text some text some text some text some text some text
-                        some text some text some text some text some text some text some text some text some text some
-                        text some text some text some text some text some text some text some text some text some text
-                        some text some text some text some text some text some text some text some text some text some
-                        text some text some text some text some text some text some text some text some text some text
-                        some text some text some text some text some text some text some text some text some text some
-                        text some text some text some text some text some text some text
-                    </h6>
-                </div>
-            </div>
-        </div>
+    <div class="section bg-secondary custom-container">
+        <img src="{{ url_for('static', filename='img/products-image.jpg') }}" alt="background-image" class="img-fluid">
     </div>
     <section class="text-center bg-light">
         <div class="container">

@@ -71,6 +71,14 @@
     box-shadow: 0 0 5px #aaa;
 }
 
+.company-image-style {
+    transition: all 1s;
+}
+
+.company-image-style:hover {
+    transform: scale(1.03);
+}
+
 .main-low-margin {
 
 }
@@ -256,6 +264,10 @@
     box-shadow: 0 0 15px #aaa;
 }
 
+.company-style {
+    background-color: rgb(239, 239, 239);
+}
+
 .process-image {
     background-image: url("/static/img/custom process.jpg");
     background-size: contain;
@@ -283,4 +295,13 @@
     top: 0;
     right: 0;
     z-index: 10;
+}
+
+.products-background {
+    background-image: url("/static/img/products-image.jpg");
+    min-height: 450px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }

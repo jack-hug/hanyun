@@ -50,12 +50,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // 鼠标划过.advantage-style时出现advantage-image-hover效果
-$(document).ready(function() {
-    $('.advantage-style').on('mouseenter', function() {
+$(document).ready(function () {
+    $('.advantage-style').on('mouseenter', function () {
         $(this).siblings('.advantage-image-hover').addClass('hovered');
     });
 
-    $('.advantage-style').on('mouseleave', function() {
+    $('.advantage-style').on('mouseleave', function () {
         $(this).siblings('.advantage-image-hover').removeClass('hovered');
+    });
+});
+
+// 秒后自动关闭flash消息
+document.addEventListener("DOMContentLoaded", function () {
+    // 获取所有带有 flash-message 类的 alert 元素
+    var alerts = document.querySelectorAll('.alert-floating');
+    alerts.forEach(function (alert) {
+        // 5 秒后自动关闭 alert
+        setTimeout(function () {
+            var bsAlert = new bootstrap.Alert(alert);
+            bsAlert.close();
+        }, 5000);
     });
 });

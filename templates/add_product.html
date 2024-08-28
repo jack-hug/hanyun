@@ -35,7 +35,7 @@
                         </div>
                         <div class="mb-3">
                             {{ form.submit(class="btn btn-primary btn-md") }}
-                            {{ form.cancel(class="btn btn-secondary btn-md") }}
+                            <a type="submit" class="btn btn-secondary btn-md" href="{{ url_for('admin') }}">Cancel</a>
                         </div>
                     </form>
                     {{ ckeditor.config(name='content') }}

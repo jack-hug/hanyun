@@ -91,7 +91,6 @@ class EditProductForm(FlaskForm):
     content = CKEditorField('Content')
     photos = FileField('Product Photo:', validators=[FileAllowed(['jpg', 'png', 'gif'], '只能上传图片')])
     submit = SubmitField('Submit')
-    cancel = SubmitField('Cancel')
 
 
 class AddProductForm(FlaskForm):
@@ -101,7 +100,6 @@ class AddProductForm(FlaskForm):
     content = CKEditorField('Content')
     photos = FileField('Product Photo:', validators=[FileAllowed(['jpg', 'png', 'gif'], '只能上传图片')])
     submit = SubmitField('Submit')
-    cancel = SubmitField('Cancel')
 
 
 @app.context_processor
@@ -154,8 +152,6 @@ def edit_product(product_id):
     form = EditProductForm()
     product = Product.query.get_or_404(product_id)
     if form.validate_on_submit():
-        if form.cancel.data:
-            return redirect(url_for('admin'))
         product.name = form.name.data
         product.price = form.price.data
         product.description = form.description.data
@@ -193,9 +189,6 @@ def upload():
 def add_product():
     form = AddProductForm()
     if request.method == 'POST':
-        if form.cancel.data:
-            return redirect(url_for('admin'))
-
         if form.validate_on_submit():
             product = Product(
                 name=form.name.data,
