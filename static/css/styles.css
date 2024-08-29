@@ -31,9 +31,9 @@
     margin: 0 auto 35px auto;
 
     border-radius: 100%;
-    background-color: #ffffff;
+    background-color: #0067d0;
     transition: transform 1s ease-in-out;
-    color: #0067d0;
+    color: #ffffff;
 }
 
 .circle-box {
