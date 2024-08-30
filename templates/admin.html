@@ -39,8 +39,8 @@
                                              alt="Card image cap" style="width: 100px;height: auto;"></td>
                                     {% endif %}
                                     <td><a href="{{ url_for('product', product_id=product.id) }}" target="_blank">{{ product.name }}</a></td>
-                                    <td style="width: 300px;">{{ product.description|safe }}</td>
-                                    <td>{{ product.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                                    <td style="width: 400px;">{{ product.description|safe }}</td>
+                                    <td>{{ moment(product.timestamp).format('lll') }}</td>
                                     <td>
                                         <a href="{{ url_for('edit_product', product_id=product.id) }}"
                                            class="btn btn-sm btn-primary">

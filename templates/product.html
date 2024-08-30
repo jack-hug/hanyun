@@ -7,7 +7,7 @@
 
 {% block content %}
     <div class="section bg-secondary custom-container">
-            <img src="{{ url_for('static', filename='img/products-image.jpg') }}" alt="background-image" class="img-fluid">
+        <img src="{{ url_for('static', filename='img/products-image.jpg') }}" alt="background-image" class="img-fluid">
     </div>
     <section class="py-3 bg-light">
         <div class="container">
@@ -82,12 +82,26 @@
                 <h1 class="pt-3">Product detail</h1>
             </div>
             <div class="hr-style"></div>
-            <div class="d-flex flex-column align-items-center">
-                {{ product.content | safe }}
+            <div class="d-flex flex-column align-items-center img-fluid">
+                {{ product.content | replace("<img", "<img class='img-fluid h-100'") | safe }}
             </div>
             <div class="d-flex justify-content-between mt-5 p-2">
-                <button class="btn btn-primary">Previous</button>
-                <button class="btn btn-primary">Next</button>
+                <a class="btn btn-primary{% if not p_product %} disabled{% endif %} " href="{{ url_for('previous_product', product_id=product.id) }}">
+                    {% if p_product %}
+                        Previous Product: {{ p_product.name }}
+                    {% else %}
+                        No previous product
+                    {% endif %}
+                </a>
+                <a class="btn btn-primary{% if not n_product %} disabled{% endif %} "
+                   href="{{ url_for('next_product', product_id=product.id) }}">
+                    {% if n_product %}
+                       Next Product: {{ n_product.name }}
+                    {% else %}
+                        No previous product
+                    {% endif %}
+                </a>
+
             </div>
         </div>
     </section>

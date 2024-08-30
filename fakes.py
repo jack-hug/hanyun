@@ -5,7 +5,7 @@ import click
 from faker import Faker
 from faker.providers import DynamicProvider
 
-from app import Advantage, About, db, Product
+from app import Advantage, About, db, Product, Admin
 
 fake = Faker()
 
@@ -89,3 +89,4 @@ def fake_advantage():
     db.session.add(advantage03)
     db.session.add(advantage04)
     db.session.commit()
+

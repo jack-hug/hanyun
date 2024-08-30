@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+{% block content %}
+    <div class="section bg-white py-5 custom-container">
+        <div class="mt-4 p-5 mb-4 bg-light rounded">
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4 align-self-center">
+                    <h1 class="text-center">Login</h1>
+                    <div>
+                        <form method="POST" class="form">
+                            {{ form.hidden_tag() }}
+                            <div class="mb-3">
+                                {{ form.username.label(class="form-label") }}
+                                {{ form.username(class="form-control") }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.password.label(class="form-label") }}
+                                {{ form.password(class="form-control") }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.remember(class="form-check-input") }}
+                                {{ form.remember.label(class="form-label") }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.submit(class="btn btn-primary btn-md") }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

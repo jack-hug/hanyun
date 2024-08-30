@@ -14,6 +14,10 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Selec
 from wtforms.validators import DataRequired, Length
 from flask_wtf.csrf import CSRFProtect
 from flask_ckeditor import CKEditor, CKEditorField, upload_fail, upload_success
+from flask_moment import Moment
+from flask_mail import Mail
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, UserMixin, current_user, login_user
 
 app = Flask(__name__)
 
@@ -23,6 +27,13 @@ db = SQLAlchemy(app)
 fake = Faker()
 csrf = CSRFProtect(app)
 ckeditor = CKEditor(app)
+moment = Moment(app)
+mail = Mail(app)
+login_manager = LoginManager(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Admin.query.get(int(user_id))
 
 
 def random_filename(filename):  # 图片随机命名
@@ -47,41 +58,54 @@ def save_uploaded_files(request_files, product):  # 封装上传图片函数
     return photos
 
 
-class Product(db.Model):
+class Product(db.Model):  # 产品表
     __tablename__ = 'product'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
     price = db.Column(db.Float)
     description = db.Column(db.String(200))
     content = db.Column(db.Text())
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now, index=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
     clicks = db.Column(db.Integer)
 
 
-class Photo(db.Model):
+class Photo(db.Model):  # 图片表
     __tablename__ = 'photo'
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(100))
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now, index=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     product = db.relationship('Product', backref=db.backref('photos', lazy='dynamic', cascade='all, delete-orphan'))
     source = db.Column(db.String(200), default='form')  # 区别图片来源
 
 
-class About(db.Model):
+class About(db.Model):  # 关于我们表
     __tablename__ = 'about'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
     content = db.Column(db.Text())
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now, index=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
 
 
-class Advantage(db.Model):
+class Advantage(db.Model):  # 优势表
     __tablename__ = 'advantage'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     content = db.Column(db.Text())
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now, index=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+
+
+class Admin(db.Model, UserMixin):
+    __tablename__ = 'admin'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20))
+    password_hash = db.Column(db.String(128))
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def validate_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 
 class EditProductForm(FlaskForm):
@@ -100,6 +124,13 @@ class AddProductForm(FlaskForm):
     content = CKEditorField('Content')
     photos = FileField('Product Photo:', validators=[FileAllowed(['jpg', 'png', 'gif'], '只能上传图片')])
     submit = SubmitField('Submit')
+
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(1, 20)])
+    password = PasswordField('Password', validators=[DataRequired(), Length(1, 128)])
+    remember = BooleanField('Remember me')
+    submit = SubmitField('Login')
 
 
 @app.context_processor
@@ -139,7 +170,9 @@ def contact():
 @app.route('/product/<int:product_id>')
 def product(product_id):
     product = Product.query.get(product_id)
-    return render_template('product.html', product=product)
+    n_product = Product.query.filter(Product.id > product_id).order_by(Product.id.asc()).first()
+    p_product = Product.query.filter(Product.id < product_id).order_by(Product.id.desc()).first()
+    return render_template('product.html', product=product, p_product=p_product, n_product=n_product)
 
 
 @app.route('/admin')
@@ -233,12 +266,48 @@ def delete_photo(photo_id):
 def get_image(filename):
     return send_from_directory(current_app.config['HY_UPLOAD_PATH'], filename)
 
+@app.route('/previous/<int:product_id>', methods=['GET', 'POST'])
+def previous_product(product_id):
+    product_id = Product.query.get_or_404(product_id)
+    if product_id.id == 1:
+        flash('已经是第一页了', 'warning')
+        return redirect(url_for('product', product_id=product_id.id))
+    else:
+        return redirect(url_for('product', product_id=product_id.id-1))
+
+@app.route('/next/<int:product_id>', methods=['GET', 'POST'])
+def next_product(product_id):
+    product_id = Product.query.get_or_404(product_id)
+    if product_id.id == len(Product.query.all()):
+        flash('已经是最后一页了', 'warning')
+        return redirect(url_for('product', product_id=product_id.id))
+    else:
+        return redirect(url_for('product', product_id=product_id.id+1))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('admin'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        remember = form.remember_me.data
+        admin = Admin.query.first()
+        if username == admin.username and admin.validate_password(password):
+            login_user(admin, remember)
+            flash('Welcome back.', 'success')
+            return redirect(url_for('admin'))
+        else:
+            flash('用户名或密码错误.', 'warning')
+    return render_template('login.html', form=form)
+
 
 if __name__ == '__main__':
     app.run()
 
 
-@app.cli.command()
+@app.cli.command()  # 生成数据
 @click.option('--product', default=8, help='Quantity of products, default is 8.')
 def forge(product):
     from fakes import fake_products, fake_about, fake_advantage
@@ -252,3 +321,30 @@ def forge(product):
     fake_about()
     click.echo('Generating advantage text...')
     fake_advantage()
+
+    click.echo('Done.')
+
+@app.cli.command()
+@click.option('--username', prompt=True, help='The username used to login.')
+@click.option('--password', prompt=True, hide_input=True, confirmation_prompt=True, help='The password used to login.')
+def admin(username, password):
+    """Create admin."""
+
+    click.echo('Initializing the database...')
+    db.create_all()
+    admin = Admin.query.first()
+    if admin:
+        click.echo('The administrator already exists, updating...')
+        admin.username = username
+        admin.set_password(password)
+    else:
+        click.echo('Creating the temporary administrator account...')
+        admin = Admin(
+            username=username,
+        )
+        admin.set_password(password)
+        db.session.add(admin)
+        db.session.commit()
+
+        click.echo('Done.')
+

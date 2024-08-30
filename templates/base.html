@@ -40,6 +40,12 @@
                     <a class="nav-link {% block nav_contact %}{% endblock %}"
                        href="{{ url_for('contact') }}">CONTACT</a>
                 </li>
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -56,7 +62,7 @@
 {% endblock %}
 
 {% block footer %}
-    <div class="container-fluid row bg-dark text-light mt-5 py-5">
+    <div class="container-fluid row bg-dark text-light py-5">
         <div class="col-md-4">
             <h4>Quick Information :</h4>
             <p>
@@ -131,5 +137,7 @@
         });
     </script>
 {% endblock %}
+{{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
+{{ moment.locale(auto_detect=True) }}
 </body>
 </html>
