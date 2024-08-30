@@ -49,16 +49,17 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// 鼠标划过.advantage-style时出现advantage-image-hover效果
-$(document).ready(function () {
-    $('.advantage-style').on('mouseenter', function () {
-        $(this).siblings('.advantage-image-hover').addClass('hovered');
-    });
+// 鼠标划过时时出现效果
+        $(document).ready(function () {
+            $('.company-hover').on('mouseenter', function () {
+                $(this).closest('.row').find('.company-image-style').addClass('hovered');
+            });
 
-    $('.advantage-style').on('mouseleave', function () {
-        $(this).siblings('.advantage-image-hover').removeClass('hovered');
-    });
-});
+            $('.company-hover').on('mouseleave', function () {
+                $(this).closest('.row').find('.company-image-style').removeClass('hovered');
+            });
+        });
+
 
 // 秒后自动关闭flash消息
 document.addEventListener("DOMContentLoaded", function () {
