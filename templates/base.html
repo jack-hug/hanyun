@@ -18,11 +18,11 @@
         <a class="navbar-brand" href="{{ url_for('index') }}">
             <img alt="hanyun" src="{{ url_for('static', filename='img/logo.png') }}" style="max-height: 40px;">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#hanyunnavbarcontent"
+                aria-controls="hanyunnavbarcontent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="hanyunnavbarcontent">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link {% block nav_home %}{% endblock %}" href="{{ url_for('index') }}">HOME <span
@@ -36,7 +36,6 @@
                     <a class="nav-link {% block nav_company %}{% endblock %}"
                        href="{{ url_for('company') }}">COMPANY</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link {% block nav_contact %}{% endblock %}"
                        href="{{ url_for('contact') }}">CONTACT</a>
