@@ -45,36 +45,44 @@
         <div class="container">
             <div class="row py-lg-5">
                 <div class="col-md-3 col-sm-6 mx-auto">
-                    <div class="circle-box flipElement">
-                        <div class="circle-body d-flex align-items-center justify-content-center">
-                            <i class="fa-solid fa-user-gear fa-5x"></i>
+                    <a href="#customization" class="no-style">
+                        <div class="circle-box flipElement">
+                            <div class="circle-body d-flex align-items-center justify-content-center">
+                                <i class="fa-solid fa-user-gear fa-5x"></i>
+                            </div>
+                            <h3>Accepted customization</h3>
                         </div>
-                        <h3>Accepted customization</h3>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-3 col-sm-6 mx-auto">
-                    <div class="circle-box flipElement">
-                        <div class="circle-body d-flex align-items-center justify-content-center">
-                            <i class="fa-solid fa-house-chimney-crack fa-4x"></i>
+                    <a href="#stock" class="no-style">
+                        <div class="circle-box flipElement">
+                            <div class="circle-body d-flex align-items-center justify-content-center">
+                                <i class="fa-solid fa-house-chimney-crack fa-4x"></i>
+                            </div>
+                            <h3>Big Stock</h3>
                         </div>
-                        <h3>Big Stock</h3>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-3 col-sm-6 mx-auto">
-                    <div class="circle-box flipElement">
-                        <div class="circle-body d-flex align-items-center justify-content-center">
-                            <i class="fa-solid fa-building fa-4x"></i>
+                    <a href="#factory" class="no-style">
+                        <div class="circle-box flipElement">
+                            <div class="circle-body d-flex align-items-center justify-content-center">
+                                <i class="fa-solid fa-building fa-4x"></i>
+                            </div>
+                            <h3>Factory</h3>
                         </div>
-                        <h3>Factory</h3>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-3 col-sm-6 mx-auto">
-                    <div class="circle-box flipElement">
-                        <div class="circle-body d-flex align-items-center justify-content-center">
-                            <i class="fa-regular fa-gem fa-4x"></i>
+                    <a href="#inspection" class="no-style">
+                        <div class="circle-box flipElement">
+                            <div class="circle-body d-flex align-items-center justify-content-center">
+                                <i class="fa-regular fa-gem fa-4x"></i>
+                            </div>
+                            <h3>100% Inspection</h3>
                         </div>
-                        <h3>100% Inspection</h3>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -83,6 +91,7 @@
     <section class="py-5 text-center bg-light">
         <div class="container">
             <h1>PRODUCTS</h1>
+            <p>We provide all kind of slide core unit including SCZNP/KPHF/KOCUS/SCZN/SCZA/BNPL/MTGL/KOCUF etc</p>
             <div class="row">
                 {% for product in products %}
                     <div class="col-md-3 col-sm-6 col-12 my-2">
@@ -115,9 +124,9 @@
             <div class="row py-lg-5">
                 <div class="col-md-5 g-0">
                     <img alt="about-us" src="{{ url_for('static', filename='img/about_us_image.png') }}"
-                         style="width: 520px;height: auto;" class="image-fluid w-100">
+                         style="width: 520px;height: auto;" class="image-fluid w-100 company-image-style">
                 </div>
-                <div class="col-md-7 g-0 about-us-style d-flex align-items-center">
+                <div class="col-md-7 g-0 index-container-style d-flex align-items-center">
                     <div>
                         <h3 class="mb-5">ABOUT US</h3>
                         <p class="lh-lg mb-5">{{ about.content }}</p>
@@ -130,29 +139,110 @@
         </div>
     </section>
 
+    <!-- accepted customization -->
+    <section class="py-5 bg-white" id="customization">
+        <div class="container">
+            <div class="row py-lg-5 index-container-style">
+                <div class="col-md-7 d-flex align-items-center">
+                    <div class="px-5">
+                        <h3 class="mb-5">Accepted customization</h3>
+                        <p class="lh-lg mb-5">We have a complete process flow, we can accept customization and make
+                            excellent products according to customer requirements.</p>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <img alt="about-us" src="{{ url_for('static', filename='img/customization.jpg') }}"
+                         style="width: 520px;height: auto;" class="image-fluid w-100 company-image-style">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Big Stock -->
+    <section class="py-5 bg-light" id="stock">
+        <div class="container">
+            <div class="row py-lg-5 index-container-style">
+                <div class="col-md-5">
+                    <img alt="about-us" src="{{ url_for('static', filename='img/stock.png') }}"
+                         style="width: 520px;height: auto;" class="image-fluid w-100 company-image-style">
+                </div>
+                <div class="col-md-7 d-flex align-items-center">
+                    <div class="px-4">
+                        <h3 class="mb-5">Big Stock</h3>
+                        <p class="lh-lg mb-5">In order to shorten the delivery time, we always keep a large semi-stock
+                            and finished stock all over the year. Customer can get them in 5-7 days.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Factory -->
+    <section class="py-5 bg-white" id="factory">
+        <div class="container">
+            <div class="row py-lg-5 index-container-style">
+                <div class="col-md-7 d-flex align-items-center">
+                    <div class="px-5">
+                        <h3 class="mb-5">Factory</h3>
+                        <p class="lh-lg mb-5">We are a mold factory with production license, we have our own production workshop and design team</p>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <img alt="about-us" src="{{ url_for('static', filename='img/factory.jpg') }}"
+                         style="width: 520px;height: auto;" class="image-fluid w-100 company-image-style">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 100% Inspection -->
+    <section class="py-5 bg-light" id="inspection">
+        <div class="container">
+            <div class="row py-lg-5 index-container-style">
+                <div class="col-md-5">
+                    <img alt="about-us" src="{{ url_for('static', filename='img/inspection.jpg') }}"
+                         style="width: 520px;height: auto;" class="image-fluid w-100 company-image-style">
+                </div>
+                <div class="col-md-7 d-flex align-items-center">
+                    <div class="px-5">
+                        <h3 class="mb-5">100% Inspection</h3>
+                        <p class="lh-lg mb-5">Quality is the first, so we will 100% inspect before shipping.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- custom process -->
-    <section class="py-5 bg-light">
+    <section class="py-5 bg-white">
         <div class="container">
             <div class="row text-center d-flex align-items-start justify-content-center">
                 <h1 class="pb-5">CUSTOM PROCESS</h1>
                 <div class="col-md">
-                    <div class="circle-process-body d-flex align-items-center justify-content-center"><i class="fa-solid fa-phone fa-5x"></i></div>
+                    <div class="circle-process-body d-flex align-items-center justify-content-center"><i
+                            class="fa-solid fa-phone fa-5x"></i></div>
                     <h3>Communication</h3>
                 </div>
                 <div class="col-md">
-                    <div class="circle-process-body d-flex align-items-center justify-content-center"><i class="fa-solid fa-hand-holding-dollar fa-5x"></i></div>
+                    <div class="circle-process-body d-flex align-items-center justify-content-center"><i
+                            class="fa-solid fa-hand-holding-dollar fa-5x"></i></div>
                     <h3>Order and Design confirmation</h3>
                 </div>
                 <div class="col-md">
-                    <div class="circle-process-body d-flex align-items-center justify-content-center"><i class="fa-solid fa-hourglass-half fa-5x"></i></div>
+                    <div class="circle-process-body d-flex align-items-center justify-content-center"><i
+                            class="fa-solid fa-hourglass-half fa-5x"></i></div>
                     <h3>Mass Production</h3>
                 </div>
                 <div class="col-md">
-                    <div class="circle-process-body d-flex align-items-center justify-content-center"><i class="fa-solid fa-list-check fa-5x"></i></div>
+                    <div class="circle-process-body d-flex align-items-center justify-content-center"><i
+                            class="fa-solid fa-list-check fa-5x"></i></div>
                     <h3>100% inspection</h3>
                 </div>
                 <div class="col-md">
-                    <div class="circle-process-body d-flex align-items-center justify-content-center"><i class="fa-solid fa-handshake-simple fa-5x"></i></div>
+                    <div class="circle-process-body d-flex align-items-center justify-content-center"><i
+                            class="fa-solid fa-handshake-simple fa-5x"></i></div>
                     <h3>Delivery</h3>
                 </div>
             </div>
