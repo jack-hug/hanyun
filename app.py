@@ -1,4 +1,5 @@
 import os
+import shutil
 import uuid
 from datetime import datetime
 
@@ -313,6 +314,10 @@ def forge(product):
     from fakes import fake_products, fake_about, fake_advantage
     click.echo('Drop tables....')
     db.drop_all()
+    click.echo('Delete uploads photo...')
+    if os.path.exists(current_app.config['HY_UPLOAD_PATH']):
+        shutil.rmtree(current_app.config['HY_UPLOAD_PATH'])
+        os.mkdir(current_app.config['HY_UPLOAD_PATH'])
     click.echo('Initialized database......')
     db.create_all()
     click.echo('Generating %d products...' % product)
