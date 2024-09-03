@@ -13,7 +13,7 @@ fake_products = DynamicProvider(
     provider_name='products',
     elements=[
         'KOCUF',
-        'KOCUS',
+        'KOCUM',
         'KPHF',
         'MTGL',
         'SCZA',
