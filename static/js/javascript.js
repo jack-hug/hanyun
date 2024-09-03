@@ -50,15 +50,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // 鼠标划过时时出现效果
-        $(document).ready(function () {
-            $('.company-hover').on('mouseenter', function () {
-                $(this).closest('.row').find('.company-image-style').addClass('hovered');
-            });
+$(document).ready(function () {
+    $('.company-hover').on('mouseenter', function () {
+        $(this).closest('.row').find('.company-image-style').addClass('hovered');
+    });
 
-            $('.company-hover').on('mouseleave', function () {
-                $(this).closest('.row').find('.company-image-style').removeClass('hovered');
-            });
-        });
+    $('.company-hover').on('mouseleave', function () {
+        $(this).closest('.row').find('.company-image-style').removeClass('hovered');
+    });
+});
 
 
 // 秒后自动关闭flash消息
@@ -71,5 +71,45 @@ document.addEventListener("DOMContentLoaded", function () {
             var bsAlert = new bootstrap.Alert(alert);
             bsAlert.close();
         }, 5000);
+    });
+});
+
+// slick 图片滚动
+$(document).ready(function () {
+    $('.slick-item').slick({
+        infinite: true,
+        speed: 1000,
+        slidesToShow: 5,
+        adaptiveHeight: true,
+        autoplay: true,
+        autoplaySpeed: 1000,
+        pauseOnHover: true,
+        arrows: false,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+
     });
 });

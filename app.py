@@ -64,7 +64,9 @@ class Product(db.Model):  # 产品表
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
     price = db.Column(db.Float)
-    description = db.Column(db.String(200))
+    material = db.Column(db.String(200))
+    level = db.Column(db.String(200))
+    oem = db.Column(db.String(200))
     content = db.Column(db.Text())
     timestamp = db.Column(db.DateTime, default=datetime.utcnow())
     clicks = db.Column(db.Integer)
@@ -112,7 +114,9 @@ class Admin(db.Model, UserMixin):
 class EditProductForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
     price = StringField('Price', validators=[DataRequired(), Length(1, 20)])
-    description = StringField('Description', validators=[DataRequired()])
+    material = StringField('Material', validators=[Length(0, 200)])
+    level = StringField('Level', validators=[Length(0, 200)])
+    oem = StringField('OEM/ODM', validators=[Length(0, 200)])
     content = CKEditorField('Content')
     photos = FileField('Product Photo:', validators=[FileAllowed(['jpg', 'png', 'gif'], '只能上传图片')])
     submit = SubmitField('Submit')
@@ -121,7 +125,9 @@ class EditProductForm(FlaskForm):
 class AddProductForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
     price = StringField('Price', validators=[DataRequired(), Length(1, 20)])
-    description = StringField('Description', validators=[DataRequired(), Length(1, 100)])
+    material = StringField('Material', validators=[Length(0, 200)])
+    level = StringField('Level', validators=[Length(0, 200)])
+    oem = StringField('OEM/ODM', validators=[Length(0, 200)])
     content = CKEditorField('Content')
     photos = FileField('Product Photo:', validators=[FileAllowed(['jpg', 'png', 'gif'], '只能上传图片')])
     submit = SubmitField('Submit')
@@ -171,9 +177,8 @@ def contact():
 @app.route('/product/<int:product_id>')
 def product(product_id):
     product = Product.query.get(product_id)
-    n_product = Product.query.filter(Product.id > product_id).order_by(Product.id.asc()).first()
-    p_product = Product.query.filter(Product.id < product_id).order_by(Product.id.desc()).first()
-    return render_template('product.html', product=product, p_product=p_product, n_product=n_product)
+    recommends_products = Product.query.filter(Product.id != product_id).all()
+    return render_template('product.html', product=product, recommends_products=recommends_products)
 
 
 @app.route('/admin')
@@ -188,7 +193,9 @@ def edit_product(product_id):
     if form.validate_on_submit():
         product.name = form.name.data
         product.price = form.price.data
-        product.description = form.description.data
+        product.material = form.material.data
+        product.level = form.level.data
+        product.oem = form.oem.data
         product.content = form.content.data
         product.timestamp = datetime.now()
         db.session.commit()
@@ -202,7 +209,9 @@ def edit_product(product_id):
 
     form.name.data = product.name
     form.price.data = product.price
-    form.description.data = product.description
+    form.material.data = product.material
+    form.level.data = product.level
+    form.oem.data = product.oem
     form.content.data = product.content
     return render_template('edit_product.html', form=form, product=product)
 
@@ -227,7 +236,9 @@ def add_product():
             product = Product(
                 name=form.name.data,
                 price=form.price.data,
-                description=form.description.data,
+                material=form.material.data,
+                level=form.level.data,
+                oem=form.oem.data,
                 content=form.content.data,
                 clicks=0,
                 timestamp=datetime.now()
@@ -267,23 +278,23 @@ def delete_photo(photo_id):
 def get_image(filename):
     return send_from_directory(current_app.config['HY_UPLOAD_PATH'], filename)
 
-@app.route('/previous/<int:product_id>', methods=['GET', 'POST'])
-def previous_product(product_id):
-    product_id = Product.query.get_or_404(product_id)
-    if product_id.id == 1:
-        flash('已经是第一页了', 'warning')
-        return redirect(url_for('product', product_id=product_id.id))
-    else:
-        return redirect(url_for('product', product_id=product_id.id-1))
-
-@app.route('/next/<int:product_id>', methods=['GET', 'POST'])
-def next_product(product_id):
-    product_id = Product.query.get_or_404(product_id)
-    if product_id.id == len(Product.query.all()):
-        flash('已经是最后一页了', 'warning')
-        return redirect(url_for('product', product_id=product_id.id))
-    else:
-        return redirect(url_for('product', product_id=product_id.id+1))
+# @app.route('/previous/<int:product_id>', methods=['GET', 'POST'])
+# def previous_product(product_id):
+#     product_id = Product.query.get_or_404(product_id)
+#     if product_id.id == 1:
+#         flash('已经是第一页了', 'warning')
+#         return redirect(url_for('product', product_id=product_id.id))
+#     else:
+#         return redirect(url_for('product', product_id=product_id.id-1))
+#
+# @app.route('/next/<int:product_id>', methods=['GET', 'POST'])
+# def next_product(product_id):
+#     product_id = Product.query.get_or_404(product_id)
+#     if product_id.id == len(Product.query.all()):
+#         flash('已经是最后一页了', 'warning')
+#         return redirect(url_for('product', product_id=product_id.id))
+#     else:
+#         return redirect(url_for('product', product_id=product_id.id+1))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

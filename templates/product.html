@@ -49,9 +49,24 @@
                 </div>
 
                 <div class="col-md-6">
-                    <h1 class="product-title">{{ product.name }}</h1>
-                    <p class="product-description lead my-3">{{ product.description|safe }}</p>
-                    <p class="product-price h3 py-3 px-3 bg-white">$:{{ product.price }}</p>
+                    <h1 class="product-title mb-3">{{ product.name }}</h1>
+                    <table class="table table-hover table-light text-start">
+                        <tbody>
+                        <tr>
+                            <th>Material:</th>
+                            <td>{{ product.material }}</td>
+                        </tr>
+                        <tr>
+                            <th>Quality Level:</th>
+                            <td>{{ product.level }}</td>
+                        </tr>
+                        <tr>
+                            <th>OEM/ODM:</th>
+                            <td>{{ product.oem }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p class="h3 py-3 px-3 bg-white">$:{{ product.price }}</p>
                     <a href="mailto:example@example.com" class="btn btn-primary btn-lg my-3">CONTACT US</a>
 
                     <div class="row justify-content-end">
@@ -85,23 +100,36 @@
             <div class="d-flex flex-column align-items-center img-fluid">
                 {{ product.content | replace("<img", "<img class='img-fluid h-100'") | safe }}
             </div>
-            <div class="d-flex justify-content-between mt-5 p-2">
-                <a class="btn btn-primary{% if not p_product %} disabled{% endif %} " href="{{ url_for('previous_product', product_id=product.id) }}">
-                    {% if p_product %}
-                        Previous Product: {{ p_product.name }}
-                    {% else %}
-                        No previous product
-                    {% endif %}
-                </a>
-                <a class="btn btn-primary{% if not n_product %} disabled{% endif %} "
-                   href="{{ url_for('next_product', product_id=product.id) }}">
-                    {% if n_product %}
-                       Next Product: {{ n_product.name }}
-                    {% else %}
-                        No previous product
-                    {% endif %}
-                </a>
+        </div>
+        <div class="container">
+            <h2 class="text-center my-3">Recommended products</h2>
+            <div class="d-flex flex-nowrap slick-item">
+                {% for product in recommends_products %}
+                    {% set photo = product.photos|first %}
+                    {% if photo %}
+                        <div class="card">
+                            <a href="{{ url_for('product', product_id=product.id) }}">
+                                <img src="{{ url_for('get_image', filename=photo.filename) }}" class="card-img-top img-thumbnail"
+                                     alt="product-image">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text text-center">{{ product.name }}</p>
+                            </div>
+                        </div>
 
+                    {% else %}
+                        <div class="card">
+                            <a href="{{ url_for('product', product_id=product.id) }}">
+                                <img src="{{ url_for('static', filename='img/no_product.jpg') }}"
+                                     class="card-img-top img-thumbnail" alt="product-image">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text text-center">{{ product.name }}</p>
+                            </div>
+                        </div>
+
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </section>

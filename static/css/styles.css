@@ -320,3 +320,7 @@
 .no-style {
     text-decoration: none;
 }
+
+.slick-item .slick-slide {
+    margin: 0 15px;
+}

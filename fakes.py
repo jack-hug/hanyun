@@ -39,7 +39,9 @@ def fake_products(count=8):
         product = Product(
             name=product_name,
             price='0.0',
-            description=fake.text(100),
+            material= 'S45C +Brass+Graphite',
+            level='High Quality',
+            oem='Welcome',
             clicks=random.randint(1, 5000),
             timestamp=fake.date_time_this_year()
         )
