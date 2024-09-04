@@ -156,7 +156,8 @@ def allowed_file(filename):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    products = Product.query.order_by(Product.id.asc()).limit(8).all()
+    return render_template('index.html', products=products)
 
 
 @app.route('/products')
@@ -320,8 +321,7 @@ if __name__ == '__main__':
 
 
 @app.cli.command()  # 生成数据
-@click.option('--product', default=8, help='Quantity of products, default is 8.')
-def forge(product):
+def forge():
     from fakes import fake_products, fake_about, fake_advantage
     click.echo('Drop tables....')
     db.drop_all()
@@ -331,8 +331,8 @@ def forge(product):
         os.mkdir(current_app.config['HY_UPLOAD_PATH'])
     click.echo('Initialized database......')
     db.create_all()
-    click.echo('Generating %d products...' % product)
-    fake_products(product)
+    click.echo('Generating products...')
+    fake_products()
     click.echo('Generating about_us text...')
     fake_about()
     click.echo('Generating advantage text...')

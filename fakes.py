@@ -9,37 +9,26 @@ from app import Advantage, About, db, Product, Admin
 
 fake = Faker()
 
-fake_products = DynamicProvider(
-    provider_name='products',
-    elements=[
-        'KOCUF',
-        'KOCUM',
-        'KPHF',
-        'MTGL',
-        'SCZA',
-        'SCZAP',
-        'SCZNP',
-        'SCZN'
-    ],  # 8 products
-)
-
-fake.add_provider(fake_products)
+products = [
+    'KOCUF',
+    'KOCUM',
+    'KPHF',
+    'MTGL',
+    'SCZA',
+    'SCZAP',
+    'SCZN',
+    'SCZNP',
+    'RCSUF',
+    'RCSUM'
+]  # 10 products
 
 
-def fake_products(count=8):
-    unique_product = set()
-    for i in range(count):
-        while True:
-            product_name = fake.products()
-            if product_name not in unique_product:
-                unique_product.add(product_name)
-                click.echo('Generated unique product name: %s' % product_name)
-                break
-
+def fake_products():
+    for product_name in products:
         product = Product(
             name=product_name,
             price='0.0',
-            material= 'S45C +Brass+Graphite',
+            material='S45C +Brass+Graphite',
             level='High Quality',
             oem='Welcome',
             clicks=random.randint(1, 5000),
@@ -91,4 +80,3 @@ def fake_advantage():
     db.session.add(advantage03)
     db.session.add(advantage04)
     db.session.commit()
-
