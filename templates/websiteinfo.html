@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Website info{% endblock %}
+
+{% block content %}
+    <div class="section bg-white py-5 custom-container">
+        <div class="container-fluid">
+            <div class="row">
+                {% include '_slider_admin.html' %}
+                <div class="col-md-10">
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.quick_information.label(class="form-label") }}
+                            {{ form.quick_information(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.company_name.label(class="form-label") }}
+                            {{ form.company_name(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.company_address.label(class="form-label") }}
+                            {{ form.company_address(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.company_phone.label(class="form-label") }}
+                            {{ form.company_phone(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.company_phone.label(class="form-label") }}
+                            {{ form.company_phone(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.company_email.label(class="form-label") }}
+                            {{ form.company_email(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.skype.label(class="form-label") }}
+                            {{ form.skype(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.facebook.label(class="form-label") }}
+                            {{ form.facebook(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.twitter.label(class="form-label") }}
+                            {{ form.twitter(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.line.label(class="form-label") }}
+                            {{ form.line(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.submit(class="btn btn-primary btn-md") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

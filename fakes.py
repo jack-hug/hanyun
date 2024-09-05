@@ -5,7 +5,7 @@ import click
 from faker import Faker
 from faker.providers import DynamicProvider
 
-from app import Advantage, About, db, Product, Admin
+from app import Advantage, About, db, Product, Admin, WebsiteInfo
 
 fake = Faker()
 
@@ -37,8 +37,8 @@ def fake_products():
             material=material,
             level='High Quality',
             oem='Welcome',
-            clicks=random.randint(1, 5000),
-            timestamp=fake.date_time_this_year()
+            clicks=0,
+            timestamp=datetime.now()
         )
         db.session.add(product)
     db.session.commit()
@@ -54,7 +54,7 @@ Because we have provided customers with advantageous prices and high-quality sli
     about = About(
         name='About Us',
         content=about_us,
-        timestamp=fake.date_time_this_year()
+        timestamp=datetime.now()
     )
     db.session.add(about)
     db.session.commit()
@@ -85,4 +85,19 @@ def fake_advantage():
     db.session.add(advantage02)
     db.session.add(advantage03)
     db.session.add(advantage04)
+    db.session.commit()
+
+def fake_website_info():
+    website_info = WebsiteInfo(
+        company_name='Shenzhen Hanyun Mold Co.,Ltd',
+        company_address='Shenzhen, Guangdong, China',
+        company_phone='+86',
+        company_email='karen@hanyunmold.com',
+        quick_information='Hanyun mold have more than 10 years of experience<br> in making slide core units.',
+        facebook='karen',
+        twitter='karen',
+        skype='karen',
+        line='karen',
+    )
+    db.session.add(website_info)
     db.session.commit()

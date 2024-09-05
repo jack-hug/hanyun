@@ -43,15 +43,19 @@
                     <a class="nav-link {% block nav_contact %}{% endblock %}"
                        href="{{ url_for('contact') }}">CONTACT</a>
                 </li>
-                {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="{{ url_for('logout') }}">Logout</a>
-                    </li>
-                {% endif %}
             </ul>
         </div>
     </div>
+    {% if current_user.is_authenticated %}
+        <div class="nav-item pe-5">
+            <a class="nav-link text-light"
+               href="{{ url_for('admin') }}"> Admin</a>
+        </div>
+        <div class="nav-item pe-5">
+            <a class="nav-link text-light"
+               href="{{ url_for('logout') }}"> Logout</a>
+        </div>
+    {% endif %}
 </nav>
 {% for message in get_flashed_messages(with_categories = True) %}
     <div class="alert alert-{{ message[0] }} alert-floating" role="alert" id="flash-message-{{ loop.index }}">
@@ -68,8 +72,8 @@
     <div class="container-fluid row bg-dark text-light py-5">
         <div class="col-md-4">
             <h4>Quick Information :</h4>
-            <p>
-                Hanyun mold have more than 10 years of experience <br> in making slide core units.
+            <p class="lh-lg">
+                {{ websiteinfo.quick_information | safe }}
             </p>
         </div>
         <div class="col-md-4">
@@ -97,12 +101,11 @@
             </form>
         </div>
         <div class="col-md-4">
-            <p>
-
-                Company Name: Shenzhen Hanyun Mold Co.,Ltd<br>
-                Add:<br>
-                Email:Shenzhen Hanyun Mold Co.,Ltd <br>
-                Skype:<br>
+            <p class="lh-lg">
+                <span>Company Name: {{ websiteinfo.company_name }}<br></span>
+                <span>Add: {{ websiteinfo.company_address }}<br></span>
+                <span>Email: {{ websiteinfo.company_email }}<br></span>
+                <span>Skype: <br></span>
             </p>
             <p>www.hanyunmold.com | All Right Reserved</p>
         </div>

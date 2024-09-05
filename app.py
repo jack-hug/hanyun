@@ -11,14 +11,15 @@ from flask_wtf.file import FileField, FileAllowed
 
 from config import config
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length
 from flask_wtf.csrf import CSRFProtect
 from flask_ckeditor import CKEditor, CKEditorField, upload_fail, upload_success
 from flask_moment import Moment
 from flask_mail import Mail
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, UserMixin, current_user, login_user
+from flask_login import LoginManager, UserMixin, current_user, login_user, login_required, logout_user
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 
@@ -30,7 +31,12 @@ csrf = CSRFProtect(app)
 ckeditor = CKEditor(app)
 moment = Moment(app)
 mail = Mail(app)
+migrate = Migrate(app, db)
+
 login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message = '请先登录'
+login_manager.login_message_category = 'info'
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -98,6 +104,23 @@ class Advantage(db.Model):  # 优势表
     timestamp = db.Column(db.DateTime, default=datetime.utcnow())
 
 
+class WebsiteInfo(db.Model):  # 网站信息表
+    __tablename__ = 'website_info'
+    id = db.Column(db.Integer, primary_key=True)
+    quick_information = db.Column(db.Text(), default='Hanyun mold have more than 10 years of experience<br> in making slide core units.')
+    company_name = db.Column(db.String(50), default='Shenzhen Hanyun Mold Co.,Ltd')
+    company_address = db.Column(db.String(50))
+    company_phone = db.Column(db.String(50))
+    company_email = db.Column(db.String(50), default='karen@hanyunmold.com')
+
+    skype = db.Column(db.String(50))
+    facebook = db.Column(db.String(50))
+    twitter = db.Column(db.String(50))
+    line = db.Column(db.String(50))
+
+
+
+
 class Admin(db.Model, UserMixin):
     __tablename__ = 'admin'
     id = db.Column(db.Integer, primary_key=True)
@@ -140,12 +163,26 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 
+class WebsiteInfoForm(FlaskForm):
+    quick_information = TextAreaField('Quick Information', validators=[Length(0, 200)])
+    company_name = StringField('Company Name', validators=[Length(0, 50)])
+    company_address = StringField('Company Address', validators=[Length(0, 50)])
+    company_phone = StringField('Company Phone', validators=[Length(0, 50)])
+    company_email = StringField('Company Email', validators=[Length(0, 50)])
+    skype = StringField('Skype', validators=[Length(0, 50)])
+    facebook = StringField('Facebook', validators=[Length(0, 50)])
+    twitter = StringField('Twitter', validators=[Length(0, 50)])
+    line = StringField('Line', validators=[Length(0, 50)])
+    submit = SubmitField('Submit')
+
 @app.context_processor
 def make_template_context():
     return dict(
         products=Product.query.order_by(Product.id.asc()).all(),
         about=About.query.order_by(About.timestamp.desc()).first(),
-        advantages=Advantage.query.order_by(Advantage.id.asc()).all()
+        advantages=Advantage.query.order_by(Advantage.id.asc()).all(),
+        websiteinfo=WebsiteInfo.query.order_by(WebsiteInfo.id.desc()).first()
+
     )
 
 
@@ -182,9 +219,11 @@ def product(product_id):
     return render_template('product.html', product=product, recommends_products=recommends_products)
 
 
-@app.route('/admin')
+@app.route('/admin', methods=['GET', 'POST'])  # 后台
+@login_required
 def admin():
-    return render_template('admin.html')
+    products_length = Product.query.count()
+    return render_template('admin.html', products_length=products_length)
 
 
 @app.route('/edit_product/<int:product_id>', methods=['GET', 'POST'])  # 编辑产品
@@ -217,7 +256,7 @@ def edit_product(product_id):
     return render_template('edit_product.html', form=form, product=product)
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['POST'])  # 上传图片
 def upload():
     f = request.files.get('upload')
     if not allowed_file(f.filename):
@@ -229,7 +268,7 @@ def upload():
     return upload_success(url=url)
 
 
-@app.route('/add_product', methods=['GET', 'POST'])
+@app.route('/add_product', methods=['GET', 'POST'])  # 添加产品
 def add_product():
     form = AddProductForm()
     if request.method == 'POST':
@@ -257,7 +296,7 @@ def add_product():
     return render_template('add_product.html', form=form)
 
 
-@app.route('/delete_product/<int:product_id>', methods=['GET', 'POST'])
+@app.route('/delete_product/<int:product_id>', methods=['GET', 'POST'])  # 删除产品
 def delete_product(product_id):
     product = Product.query.get(product_id)
     db.session.delete(product)
@@ -266,7 +305,7 @@ def delete_product(product_id):
     return redirect(url_for('admin'))
 
 
-@app.route('/delete_photo/<int:photo_id>', methods=['POST'])
+@app.route('/delete_photo/<int:photo_id>', methods=['POST'])  # 删除图片
 def delete_photo(photo_id):
     photo = Photo.query.get_or_404(photo_id)
     db.session.delete(photo)
@@ -279,25 +318,7 @@ def delete_photo(photo_id):
 def get_image(filename):
     return send_from_directory(current_app.config['HY_UPLOAD_PATH'], filename)
 
-# @app.route('/previous/<int:product_id>', methods=['GET', 'POST'])
-# def previous_product(product_id):
-#     product_id = Product.query.get_or_404(product_id)
-#     if product_id.id == 1:
-#         flash('已经是第一页了', 'warning')
-#         return redirect(url_for('product', product_id=product_id.id))
-#     else:
-#         return redirect(url_for('product', product_id=product_id.id-1))
-#
-# @app.route('/next/<int:product_id>', methods=['GET', 'POST'])
-# def next_product(product_id):
-#     product_id = Product.query.get_or_404(product_id)
-#     if product_id.id == len(Product.query.all()):
-#         flash('已经是最后一页了', 'warning')
-#         return redirect(url_for('product', product_id=product_id.id))
-#     else:
-#         return redirect(url_for('product', product_id=product_id.id+1))
-
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])  # 登录
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('admin'))
@@ -305,15 +326,52 @@ def login():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-        remember = form.remember_me.data
+        remember = form.remember.data
         admin = Admin.query.first()
-        if username == admin.username and admin.validate_password(password):
-            login_user(admin, remember)
-            flash('Welcome back.', 'success')
-            return redirect(url_for('admin'))
+        if admin:
+            if username == admin.username and admin.validate_password(password):
+                login_user(admin, remember)
+                flash('欢迎回来', 'success')
+                return redirect(url_for('admin'))
         else:
             flash('用户名或密码错误.', 'warning')
     return render_template('login.html', form=form)
+
+@app.route('/logout', methods=['GET', 'POST'])  # 退出登录
+@login_required
+def logout():
+    logout_user()
+    flash('退出登录', 'success')
+    return redirect(url_for('login'))
+
+
+@app.route('/websiteinfo', methods=['GET', 'POST'])  # 网站信息
+def websiteinfo():
+    websiteinfo = WebsiteInfo.query.first()
+    form = WebsiteInfoForm()
+    if form.validate_on_submit():
+        websiteinfo.quick_information = form.quick_information.data
+        websiteinfo.company_name = form.company_name.data
+        websiteinfo.company_address = form.company_address.data
+        websiteinfo.company_phone = form.company_phone.data
+        websiteinfo.company_email = form.company_email.data
+        websiteinfo.skype = form.skype.data
+        websiteinfo.facebook = form.facebook.data
+        websiteinfo.twitter = form.twitter.data
+        websiteinfo.line = form.line.data
+        db.session.commit()
+        flash('修改成功.', 'success')
+        return redirect(url_for('websiteinfo'))
+    form.quick_information.data = websiteinfo.quick_information
+    form.company_name.data = websiteinfo.company_name
+    form.company_address.data = websiteinfo.company_address
+    form.company_phone.data = websiteinfo.company_phone
+    form.company_email.data = websiteinfo.company_email
+    form.skype.data = websiteinfo.skype
+    form.twitter.data = websiteinfo.twitter
+    form.facebook.data = websiteinfo.facebook
+    form.line.data = websiteinfo.line
+    return render_template('websiteinfo.html', form=form)
 
 
 if __name__ == '__main__':
@@ -337,6 +395,14 @@ def forge():
     fake_about()
     click.echo('Generating advantage text...')
     fake_advantage()
+
+    click.echo('Done.')
+
+@app.cli.command()
+def website():
+    from fakes import fake_website_info
+    click.echo('Generating website info...')
+    fake_website_info()
 
     click.echo('Done.')
 

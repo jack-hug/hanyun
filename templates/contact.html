@@ -15,9 +15,10 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <h5>Shenzhen Hanyun Mold Co.,Ltd</h5>
-                    <p>Add:</p>
-                    <p class="mb-5">Email: karen@hanyunmold.com</p>
+                    <h5>{{ websiteinfo.company_name }}</h5>
+                    <h5>Add: {{ websiteinfo.company_address }}</h5>
+                    <h5 class="mb-5">Email: {{ websiteinfo.company_email }}</h5>
+                    <p>If you have any questions, please send us message.</p>
                     <div class="mb-3">
                         <label for="name" class="form-label">Your name</label>
                         <input type="text" class="form-control" id="name">
