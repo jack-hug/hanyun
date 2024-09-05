@@ -22,7 +22,7 @@ from flask_login import LoginManager, UserMixin, current_user, login_user
 
 app = Flask(__name__)
 
-app.config.from_object(config['development'])
+app.config.from_object(config['production'])
 
 db = SQLAlchemy(app)
 fake = Faker()

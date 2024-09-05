@@ -25,10 +25,16 @@ products = [
 
 def fake_products():
     for product_name in products:
+        if product_name == 'SCZAP':
+            material = 'Brass+Graphite'
+        else:
+            material = 'S45C +Brass+Graphite'
+
+
         product = Product(
             name=product_name,
             price='0.0',
-            material='S45C +Brass+Graphite',
+            material=material,
             level='High Quality',
             oem='Welcome',
             clicks=random.randint(1, 5000),
