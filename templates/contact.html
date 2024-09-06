@@ -19,19 +19,24 @@
                     <h5>Add: {{ websiteinfo.company_address }}</h5>
                     <h5 class="mb-5">Email: {{ websiteinfo.company_email }}</h5>
                     <p>If you have any questions, please send us message.</p>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Your name</label>
-                        <input type="text" class="form-control" id="name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Your email</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">content</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="15"></textarea>
-                    </div>
-                    <button class="btn btn-primary btn-md">Submit</button>
+                    <form method="POST">
+                        {{ messageform.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ messageform.name.label(class="form-label") }}
+                            {{ messageform.name(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ messageform.email.label(class="form-label") }}
+                            {{ messageform.email(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ messageform.content.label(class="form-label") }}
+                            {{ messageform.content(class="form-control", rows=10) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ messageform.submit(class="btn btn-primary btn-md") }}
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-3"></div>
             </div>

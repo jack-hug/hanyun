@@ -1,7 +1,7 @@
 <div class="col-md-2 bg-light py-2">
     <ul class="list-group">
         <a href="{{ url_for('admin') }}" class="list-group-item {% if request.endpoint == 'admin' %}active{% endif %}">产品管理</a>
-        <a href="" class="list-group-item">留言管理</a>
+        <a href="{{ url_for('message') }}" class="list-group-item {% if request.endpoint == 'message' %}active{% endif %}">留言管理</a>
         <a href="{{ url_for('websiteinfo') }}" class="list-group-item {% if request.endpoint == 'websiteinfo' %}active{% endif %}">网站信息</a>
     </ul>
 </div>

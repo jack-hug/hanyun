@@ -7,10 +7,10 @@ import click
 from faker import Faker
 from flask import Flask, render_template, redirect, url_for, current_app, flash, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 
 from config import config
-from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length
 from flask_wtf.csrf import CSRFProtect
@@ -20,6 +20,9 @@ from flask_mail import Mail
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, current_user, login_user, login_required, logout_user
 from flask_migrate import Migrate
+from flask_bootstrap import Bootstrap5
+
+from emails import send_new_message_email
 
 app = Flask(__name__)
 
@@ -32,11 +35,13 @@ ckeditor = CKEditor(app)
 moment = Moment(app)
 mail = Mail(app)
 migrate = Migrate(app, db)
+bootstrap = Bootstrap5(app)
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message = '请先登录'
 login_manager.login_message_category = 'info'
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -104,10 +109,20 @@ class Advantage(db.Model):  # 优势表
     timestamp = db.Column(db.DateTime, default=datetime.utcnow())
 
 
+class Message(db.Model):
+    __tablename__ = 'message'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    email = db.Column(db.String(50))
+    content = db.Column(db.Text())
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+
+
 class WebsiteInfo(db.Model):  # 网站信息表
     __tablename__ = 'website_info'
     id = db.Column(db.Integer, primary_key=True)
-    quick_information = db.Column(db.Text(), default='Hanyun mold have more than 10 years of experience<br> in making slide core units.')
+    quick_information = db.Column(db.Text(),
+                                  default='Hanyun mold have more than 10 years of experience<br> in making slide core units.')
     company_name = db.Column(db.String(50), default='Shenzhen Hanyun Mold Co.,Ltd')
     company_address = db.Column(db.String(50))
     company_phone = db.Column(db.String(50))
@@ -117,8 +132,6 @@ class WebsiteInfo(db.Model):  # 网站信息表
     facebook = db.Column(db.String(50))
     twitter = db.Column(db.String(50))
     line = db.Column(db.String(50))
-
-
 
 
 class Admin(db.Model, UserMixin):
@@ -175,13 +188,23 @@ class WebsiteInfoForm(FlaskForm):
     line = StringField('Line', validators=[Length(0, 50)])
     submit = SubmitField('Submit')
 
+
+class MessageForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    email = StringField('Email', validators=[DataRequired(), Length(1, 50)])
+    content = TextAreaField('Content', validators=[DataRequired(), Length(1, 800)])
+    submit = SubmitField('Submit')
+
+
 @app.context_processor
 def make_template_context():
     return dict(
         products=Product.query.order_by(Product.id.asc()).all(),
         about=About.query.order_by(About.timestamp.desc()).first(),
         advantages=Advantage.query.order_by(Advantage.id.asc()).all(),
-        websiteinfo=WebsiteInfo.query.order_by(WebsiteInfo.id.desc()).first()
+        websiteinfo=WebsiteInfo.query.order_by(WebsiteInfo.id.desc()).first(),
+        messages=Message.query.order_by(Message.timestamp.desc()).all(),
+        messageform=MessageForm()
 
     )
 
@@ -191,10 +214,21 @@ def allowed_file(filename):
         filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     products = Product.query.order_by(Product.id.asc()).limit(8).all()
-    return render_template('index.html', products=products)
+    messageform = MessageForm()
+    if messageform.validate_on_submit():
+        message = Message(name=messageform.name.data, email=messageform.email.data, content=messageform.content.data)
+        db.session.add(message)
+        db.session.commit()
+        flash('Message sent successfully!We will reply to you as soon as possible!', 'success')
+
+        send_new_message_email()
+        messageform.name.data = ''
+        messageform.email.data = ''
+        messageform.content.data = ''
+    return render_template('index.html', products=products, messageform=messageform)
 
 
 @app.route('/products')
@@ -207,9 +241,20 @@ def company():
     return render_template('company.html')
 
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
-    return render_template('contact.html')
+    messageform = MessageForm()
+    if messageform.validate_on_submit():
+        message = Message(name=messageform.name.data, email=messageform.email.data, content=messageform.content.data)
+        db.session.add(message)
+        db.session.commit()
+        flash('Message sent successfully!We will reply to you as soon as possible!', 'success')
+
+        send_new_message_email()
+        messageform.name.data = ''
+        messageform.email.data = ''
+        messageform.content.data = ''
+    return render_template('contact.html', messageform=messageform)
 
 
 @app.route('/product/<int:product_id>')
@@ -318,6 +363,7 @@ def delete_photo(photo_id):
 def get_image(filename):
     return send_from_directory(current_app.config['HY_UPLOAD_PATH'], filename)
 
+
 @app.route('/login', methods=['GET', 'POST'])  # 登录
 def login():
     if current_user.is_authenticated:
@@ -336,6 +382,7 @@ def login():
         else:
             flash('用户名或密码错误.', 'warning')
     return render_template('login.html', form=form)
+
 
 @app.route('/logout', methods=['GET', 'POST'])  # 退出登录
 @login_required
@@ -374,6 +421,22 @@ def websiteinfo():
     return render_template('websiteinfo.html', form=form)
 
 
+@app.route('/message', methods=['GET', 'POST'])
+def message():
+    page = request.args.get('page', 1, type=int)
+    pagination = Message.query.order_by(Message.timestamp.desc()).paginate(page=page, per_page=current_app.config['HY_MESSAGE_PER_PAGE'])
+    messages = pagination.items
+    return render_template('message.html', messages=messages, pagination=pagination)
+
+@app.route('/delete_message/<int:message_id>', methods=['GET', 'POST'])
+def delete_message(message_id):
+    message = Message.query.get(message_id)
+    db.session.delete(message)
+    db.session.commit()
+    flash('删除成功.', 'success')
+    return redirect(url_for('message'))
+
+
 if __name__ == '__main__':
     app.run()
 
@@ -398,6 +461,7 @@ def forge():
 
     click.echo('Done.')
 
+
 @app.cli.command()
 def website():
     from fakes import fake_website_info
@@ -405,6 +469,7 @@ def website():
     fake_website_info()
 
     click.echo('Done.')
+
 
 @app.cli.command()
 @click.option('--username', prompt=True, help='The username used to login.')
@@ -429,4 +494,3 @@ def admin(username, password):
         db.session.commit()
 
         click.echo('Done.')
-

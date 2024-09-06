@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/pagination.html' import render_pagination %}
+
+{% block title %}Messages List{% endblock %}
+
+{% block content %}
+    <div class="section bg-white py-5 custom-container">
+        <div class="container-fluid">
+            <div class="row">
+                {% include '_slider_admin.html' %}
+                <div class="col-md-10">
+                    <div class="container">
+                        <h2 class="text-center mb-3">{{ messages | length }} Messages</h2>
+                        <div class="list-group">
+                            {% for message in messages %}
+                                <div class="list-group-item list-group-item-action flex-column">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <div class="mb-2">
+                                            <span class="fs-5">{{ message.name }} </span>
+                                            <span class="fs-6 text-muted"> {{ message.email }}</span>
+                                        </div>
+
+                                        <small>{{ moment(message.timestamp).fromNow(refresh=True) }}</small>
+                                    </div>
+                                    <p class="mb-1">{{ message.content }}</p>
+                                    <div class="d-flex w-100 justify-content-end">
+                                        <form action="{{ url_for('delete_message', message_id=message.id) }}"
+                                              method="post">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('确定要删除吗？')">
+                                                <i class="fa-regular fa-trash-can" title="删除"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if messages %}
+                            <div class="mt-5 pt-2">
+                                {{ render_pagination(pagination, align='center', prev='上一页', next='下一页') }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

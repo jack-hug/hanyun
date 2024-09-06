@@ -11,15 +11,24 @@ else:
 
 
 class BaseConfig:
-    HY_ADMIN_EMAIL = os.getenv('HY_ADMIN', '46361381@qq.com')
+    HY_ADMIN_EMAIL = os.getenv('HY_ADMIN', 'karen@hanyunmold.com')
     HY_PRODUCT_PER_PAGE = 12
     HY_PHOTO_PER_PAGE = 12
+    HY_MESSAGE_PER_PAGE = 15
     HY_UPLOAD_PATH = os.path.join(basedir, 'uploads')
     if not os.path.exists(HY_UPLOAD_PATH):
         os.mkdir(HY_UPLOAD_PATH)
 
     SECRET_KEY = os.getenv('SECRET_KEY', 'hanyunmoldandhaiyananduppmold@1234565987556')
     MAX_CONTENT_LENGTH = 3 * 1024 * 1024
+
+    MAIL_SERVER = os.getenv('MAIL_SERVER' or 'smtphz.qiye.163.com')
+    MAIL_USER_SSL = True
+    MAIL_PORT = 465
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME' or 'karen@hanyunmold.com')
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD' or '!k-#s7U976KaAxB')
+    MAIL_DEFAULT_SENDER = ('Hanyun Admin', MAIL_USERNAME or 'karen@hanyunmold.com')
+
 
     CKEDITOR_ENABLE_CSRF = True
     CKEDITOR_SERVE_LOCAL = True

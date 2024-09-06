@@ -1,22 +1,25 @@
+from flask import url_for, current_app
 from threading import Thread
-
-from flask import current_app, render_template
 from flask_mail import Message
-
-from app import mail
 
 
 def _send_async_mail(app, message):
     with app.app_context():
+        from app import mail
         mail.send(message)
 
 
-def send_mail(to, subject, template, **kwargs):
-    message = Message(current_app.config['ALBUMY_MAIL_SUBJECT_PREFIX'] + subject, recipients=[to])
-    message.body = render_template(template + '.txt', **kwargs)
-    message.html = render_template(template + '.html', **kwargs)
+def send_mail(subject, to, html):
     app = current_app._get_current_object()
+    message = Message(subject, recipients=[to], html=html)
     thr = Thread(target=_send_async_mail, args=[app, message])
     thr.start()
-    return th
+    return thr
 
+
+def send_new_message_email():
+    send_mail(subject='New Message', to=current_app.config['HY_ADMIN_EMAIL'],
+              html='<p>A new message from hanyunmold,click the link below to check:</p>'
+                   '<p><a href="%s">Link</a></p>'
+                   '<p><small style="color: #868e96">Do not reply this email.</small></p>'
+                   % (url_for('message')))

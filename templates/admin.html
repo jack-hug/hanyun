@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Admin{% endblock %}
+{% block title %}Product List{% endblock %}
 
 {% block content %}
     <div class="section bg-white py-5 custom-container">
@@ -32,7 +32,7 @@
                         {% for product in products %}
                             {% if product %}
                                 <tr class="align-middle">
-                                    <td>{{ product.id }}</td>
+                                    <td>{{ loop.index }}</td>
                                     {% set photo = product.photos|first %}
                                     {% if photo %}
                                         <td><img src="{{ url_for('get_image', filename=photo.filename) }}"
