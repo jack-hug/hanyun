@@ -30,6 +30,17 @@
                                 {{ form.submit(class="btn btn-primary btn-md") }}
                             </div>
                         </form>
+                        {% if form.errors %}
+                            <div style="color: red;">
+                                <ul style="list-style-type:none">
+                                    {% for field, errors in form.errors.items() %}
+                                        {% for error in errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-md-4">

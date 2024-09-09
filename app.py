@@ -12,7 +12,7 @@ from flask_wtf.file import FileField, FileAllowed
 
 from config import config
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from flask_wtf.csrf import CSRFProtect
 from flask_ckeditor import CKEditor, CKEditorField, upload_fail, upload_success
 from flask_moment import Moment
@@ -200,6 +200,17 @@ class MessageForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
+class ChangePasswordForm(FlaskForm):
+    current_password = PasswordField('Current Password', validators=[DataRequired(), Length(1, 128)])
+    new_password = PasswordField('New Password', validators=[DataRequired(), Length(1, 128)])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), Length(1, 128), EqualTo('new_password', message='两次输入密码不一致!')])
+    submit = SubmitField('Submit')
+
+    def validate_new_password(self, new_password):
+        if self.current_password.data == new_password.data:
+            raise ValidationError('新密码不能和旧密码相同.')
+
+
 @app.context_processor
 def make_template_context():
     return dict(
@@ -382,14 +393,13 @@ def login():
         username = form.username.data
         password = form.password.data
         remember = form.remember.data
-        admin = Admin.query.first()
-        if admin:
-            if username == admin.username and admin.validate_password(password):
-                login_user(admin, remember)
-                flash('欢迎回来', 'success')
-                return redirect(url_for('admin'))
-        else:
+        admin = Admin.query.filter_by(username=username).first()
+        if admin is None or not admin.validate_password(password):
             flash('用户名或密码错误.', 'warning')
+            return redirect(url_for('login'))
+        login_user(admin, remember)
+        flash('欢迎回来.', 'success')
+        return redirect(url_for('admin'))
     return render_template('login.html', form=form)
 
 
@@ -446,6 +456,22 @@ def delete_message(message_id):
     db.session.commit()
     flash('删除成功.', 'success')
     return redirect(url_for('message'))
+
+@app.route('/admin/change_password', methods=['GET', 'POST'])
+def change_password():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        admin = Admin.query.get(current_user.id)
+        if admin.validate_password(form.current_password.data):
+            admin.set_password(form.new_password.data)
+            db.session.commit()
+            flash('密码修改成功,请重新登录.', 'success')
+            logout_user()
+            return redirect(url_for('login'))
+        else:
+            flash('原密码错误.', 'warning')
+    return render_template('change_password.html', form=form)
+
 
 
 if __name__ == '__main__':
