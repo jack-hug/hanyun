@@ -24,6 +24,9 @@ from flask_bootstrap import Bootstrap5
 
 from emails import send_new_message_email
 
+from dotenv import load_dotenv
+
+load_dotenv('.flaskenv')
 
 app = Flask(__name__)
 
