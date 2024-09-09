@@ -239,7 +239,7 @@ def index():
         db.session.commit()
         flash('Message sent successfully!We will reply to you as soon as possible!', 'success')
 
-        send_new_message_email()
+        send_new_message_email(messageform.email.data, messageform.content.data)
         messageform.name.data = ''
         messageform.email.data = ''
         messageform.content.data = ''
@@ -265,7 +265,7 @@ def contact():
         db.session.commit()
         flash('Message sent successfully!We will reply to you as soon as possible!', 'success')
 
-        send_new_message_email()
+        send_new_message_email(messageform.email.data, messageform.content.data)
         messageform.name.data = ''
         messageform.email.data = ''
         messageform.content.data = ''

@@ -17,9 +17,14 @@ def send_mail(subject, to, html):
     thr.start()
     return thr
 
-def send_new_message_email():
+
+def send_new_message_email(email, content):
     message_url = url_for('message', _external=True)
     send_mail(subject='There is new message from hanyunmold website', to=current_app.config['HY_ADMIN_EMAIL'],
-              html='<p>click the link below to check:</p>'
-                   '<p><a href="%s" style="font-size: 16px;">Link</a></p>'
-                   '<p><small style="color: #868e96">Do not reply this email.</small></p>' % message_url)
+              html='<p>You have received a new message from the hanyunmold website:</p>'
+                   '<p><strong>Content:</strong> %s</p>'
+                   '<p><strong>Email:</strong> <a href="mailto:%s">%s</a></p>'
+                   '<p>Click the link below to check:</p>'
+                   '<p><a href="%s" style="font-size: 16px;">Link to the Messages.</a></p>'
+                   '<p><small style="color: #868e96">Do not reply this email.</small></p>'
+                   % (content, email, email, message_url))
