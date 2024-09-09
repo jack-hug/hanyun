@@ -23,6 +23,9 @@ from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap5
 
 from emails import send_new_message_email
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
