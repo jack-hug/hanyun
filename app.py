@@ -441,7 +441,6 @@ def websiteinfo():
 
 
 @app.route('/admin/message', methods=['GET', 'POST'])
-@login_required
 def message():
     page = request.args.get('page', 1, type=int)
     pagination = Message.query.order_by(Message.timestamp.desc()).paginate(page=page, per_page=current_app.config['HY_MESSAGE_PER_PAGE'])
