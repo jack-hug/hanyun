@@ -23,6 +23,7 @@
                                         <small>{{ moment(message.timestamp).fromNow(refresh=True) }}</small>
                                     </div>
                                     <p class="mb-1">{{ message.content }}</p>
+                                    {% if current_user.is_authenticated %}
                                     <div class="d-flex w-100 justify-content-end">
                                         <form action="{{ url_for('delete_message', message_id=message.id) }}"
                                               method="post">
@@ -33,6 +34,7 @@
                                             </button>
                                         </form>
                                     </div>
+                                {% endif %}
                                 </div>
                             {% endfor %}
                         </div>
