@@ -235,17 +235,17 @@ def index():
     return render_template('index.html', products=products, messageform=messageform)
 
 
-@app.route('/products')
+@app.route('/products')  # 产品列表
 def products():
     return render_template('products.html')
 
 
-@app.route('/company')
+@app.route('/company')  # 公司介绍
 def company():
     return render_template('company.html')
 
 
-@app.route('/contact', methods=['GET', 'POST'])
+@app.route('/contact', methods=['GET', 'POST'])  # 联系我们
 def contact():
     messageform = MessageForm()
     if messageform.validate_on_submit():
@@ -261,7 +261,7 @@ def contact():
     return render_template('contact.html', messageform=messageform)
 
 
-@app.route('/product/<int:product_id>')
+@app.route('/product/<int:product_id>')  # 产品详情
 def product(product_id):
     product = Product.query.get(product_id)
     recommends_products = Product.query.filter(Product.id != product_id).all()
@@ -276,6 +276,7 @@ def admin():
 
 
 @app.route('/admin/edit_product/<int:product_id>', methods=['GET', 'POST'])  # 编辑产品
+@login_required
 def edit_product(product_id):
     form = EditProductForm()
     product = Product.query.get_or_404(product_id)
@@ -306,6 +307,7 @@ def edit_product(product_id):
 
 
 @app.route('/upload', methods=['POST'])  # 上传图片
+@login_required
 def upload():
     f = request.files.get('upload')
     if not allowed_file(f.filename):
@@ -318,6 +320,7 @@ def upload():
 
 
 @app.route('/admin/add_product', methods=['GET', 'POST'])  # 添加产品
+@login_required
 def add_product():
     form = AddProductForm()
     if request.method == 'POST':
@@ -346,6 +349,7 @@ def add_product():
 
 
 @app.route('/delete_product/<int:product_id>', methods=['GET', 'POST'])  # 删除产品
+@login_required
 def delete_product(product_id):
     product = Product.query.get(product_id)
     db.session.delete(product)
@@ -355,6 +359,7 @@ def delete_product(product_id):
 
 
 @app.route('/delete_photo/<int:photo_id>', methods=['POST'])  # 删除图片
+@login_required
 def delete_photo(photo_id):
     photo = Photo.query.get_or_404(photo_id)
     db.session.delete(photo)
@@ -426,6 +431,7 @@ def websiteinfo():
 
 
 @app.route('/admin/message', methods=['GET', 'POST'])
+@login_required
 def message():
     page = request.args.get('page', 1, type=int)
     pagination = Message.query.order_by(Message.timestamp.desc()).paginate(page=page, per_page=current_app.config['HY_MESSAGE_PER_PAGE'])
@@ -433,6 +439,7 @@ def message():
     return render_template('message.html', messages=messages, pagination=pagination)
 
 @app.route('/delete_message/<int:message_id>', methods=['GET', 'POST'])
+@login_required
 def delete_message(message_id):
     message = Message.query.get(message_id)
     db.session.delete(message)
