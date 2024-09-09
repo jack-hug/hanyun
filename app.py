@@ -123,15 +123,15 @@ class WebsiteInfo(db.Model):  # 网站信息表
     id = db.Column(db.Integer, primary_key=True)
     quick_information = db.Column(db.Text(),
                                   default='Hanyun mold have more than 10 years of experience<br> in making slide core units.')
-    company_name = db.Column(db.String(50), default='Shenzhen Hanyun Mold Co.,Ltd')
-    company_address = db.Column(db.String(50))
-    company_phone = db.Column(db.String(50))
-    company_email = db.Column(db.String(50), default='karen@hanyunmold.com')
+    company_name = db.Column(db.String(100), default='Shenzhen Hanyun Mold Co.,Ltd')
+    company_address = db.Column(db.String(100))
+    company_phone = db.Column(db.String(100))
+    company_email = db.Column(db.String(100), default='karen@hanyunmold.com')
 
-    skype = db.Column(db.String(50))
-    facebook = db.Column(db.String(50))
-    twitter = db.Column(db.String(50))
-    line = db.Column(db.String(50))
+    skype = db.Column(db.String(100))
+    facebook = db.Column(db.String(100))
+    twitter = db.Column(db.String(100))
+    line = db.Column(db.String(100))
 
 
 class Admin(db.Model, UserMixin):
@@ -178,14 +178,14 @@ class LoginForm(FlaskForm):
 
 class WebsiteInfoForm(FlaskForm):
     quick_information = TextAreaField('Quick Information', validators=[Length(0, 200)])
-    company_name = StringField('Company Name', validators=[Length(0, 50)])
-    company_address = StringField('Company Address', validators=[Length(0, 50)])
-    company_phone = StringField('Company Phone', validators=[Length(0, 50)])
-    company_email = StringField('Company Email', validators=[Length(0, 50)])
-    skype = StringField('Skype', validators=[Length(0, 50)])
-    facebook = StringField('Facebook', validators=[Length(0, 50)])
-    twitter = StringField('Twitter', validators=[Length(0, 50)])
-    line = StringField('Line', validators=[Length(0, 50)])
+    company_name = StringField('Company Name', validators=[Length(0, 100)])
+    company_address = StringField('Company Address', validators=[Length(0, 100)])
+    company_phone = StringField('Company Phone', validators=[Length(0, 100)])
+    company_email = StringField('Company Email', validators=[Length(0, 100)])
+    skype = StringField('Skype', validators=[Length(0, 100)])
+    facebook = StringField('Facebook', validators=[Length(0, 100)])
+    twitter = StringField('Twitter', validators=[Length(0, 100)])
+    line = StringField('Line', validators=[Length(0, 100)])
     submit = SubmitField('Submit')
 
 
@@ -264,14 +264,14 @@ def product(product_id):
     return render_template('product.html', product=product, recommends_products=recommends_products)
 
 
-@app.route('/admin', methods=['GET', 'POST'])  # 后台
+@app.route('/admin/products', methods=['GET', 'POST'])  # 后台
 @login_required
 def admin():
     products_length = Product.query.count()
     return render_template('admin.html', products_length=products_length)
 
 
-@app.route('/edit_product/<int:product_id>', methods=['GET', 'POST'])  # 编辑产品
+@app.route('/admin/edit_product/<int:product_id>', methods=['GET', 'POST'])  # 编辑产品
 def edit_product(product_id):
     form = EditProductForm()
     product = Product.query.get_or_404(product_id)
@@ -313,7 +313,7 @@ def upload():
     return upload_success(url=url)
 
 
-@app.route('/add_product', methods=['GET', 'POST'])  # 添加产品
+@app.route('/admin/add_product', methods=['GET', 'POST'])  # 添加产品
 def add_product():
     form = AddProductForm()
     if request.method == 'POST':
@@ -364,7 +364,7 @@ def get_image(filename):
     return send_from_directory(current_app.config['HY_UPLOAD_PATH'], filename)
 
 
-@app.route('/login', methods=['GET', 'POST'])  # 登录
+@app.route('/admin/login', methods=['GET', 'POST'])  # 登录
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('admin'))
@@ -392,7 +392,7 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/websiteinfo', methods=['GET', 'POST'])  # 网站信息
+@app.route('/admin/websiteinfo', methods=['GET', 'POST'])  # 网站信息
 def websiteinfo():
     websiteinfo = WebsiteInfo.query.first()
     form = WebsiteInfoForm()
@@ -421,7 +421,7 @@ def websiteinfo():
     return render_template('websiteinfo.html', form=form)
 
 
-@app.route('/message', methods=['GET', 'POST'])
+@app.route('/admin/message', methods=['GET', 'POST'])
 def message():
     page = request.args.get('page', 1, type=int)
     pagination = Message.query.order_by(Message.timestamp.desc()).paginate(page=page, per_page=current_app.config['HY_MESSAGE_PER_PAGE'])
