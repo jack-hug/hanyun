@@ -21,7 +21,7 @@
         <a class="navbar-brand" href="{{ url_for('index') }}">
             <img alt="hanyun" src="{{ url_for('static', filename='img/logo3.png') }}" style="max-height: 40px;">
         </a>
-            <a class="navbar-brand" href="{{ url_for('index') }}">
+        <a class="navbar-brand" href="{{ url_for('index') }}">
             <img alt="hanyun" src="{{ url_for('static', filename='img/logo.png') }}" style="max-height: 40px;">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#hanyunnavbarcontent"
@@ -113,7 +113,8 @@
         </div>
     </div>
 {% endblock %}
-
+{{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
+{{ moment.locale(auto_detect=True) }}
 {% block scripts %}
     <script src="{{ url_for('static', filename = 'js/jquery.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -146,7 +147,5 @@
         });
     </script>
 {% endblock %}
-{{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
-{{ moment.locale(auto_detect=True) }}
 </body>
 </html>

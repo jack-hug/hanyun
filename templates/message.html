@@ -19,22 +19,26 @@
                                             <span class="fs-5">{{ message.name }} </span>
                                             <span class="fs-6 text-muted"> {{ message.email }}</span>
                                         </div>
-
-                                        <small>{{ moment(message.timestamp).fromNow(refresh=True) }}</small>
+                                        <div class="mb-2">
+                                            <small data-bs-toggle="tooltip" data-bs-placement="top"
+                                                   data-timestamp="{{ message.timestamp }}">
+                                                {{ moment(message.timestamp).fromNow() }}
+                                            </small>
+                                        </div>
                                     </div>
                                     <p class="mb-1">{{ message.content }}</p>
                                     {% if current_user.is_authenticated %}
-                                    <div class="d-flex w-100 justify-content-end">
-                                        <form action="{{ url_for('delete_message', message_id=message.id) }}"
-                                              method="post">
-                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                                            <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('确定要删除吗？')">
-                                                <i class="fa-regular fa-trash-can" title="删除"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                {% endif %}
+                                        <div class="d-flex w-100 justify-content-end">
+                                            <form action="{{ url_for('delete_message', message_id=message.id) }}"
+                                                  method="post">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                                <button type="submit" class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('确定要删除吗？')">
+                                                    <i class="fa-regular fa-trash-can" title="删除"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             {% endfor %}
                         </div>
@@ -48,4 +52,23 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script>
+        // 初始化 Bootstrap Tooltip
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            // 获取 data-timestamp 属性
+            var timestamp = tooltipTriggerEl.getAttribute('data-timestamp');
+            // 使用 Moment.js 格式化时间
+            var formattedTime = moment.utc(timestamp).local().format('lll');
+            // 设置 title 属性
+            tooltipTriggerEl.setAttribute('title', formattedTime);
+            // 初始化 Tooltip
+            return new bootstrap.Tooltip(tooltipTriggerEl, {
+                delay: {"show": 500, "hide": 0} // 设置显示延迟为 500ms
+            });
+        });
+    </script>
 {% endblock %}

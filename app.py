@@ -83,7 +83,7 @@ class Product(db.Model):  # 产品表
     level = db.Column(db.String(200))
     oem = db.Column(db.String(200))
     content = db.Column(db.Text())
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     clicks = db.Column(db.Integer)
 
 
@@ -91,7 +91,7 @@ class Photo(db.Model):  # 图片表
     __tablename__ = 'photo'
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(100))
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     product = db.relationship('Product', backref=db.backref('photos', lazy='dynamic', cascade='all, delete-orphan'))
     source = db.Column(db.String(200), default='form')  # 区别图片来源
@@ -102,7 +102,7 @@ class About(db.Model):  # 关于我们表
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
     content = db.Column(db.Text())
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
 
 class Advantage(db.Model):  # 优势表
@@ -110,7 +110,7 @@ class Advantage(db.Model):  # 优势表
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     content = db.Column(db.Text())
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
 
 class Message(db.Model):
@@ -119,7 +119,7 @@ class Message(db.Model):
     name = db.Column(db.String(50))
     email = db.Column(db.String(50))
     content = db.Column(db.Text())
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow())
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
 
 class WebsiteInfo(db.Model):  # 网站信息表
