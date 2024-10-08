@@ -9,9 +9,14 @@
                 {% include '_slider_admin.html' %}
                 <div class="col-md-10">
                     <div class="d-flex justify-content-between align-items-center">
-                        <a type="button" class="btn btn-primary" href="{{ url_for('add_product') }}"><i
-                                class="fa-solid fa-plus"></i> 添加产品
-                        </a>
+                        <div>
+                            <a type="button" class="btn btn-primary" href="{{ url_for('add_product') }}"><i
+                                    class="fa-solid fa-plus"></i> 添加产品
+                            </a>
+                            <a type="button" class="btn btn-primary" href="{{ url_for('add_category') }}"><i
+                                    class="fa-solid fa-plus"></i> 添加分类
+                            </a>
+                        </div>
                         <span class="px-5">共有 <strong>{{ products_length }}</strong> 条产品信息</span>
                     </div>
                     <hr>
@@ -21,6 +26,7 @@
                             <th scope="col">ID</th>
                             <th scope="col">Photo</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Category</th>
                             <th scope="col">Material</th>
                             <th scope="col">Quality Level</th>
                             <th scope="col">OEM/ODM</th>
@@ -45,6 +51,7 @@
                                     {% endif %}
                                     <td><a href="{{ url_for('product', product_id=product.id) }}"
                                            target="_blank">{{ product.name }}</a></td>
+                                    <td>{{ product.category.name }}</td>
                                     <td>{{ product.material }}</td>
                                     <td>{{ product.level }}</td>
                                     <td>{{ product.oem }}</td>

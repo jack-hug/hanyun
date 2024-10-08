@@ -11,7 +11,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 
 from config import config
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from flask_wtf.csrf import CSRFProtect
 from flask_ckeditor import CKEditor, CKEditorField, upload_fail, upload_success
@@ -86,6 +86,8 @@ class Product(db.Model):  # 产品表
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     clicks = db.Column(db.Integer)
 
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+
 
 class Photo(db.Model):  # 图片表
     __tablename__ = 'photo'
@@ -113,7 +115,7 @@ class Advantage(db.Model):  # 优势表
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
 
-class Message(db.Model):
+class Message(db.Model):  # 留言表
     __tablename__ = 'message'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
@@ -138,7 +140,7 @@ class WebsiteInfo(db.Model):  # 网站信息表
     line = db.Column(db.String(100))
 
 
-class Admin(db.Model, UserMixin):
+class Admin(db.Model, UserMixin):  # 管理员表
     __tablename__ = 'admin'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20))
@@ -151,8 +153,17 @@ class Admin(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
 
+class Category(db.Model):
+    __tablename__ = 'category'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+
+    products = db.relationship('Product', backref='category')
+
+
 class EditProductForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    category = SelectField('Category', coerce=int)
     price = StringField('Price', validators=[DataRequired(), Length(1, 20)])
     material = StringField('Material', validators=[Length(0, 200)])
     level = StringField('Level', validators=[Length(0, 200)])
@@ -164,6 +175,7 @@ class EditProductForm(FlaskForm):
 
 class AddProductForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    category = SelectField('Category', coerce=int)
     price = StringField('Price', validators=[DataRequired(), Length(1, 20)])
     material = StringField('Material', validators=[Length(0, 200)])
     level = StringField('Level', validators=[Length(0, 200)])
@@ -203,12 +215,24 @@ class MessageForm(FlaskForm):
 class ChangePasswordForm(FlaskForm):
     current_password = PasswordField('Current Password', validators=[DataRequired(), Length(1, 128)])
     new_password = PasswordField('New Password', validators=[DataRequired(), Length(1, 128)])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), Length(1, 128), EqualTo('new_password', message='两次输入密码不一致!')])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), Length(1, 128),
+                                                                     EqualTo('new_password',
+                                                                             message='两次输入密码不一致!')])
     submit = SubmitField('Submit')
 
     def validate_new_password(self, new_password):
         if self.current_password.data == new_password.data:
             raise ValidationError('新密码不能和旧密码相同.')
+
+
+class AddCategoryForm(FlaskForm):
+    name = StringField('分类名称', validators=[DataRequired(), Length(1, 50)])
+    submit = SubmitField('Submit')
+
+
+# class EditCategoryForm(FlaskForm):
+#     name = StringField('分类名称', validators=[DataRequired(), Length(1, 50)])
+#     submit = SubmitField('Submit')
 
 
 @app.context_processor
@@ -248,7 +272,9 @@ def index():
 
 @app.route('/products')  # 产品列表
 def products():
-    return render_template('products.html')
+    ejector_products = Product.query.filter(Product.category_id == 2).all()
+    locating_products = Product.query.filter(Product.category_id == 3).all()
+    return render_template('products.html', ejector_products=ejector_products, locating_products=locating_products)
 
 
 @app.route('/company')  # 公司介绍
@@ -291,8 +317,13 @@ def admin():
 def edit_product(product_id):
     form = EditProductForm()
     product = Product.query.get_or_404(product_id)
+
+    categories = Category.query.all()
+    form.category.choices = [(category.id, category.name) for category in categories]
+
     if form.validate_on_submit():
         product.name = form.name.data
+        product.category_id = form.category.data
         product.price = form.price.data
         product.material = form.material.data
         product.level = form.level.data
@@ -309,6 +340,7 @@ def edit_product(product_id):
         return redirect(url_for('admin'))
 
     form.name.data = product.name
+    form.category.data = product.category_id
     form.price.data = product.price
     form.material.data = product.material
     form.level.data = product.level
@@ -334,10 +366,14 @@ def upload():
 @login_required
 def add_product():
     form = AddProductForm()
+    categories = Category.query.all()
+    form.category.choices = [(category.id, category.name) for category in categories]
+
     if request.method == 'POST':
         if form.validate_on_submit():
             product = Product(
                 name=form.name.data,
+                category_id=form.category.data,
                 price=form.price.data,
                 material=form.material.data,
                 level=form.level.data,
@@ -443,9 +479,11 @@ def websiteinfo():
 @app.route('/admin/message', methods=['GET', 'POST'])
 def message():
     page = request.args.get('page', 1, type=int)
-    pagination = Message.query.order_by(Message.timestamp.desc()).paginate(page=page, per_page=current_app.config['HY_MESSAGE_PER_PAGE'])
+    pagination = Message.query.order_by(Message.timestamp.desc()).paginate(page=page, per_page=current_app.config[
+        'HY_MESSAGE_PER_PAGE'])
     messages = pagination.items
     return render_template('message.html', messages=messages, pagination=pagination)
+
 
 @app.route('/delete_message/<int:message_id>', methods=['GET', 'POST'])
 @login_required
@@ -455,6 +493,7 @@ def delete_message(message_id):
     db.session.commit()
     flash('删除成功.', 'success')
     return redirect(url_for('message'))
+
 
 @app.route('/admin/change_password', methods=['GET', 'POST'])
 def change_password():
@@ -471,6 +510,34 @@ def change_password():
             flash('原密码错误.', 'warning')
     return render_template('change_password.html', form=form)
 
+
+@app.route('/admin/add_category', methods=['GET', 'POST'])
+@login_required
+def add_category():
+    form = AddCategoryForm()
+    if form.validate_on_submit():
+        category = Category(name=form.name.data)
+        db.session.add(category)
+        db.session.commit()
+        flash('添加成功.', 'success')
+        return redirect(url_for('admin'))
+    return render_template('add_category.html', form=form)
+
+
+# 编辑分类
+@app.route('/edit_category/<int:category_id>', methods=['GET', 'POST'])
+@login_required
+def edit_category(category_id):
+    pass
+    # category = Category.query.get(category_id)
+    # form = EditCategoryForm()
+    # if form.validate_on_submit():
+    #     category.name = form.name.data
+    #     db.session.commit()
+    #     flash('修改成功.', 'success')
+    #     return redirect(url_for('admin'))
+    # form.name.data = category.name
+    # return render_template('edit_category.html', form=form)
 
 
 if __name__ == '__main__':
