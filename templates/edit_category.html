@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Add Category{% endblock %}
+
+{% block content %}
+    <div class="section bg-white py-5 custom-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="POST" class="form">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.name.label(class="form-label") }}
+                            {{ form.name(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.submit(class="btn btn-primary btn-md") }}
+                            <a type="submit" class="btn btn-secondary btn-md" href="{{ url_for('add_category') }}">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

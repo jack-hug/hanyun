@@ -230,9 +230,9 @@ class AddCategoryForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
-# class EditCategoryForm(FlaskForm):
-#     name = StringField('分类名称', validators=[DataRequired(), Length(1, 50)])
-#     submit = SubmitField('Submit')
+class EditCategoryForm(FlaskForm):
+    name = StringField('分类名称', validators=[DataRequired(), Length(1, 50)])
+    submit = SubmitField('Submit')
 
 
 @app.context_processor
@@ -272,8 +272,8 @@ def index():
 
 @app.route('/products')  # 产品列表
 def products():
-    ejector_products = Product.query.filter(Product.category_id == 2).all()
-    locating_products = Product.query.filter(Product.category_id == 3).all()
+    ejector_products = Product.query.join(Category, Product.category_id == Category.id).filter(Category.name == 'Ejector series').all()
+    locating_products = Product.query.join(Category, Product.category_id == Category.id).filter(Category.name == 'Locating parts series').all()
     return render_template('products.html', ejector_products=ejector_products, locating_products=locating_products)
 
 
@@ -515,29 +515,34 @@ def change_password():
 @login_required
 def add_category():
     form = AddCategoryForm()
+    categories = Category.query.all()
     if form.validate_on_submit():
-        category = Category(name=form.name.data)
-        db.session.add(category)
-        db.session.commit()
-        flash('添加成功.', 'success')
-        return redirect(url_for('admin'))
-    return render_template('add_category.html', form=form)
+        existing_category = Category.query.filter_by(name=form.name.data).first()
+        if existing_category:
+            flash('分类已存在.', 'warning')
+            return redirect(url_for('add_category'))
+        else:
+            category = Category(name=form.name.data)
+            db.session.add(category)
+            db.session.commit()
+            flash('添加成功.', 'success')
+            return redirect(url_for('admin'))
+    return render_template('add_category.html', form=form, categories=categories)
 
 
 # 编辑分类
 @app.route('/edit_category/<int:category_id>', methods=['GET', 'POST'])
 @login_required
 def edit_category(category_id):
-    pass
-    # category = Category.query.get(category_id)
-    # form = EditCategoryForm()
-    # if form.validate_on_submit():
-    #     category.name = form.name.data
-    #     db.session.commit()
-    #     flash('修改成功.', 'success')
-    #     return redirect(url_for('admin'))
-    # form.name.data = category.name
-    # return render_template('edit_category.html', form=form)
+    category = Category.query.get(category_id)
+    form = EditCategoryForm()
+    if form.validate_on_submit():
+        category.name = form.name.data
+        db.session.commit()
+        flash('修改成功.', 'success')
+        return redirect(url_for('admin'))
+    form.name.data = category.name
+    return render_template('edit_category.html', form=form)
 
 
 if __name__ == '__main__':
