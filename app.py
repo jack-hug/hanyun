@@ -243,8 +243,8 @@ def make_template_context():
         advantages=Advantage.query.order_by(Advantage.id.asc()).all(),
         websiteinfo=WebsiteInfo.query.order_by(WebsiteInfo.id.desc()).first(),
         messages=Message.query.order_by(Message.timestamp.desc()).all(),
-        messageform=MessageForm()
-
+        messageform=MessageForm(),
+        categories=Category.query.order_by(Category.id.asc()).all(),
     )
 
 
@@ -270,11 +270,17 @@ def index():
     return render_template('index.html', products=products, messageform=messageform)
 
 
-@app.route('/products')  # 产品列表
-def products():
-    ejector_products = Product.query.join(Category, Product.category_id == Category.id).filter(Category.name == 'Ejector series').all()
-    locating_products = Product.query.join(Category, Product.category_id == Category.id).filter(Category.name == 'Locating parts series').all()
-    return render_template('products.html', ejector_products=ejector_products, locating_products=locating_products)
+@app.route('/category/<int:category_id>', methods=['GET', 'POST'])
+def category(category_id):
+    category = Category.query.get_or_404(category_id)
+    if category.name == 'Ejector series':
+        ejector_products = Product.query.join(Category, Product.category_id == Category.id).filter(
+            Category.name == 'Ejector series').all()
+        return render_template('ejector_products.html', ejector_products=ejector_products, category_id=category_id, category=category)
+    elif category.name == 'Locating parts series':
+        locating_products = Product.query.join(Category, Product.category_id == Category.id).filter(
+            Category.name == 'Locating parts series').all()
+        return render_template('locating_products.html', locating_products=locating_products, category_id=category_id, category=category)
 
 
 @app.route('/company')  # 公司介绍
