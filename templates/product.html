@@ -71,21 +71,25 @@
 
                     <div class="row justify-content-end">
                         <div class="col-auto">
-                            <span class="fs-2"><a href="#" class="facebook-icon"><i
-                                    class="fa-brands fa-facebook"></i></a></span>
+                            <span class="fs-2"><a href="https://www.linkedin.com/in/karen-wen-a253b9329" class="linkedin-icon"><i
+                                    class="fa-brands fa-linkedin"></i></a></span>
                         </div>
-                        <div class="col-auto">
-                            <span class="fs-2"><a href="#" class="line-icon"><i
-                                    class="fa-brands fa-line"></i></a></span>
-                        </div>
-                        <div class="col-auto">
-                            <span class="fs-2"><a href="#" class="twitter-icon"><i
-                                    class="fa-brands fa-square-twitter"></i></a></span>
-                        </div>
-                        <div class="col-auto">
-                            <span class="fs-2"><a href="#" class="skype-icon"><i
-                                    class="fa-brands fa-skype"></i></a></span>
-                        </div>
+{#                        <div class="col-auto">#}
+{#                            <span class="fs-2"><a href="#" class="facebook-icon"><i#}
+{#                                    class="fa-brands fa-facebook"></i></a></span>#}
+{#                        </div>#}
+{#                        <div class="col-auto">#}
+{#                            <span class="fs-2"><a href="#" class="line-icon"><i#}
+{#                                    class="fa-brands fa-line"></i></a></span>#}
+{#                        </div>#}
+{#                        <div class="col-auto">#}
+{#                            <span class="fs-2"><a href="#" class="twitter-icon"><i#}
+{#                                    class="fa-brands fa-square-twitter"></i></a></span>#}
+{#                        </div>#}
+{#                        <div class="col-auto">#}
+{#                            <span class="fs-2"><a href="#" class="skype-icon"><i#}
+{#                                    class="fa-brands fa-skype"></i></a></span>#}
+{#                        </div>#}
                     </div>
                 </div>
             </div>
@@ -109,7 +113,8 @@
                     {% if photo %}
                         <div class="card">
                             <a href="{{ url_for('product', product_id=product.id) }}">
-                                <img src="{{ url_for('get_image', filename=photo.filename) }}" class="card-img-top img-thumbnail"
+                                <img src="{{ url_for('get_image', filename=photo.filename) }}"
+                                     class="card-img-top img-thumbnail"
                                      alt="product-image">
                             </a>
                             <div class="card-body">

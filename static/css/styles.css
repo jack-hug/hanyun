@@ -152,6 +152,15 @@
     color: #00aff0; /* 鼠标划过时的颜色 */
 }
 
+.linkedin-icon {
+    color: #8b8b8b;
+    transition: color 0.2s ease;
+}
+
+.linkedin-icon:hover {
+    color: #0077B5;
+}
+
 .light-move {
     position: relative;
     overflow: hidden;
