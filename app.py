@@ -157,6 +157,7 @@ class Category(db.Model):
     __tablename__ = 'category'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
+    description = db.Column(db.Text())
 
     products = db.relationship('Product', backref='category')
 
@@ -227,11 +228,13 @@ class ChangePasswordForm(FlaskForm):
 
 class AddCategoryForm(FlaskForm):
     name = StringField('分类名称', validators=[DataRequired(), Length(1, 50)])
+    description = TextAreaField('分类简介', validators=[Length(0, 500)])
     submit = SubmitField('Submit')
 
 
 class EditCategoryForm(FlaskForm):
     name = StringField('分类名称', validators=[DataRequired(), Length(1, 50)])
+    description = TextAreaField('分类简介', validators=[Length(0, 500)])
     submit = SubmitField('Submit')
 
 
@@ -528,7 +531,7 @@ def add_category():
             flash('分类已存在.', 'warning')
             return redirect(url_for('add_category'))
         else:
-            category = Category(name=form.name.data)
+            category = Category(name=form.name.data, description=form.description.data)
             db.session.add(category)
             db.session.commit()
             flash('添加成功.', 'success')
@@ -544,6 +547,7 @@ def edit_category(category_id):
     form = EditCategoryForm()
     if form.validate_on_submit():
         category.name = form.name.data
+        category.description = form.description.data
         db.session.commit()
         flash('修改成功.', 'success')
         return redirect(url_for('admin'))
