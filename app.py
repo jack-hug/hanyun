@@ -276,15 +276,8 @@ def index():
 @app.route('/category/<int:category_id>', methods=['GET', 'POST'])
 def category(category_id):
     category = Category.query.get_or_404(category_id)
-    if category.name == 'Ejector series':
-        ejector_products = Product.query.join(Category, Product.category_id == Category.id).filter(
-            Category.name == 'Ejector series').all()
-        return render_template('ejector_products.html', ejector_products=ejector_products, category_id=category_id, category=category)
-    elif category.name == 'Locating parts series':
-        locating_products = Product.query.join(Category, Product.category_id == Category.id).filter(
-            Category.name == 'Locating parts series').all()
-        return render_template('locating_products.html', locating_products=locating_products, category_id=category_id, category=category)
-
+    products = Product.query.filter_by(category_id=category_id).all()
+    return render_template('products.html', products=products, category_id=category_id, category=category)
 
 @app.route('/company')  # 公司介绍
 def company():
@@ -552,6 +545,7 @@ def edit_category(category_id):
         flash('修改成功.', 'success')
         return redirect(url_for('admin'))
     form.name.data = category.name
+    form.description.data = category.description
     return render_template('edit_category.html', form=form)
 
 

@@ -19,16 +19,25 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">{{ category.name }}</li>
-                    <li class="breadcrumb-item active" aria-current="page">PRODUCTS</li>
+                    <li class="breadcrumb-item active" aria-current="page">Products</li>
                 </ol>
             </nav>
             <div class="row">
-                {% include '_slide_category.html' %}
+                <div class="col-md-3">
+                    <ul class="list-group">
+                        <li class="list-group-item bg-light fw-bold">Category</li>
+                        {% for category in categories %}
+                            <a href="{{ url_for('category', category_id=category.id) }}"
+                               class="list-group-item list-group-item-action {% if category.id == category_id %}active
+                               {% endif %}">{{ category.name }}</a>
+                        {% endfor %}
+                    </ul>
+                </div>
                 <div class="col-md-9">
                     <div class="py-3 bg-white shadow">{{ category.name }}</div>
                     <div class="row">
-                        {% if locating_products %}
-                            {% for product in locating_products %}
+                        {% if products %}
+                            {% for product in products %}
                                 <div class="col-md-3 col-sm-6 my-2">
                                     <div class="card my-3 transition_style">
                                         <div class="light-move">
@@ -50,7 +59,7 @@
                                 </div>
                             {% endfor %}
                         {% else %}
-                            <div class="h1">no products</div>
+                            <div class="h1 mt-5">no products</div>
                         {% endif %}
                     </div>
                 </div>
