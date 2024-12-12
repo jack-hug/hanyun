@@ -99,27 +99,51 @@
                 <h2 class="py-3">{{ category.name }}</h2>
                 <p>{{ category.description }}</p>
                 <div class="row">
-                    {% for product in category.products[:8] %}
-                        <div class="col-md-3 col-sm-6 col-12 my-2">
-                            <div class="card my-3 transition_style">
-                                <div class="light-move">
-                                    <a href="{{ url_for('product', product_id=product.id) }}">
-                                        {% set photo = product.photos|first %}
-                                        {% if photo %}
-                                            <img src="{{ url_for('get_image', filename=photo.filename) }}"
-                                                 alt="{{ product.name }}" class="img-fluid">
-                                        {% else %}
-                                            <img class="card-img-top"
-                                                 src="{{ url_for('static', filename='img/no_product.jpg') }}"
-                                                 alt="Card image cap">
-                                        {% endif %}
-                                    </a>
+                    {% if category.products|length < 8 %}
+                        {% for product in category.products[:4] %}
+                            <div class="col-md-3 col-sm-6 col-12 my-2">
+                                <div class="card my-3 transition_style">
+                                    <div class="light-move">
+                                        <a href="{{ url_for('product', product_id=product.id) }}">
+                                            {% set photo = product.photos|first %}
+                                            {% if photo %}
+                                                <img src="{{ url_for('get_image', filename=photo.filename) }}"
+                                                     alt="{{ product.name }}" class="img-fluid">
+                                            {% else %}
+                                                <img class="card-img-top"
+                                                     src="{{ url_for('static', filename='img/no_product.jpg') }}"
+                                                     alt="Card image cap">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <a href="{{ url_for('product', product_id=product.id) }}"
+                                       class="p-3 btn btn-sm">{{ product.name }}</a>
                                 </div>
-                                <a href="{{ url_for('product', product_id=product.id) }}"
-                                   class="p-3 btn btn-sm">{{ product.name }}</a>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    {% else %}
+                        {% for product in category.products[:8] %}
+                            <div class="col-md-3 col-sm-6 col-12 my-2">
+                                <div class="card my-3 transition_style">
+                                    <div class="light-move">
+                                        <a href="{{ url_for('product', product_id=product.id) }}">
+                                            {% set photo = product.photos|first %}
+                                            {% if photo %}
+                                                <img src="{{ url_for('get_image', filename=photo.filename) }}"
+                                                     alt="{{ product.name }}" class="img-fluid">
+                                            {% else %}
+                                                <img class="card-img-top"
+                                                     src="{{ url_for('static', filename='img/no_product.jpg') }}"
+                                                     alt="Card image cap">
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <a href="{{ url_for('product', product_id=product.id) }}"
+                                       class="p-3 btn btn-sm">{{ product.name }}</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
                 <a href="{{ url_for('category', category_id=category.id) }}"
                    class="btn btn-lg btn-primary ms-auto">
