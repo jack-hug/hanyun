@@ -331,7 +331,7 @@ def edit_product(product_id):
         product.level = form.level.data
         product.oem = form.oem.data
         product.content = form.content.data
-        product.timestamp = datetime.now()
+        product.timestamp = datetime.utcnow()
         db.session.commit()
 
         if 'photos' in request.files and request.files['photos'].filename != '':
@@ -382,7 +382,7 @@ def add_product():
                 oem=form.oem.data,
                 content=form.content.data,
                 clicks=0,
-                timestamp=datetime.now()
+                timestamp=datetime.utcnow()
             )
             db.session.add(product)
             db.session.commit()
