@@ -41,7 +41,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         {% for category in categories %}
-                            <li><a href="{{ url_for('category', category_id=category.id) }}" class="dropdown-item">{{ category.name }}</a></li>
+                            <li><a href="{{ url_for('category', category_id=category.id) }}"
+                                   class="dropdown-item">{{ category.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -85,6 +86,11 @@
             <p class="lh-lg">
                 {{ websiteinfo.quick_information | safe }}
             </p>
+            <span class="ms-5 me-3 fs-1"><a href="https://www.instagram.com/hanyunmold2010/"
+                                       class="instagram-icon" target="_blank"><i class="fa-brands fa-instagram"></i></a></span>
+            <span class="mx-3 fs-1"><a href="https://www.linkedin.com/in/karen-wen-a253b9329"
+                                       class="linkedin-icon" target="_blank"><i
+                    class="fa-brands fa-linkedin"></i></a></span>
         </div>
         <div class="col-md-4">
             <h4>Need more info? Write Us. </h4>
