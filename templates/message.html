@@ -10,7 +10,7 @@
                 {% include '_slider_admin.html' %}
                 <div class="col-md-10">
                     <div class="container">
-                        <h2 class="text-center mb-3">{{ messages | length }} Messages</h2>
+                        <h2 class="text-center mb-3">{{ pagination.total }} Messages</h2>
                         <div class="list-group">
                             {% for message in messages %}
                                 <div class="list-group-item list-group-item-action flex-column">

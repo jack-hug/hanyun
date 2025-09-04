@@ -289,11 +289,11 @@ def contact():
     messageform = MessageForm()
     if messageform.validate_on_submit():
         message = Message(name=messageform.name.data, email=messageform.email.data, content=messageform.content.data)
-        # db.session.add(message)  垃圾信息过多，暂时屏蔽
-        # db.session.commit()
+        db.session.add(message)
+        db.session.commit()
         flash('Message sent successfully!We will reply to you as soon as possible!', 'success')
 
-        send_new_message_email(messageform.email.data, messageform.content.data)
+        # send_new_message_email(messageform.email.data, messageform.content.data)  暂停发邮件功能
         messageform.name.data = ''
         messageform.email.data = ''
         messageform.content.data = ''
