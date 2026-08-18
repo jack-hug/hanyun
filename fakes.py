@@ -5,7 +5,7 @@ import click
 from faker import Faker
 from faker.providers import DynamicProvider
 
-from app import Advantage, About, db, Product, Admin, WebsiteInfo
+from app import Advantage, About, db, Product, Admin, WebsiteInfo, Category
 
 fake = Faker()
 
@@ -22,6 +22,18 @@ products = [
     'RCSUM'
 ]  # 10 products
 
+categories = [
+    'Electronic Accessories',
+    'Electrical Appliance Accessories',
+    'Medical & Rehabilitation Products',
+    'Auto Parts',
+    'Beauty Care Products',
+    'Kitchen & Daily Goods',
+    'Custom Promotional Gifts',
+    'Pet Toys',
+    'Outdoor Accessories',
+]
+
 
 def fake_products():
     for product_name in products:
@@ -29,7 +41,6 @@ def fake_products():
             material = 'Brass+Graphite'
         else:
             material = 'S45C +Brass+Graphite'
-
 
         product = Product(
             name=product_name,
@@ -41,6 +52,12 @@ def fake_products():
             timestamp=datetime.now()
         )
         db.session.add(product)
+    db.session.commit()
+
+def fake_categories():
+    for category_name in categories:
+        category = Category(name=category_name)
+        db.session.add(category)
     db.session.commit()
 
 
@@ -86,6 +103,7 @@ def fake_advantage():
     db.session.add(advantage03)
     db.session.add(advantage04)
     db.session.commit()
+
 
 def fake_website_info():
     website_info = WebsiteInfo(

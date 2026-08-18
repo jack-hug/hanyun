@@ -26,11 +26,11 @@ from emails import send_new_message_email
 
 from dotenv import load_dotenv
 
-load_dotenv('.flaskenv')
+load_dotenv('.env')
 
 app = Flask(__name__)
 
-app.config.from_object(config['production'])
+app.config.from_object(config['development'])
 
 db = SQLAlchemy(app)
 fake = Faker()
@@ -555,7 +555,7 @@ if __name__ == '__main__':
 
 @app.cli.command()  # 生成数据
 def forge():
-    from fakes import fake_products, fake_about, fake_advantage
+    from fakes import fake_products, fake_about, fake_advantage, fake_categories
     click.echo('Drop tables....')
     db.drop_all()
     click.echo('Delete uploads photo...')
@@ -570,6 +570,8 @@ def forge():
     fake_about()
     click.echo('Generating advantage text...')
     fake_advantage()
+    click.echo('Generating categories...')
+    fake_categories()
 
     click.echo('Done.')
 

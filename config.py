@@ -19,7 +19,7 @@ class BaseConfig:
     if not os.path.exists(HY_UPLOAD_PATH):
         os.mkdir(HY_UPLOAD_PATH)
 
-    SECRET_KEY = os.getenv('SECRET_KEY')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-123456')
     MAX_CONTENT_LENGTH = 3 * 1024 * 1024
 
     MAIL_SERVER = os.getenv('MAIL_SERVER')

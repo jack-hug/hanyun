@@ -19,16 +19,16 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top py-3">
     <div class="container">
         <a class="navbar-brand" href="{{ url_for('index') }}">
-            <img alt="hanyun" src="{{ url_for('static', filename='img/logo3.png') }}" style="max-height: 40px;">
+            <img alt="hmb" src="{{ url_for('static', filename='img/logo3.png') }}" style="max-height: 40px;">
         </a>
         <a class="navbar-brand" href="{{ url_for('index') }}">
-            <img alt="hanyun" src="{{ url_for('static', filename='img/logo.png') }}" style="max-height: 40px;">
+            <img alt="hmb" src="{{ url_for('static', filename='img/logo.png') }}" style="max-height: 40px;">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#hanyunnavbarcontent"
-                aria-controls="hanyunnavbarcontent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#hmbnavbarcontent"
+                aria-controls="hmbnavbarcontent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="hanyunnavbarcontent">
+        <div class="collapse navbar-collapse" id="hmbnavbarcontent">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link {% block nav_home %}{% endblock %}" href="{{ url_for('index') }}">HOME <span
