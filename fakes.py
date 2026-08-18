@@ -54,6 +54,7 @@ def fake_products():
         db.session.add(product)
     db.session.commit()
 
+
 def fake_categories():
     for category_name in categories:
         category = Category(name=category_name)
@@ -62,11 +63,12 @@ def fake_categories():
 
 
 def fake_about():
-    about_us = '''HANYUN MOLD was founded in 2010, is a factory specializing in the production of standard slide core unit, precision positioning, various types of sliders, non-standard slide core units. The company is located in Dongguan and continues to develop with its superior geographical location. With more than 10 years of experience in tilting top slides, we have mastered every production step and know how to produce high-quality slides at low cost.
+    about_us = '''Haimbo Silicone & Rubber Co., Ltd.
+We are located in Dong Guan City, with convenient transport links to Dongguan and Hong Kong. As a professional manufacturer specialized in silicone and rubber product development & production, we are equipped with full modern production lines and experienced technical teams.
+Our annual capacity reaches nearly 1,000 tons of silicone & rubber components. We adopt eco-friendly materials to customize parts with excellent performance: high & low temperature resistance, acid & alkali resistance, weathering, ozone resistance, oil resistance, abrasion resistance, anti-tear, anti-corrosion, and adjustable hardness.
 
-In order to shorten the delivery time, we always keep a large amount of semi-inventory and finished products all year round. After receiving the order, we can quickly deliver the products to our customer.
-
-Because we have provided customers with advantageous prices and high-quality slides for many years, we have won the support and trust of our customers.
+We hold ISO9001 certification, and our products can comply with FDA and RoHS requirements.
+One-stop service: Design → Sampling → Quotation → Mass Production
 '''
     about = About(
         name='About Us',
