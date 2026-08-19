@@ -49,8 +49,7 @@
     <section>
         <div class="container-fluid">
             <!-- 一行 row，中等及以上屏幕三列 -->
-            <div class="row g-2"> <!-- g-4 增加列间距 -->
-
+            <div class="row g-2">
                 <!-- 图片 1 -->
                 <div class="col-md-4 col-sm-6 col-12">
                     <a href="#" class="image-card" target="_blank"> <!-- target="_blank" 可选，新窗口打开 -->
@@ -60,7 +59,6 @@
                         </div>
                     </a>
                 </div>
-
                 <!-- 图片 2 -->
                 <div class="col-md-4 col-sm-6 col-12">
                     <a href="#" class="image-card" target="_blank">
@@ -70,7 +68,6 @@
                         </div>
                     </a>
                 </div>
-
                 <!-- 图片 3 -->
                 <div class="col-md-4 col-sm-6 col-12">
                     <a href="#" class="image-card" target="_blank">
@@ -89,7 +86,8 @@
         <div class="container-fluid">
             <div class="row g-2">
                 <div class="col-md-4 g-0">
-                    <img alt="about-us" src="{{ url_for('static', filename='img/about_us_image.png') }}" class="image-fluid w-100">
+                    <img alt="about-us" src="{{ url_for('static', filename='img/about_us_image.png') }}"
+                         class="image-fluid w-100">
                 </div>
                 <div class="col-md-8 g-0 index-container-style d-flex align-items-center">
                     <div class="px-5">
@@ -105,96 +103,177 @@
         </div>
     </section>
 
-    <!-- accepted customization -->
-    <section class="py-5 bg-white" id="customization">
+    <section class="py-5 bg-light">
+        <h2 class="text-center">PRODUCT CATEGORY</h2>
+        <h4 class="text-center text-secondary pb-5">Focus on providing customers with high-quality products</h4>
         <div class="container">
-            <div class="row index-container-style">
-                <div class="col-md-7 d-flex align-items-center">
-                    <div class="px-5">
-                        <h3 class="mb-5">Accepted Customization</h3>
-                        <p class="lh-lg mb-5">Most of our products are standard models, but in order to meet customers'
-                            specific requirements, we have established a special design department that can be processed
-                            according to customers' drawings. Our main design software is UG,We can also open files of
-                            other formats like Solid Works, Pro-E, AutoCAD.
-                            If you need customized, welcome to contact us!
-                        </p>
+            <div class="row g-2">
+
+                <!-- 左侧卡片  -->
+                <div class="col-lg-5">
+                    <a href="#" class="product-card big-card">
+                        <div class="sub-title">HOT-SALE</div>
+                        <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">
+                            <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"
+                               style="color: rgb(0, 166, 60);"></i>
+                            <h3 class="main-title d-inline-block align-middle mb-0">HOT-SALE PRODUCTS</h3>
+                        </div>
+                        <div class="product-img-wrapper">
+                            <img src="{{ url_for('static', filename='img/占位图片600x350.png') }}"
+                                 alt="HOT-SALE PRODUCTS">
+                        </div>
+                    </a>
+                </div>
+
+                <!-- 右侧卡片 -->
+                <div class="col-lg-7">
+                    <div class="row g-2">
+                        <!-- 小卡片 1 -->
+                        <div class="col-6">
+                            <a href="#" class="product-card small-card">
+                                <div class="sub-title">HOT-SALE</div>
+                                <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">
+                                    <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"
+                                       style="color: rgb(0, 166, 60);"></i>
+                                    <h3 class="main-title d-inline-block align-middle mb-0">Baby & Maternity Silicone
+                                        Products</h3>
+                                </div>
+                                <div class="product-img-wrapper">
+                                    <img src="{{ url_for('static', filename='img/占位图片300x200.png') }}"
+                                         alt="Baby & Maternity Silicone Products">
+                                </div>
+                            </a>
+                        </div>
+                        <!-- 小卡片 2 -->
+                        <div class="col-6">
+                            <a href="#" class="product-card small-card">
+                                <div class="sub-title">HOT-SALE</div>
+                                <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">
+                                    <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"
+                                       style="color: rgb(0, 166, 60);"></i>
+                                    <h3 class="main-title d-inline-block align-middle mb-0">Medical‑Grade Silicone
+                                        Parts</h3>
+                                </div>
+                                <div class="product-img-wrapper">
+                                    <img src="{{ url_for('static', filename='img/占位图片300x200.png') }}"
+                                         alt="Medical‑Grade Silicone Parts">
+                                </div>
+                            </a>
+                        </div>
+                        <!-- 小卡片 3 -->
+                        <div class="col-6">
+                            <a href="#" class="product-card small-card">
+                                <div class="sub-title">HOT-SALE</div>
+                                <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">
+                                    <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"
+                                       style="color: rgb(0, 166, 60);"></i>
+                                    <h3 class="main-title d-inline-block align-middle mb-0">Electronic Silicone
+                                        Accessories</h3>
+                                </div>
+                                <div class="product-img-wrapper">
+                                    <img src="{{ url_for('static', filename='img/占位图片300x200.png') }}"
+                                         alt="Electronic Silicone Accessories">
+                                </div>
+                            </a>
+                        </div>
+                        <!-- 小卡片 4 -->
+                        <div class="col-6">
+                            <a href="#" class="product-card small-card">
+                                <div class="sub-title">HOT-SALE</div>
+                                <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">
+                                    <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"
+                                       style="color: rgb(0, 166, 60);"></i>
+                                    <h3 class="main-title d-inline-block align-middle mb-0">Industrial Silicone
+                                        Components</h3>
+                                </div>
+                                <div class="product-img-wrapper">
+                                    <img src="{{ url_for('static', filename='img/占位图片300x200.png') }}"
+                                         alt="Industrial Silicone Components">
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-5">
-                    <img alt="about-us" src="{{ url_for('static', filename='img/customization.jpg') }}"
-                         style="width: 520px;height: auto;" class="image-fluid w-100 company-image-style">
-                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Big Stock -->
-    <section class="py-5 bg-light" id="stock">
-        <div class="container">
-            <div class="row index-container-style">
-                <div class="col-md-5">
-                    <img alt="about-us" src="{{ url_for('static', filename='img/stock.jpg') }}"
-                         style="width: 520px;height: auto;" class="image-fluid w-100 company-image-style">
-                </div>
-                <div class="col-md-7 d-flex align-items-center">
-                    <div class="px-4">
-                        <h3 class="mb-5">Big Stock</h3>
-                        <p class="lh-lg mb-5">
-                            Because we have more than ten years of experience in mold standard parts, we know the
-                            importance of inventory. In order to shorten the delivery time, we always keep a large
-                            semi-stock and finished stock all over the year. Customer can get them in 5-7 days.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section class="py-5 bg-white mb-5">
+  <div class="container">
+    <!-- 标题 -->
+    <div class="row mb-5">
+      <div class="col text-center">
+        <h2 class="fw-bold">Technical Capabilities</h2>
+      </div>
+    </div>
 
-    <!-- Factory -->
-    <section class="py-5 bg-white" id="management">
-        <div class="container">
-            <div class="row index-container-style">
-                <div class="col-md-7 d-flex align-items-center">
-                    <div class="p-3">
-                        <h3 class="mb-5">Dedicated Project Management</h3>
-                        <p class="lh-lg">Dedicated Project Management is one of the key elements to run a
-                            successful program. Our English speaking project managers have a strong background in
-                            project management within the mold industry. We reassign the same project managers to our
-                            partners to build a strong partnership and understanding of program specifications and
-                            requirements.
-                            The team has the necessary resources to perform to a high level of service in order to
-                            insure each order to complete successfully.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <img alt="about-us" src="{{ url_for('static', filename='img/factory.jpg') }}"
-                         style="width: 520px;height: auto;" class="image-fluid w-100 company-image-style">
-                </div>
-            </div>
+    <div class="row g-4">
+      <!-- 卡片1 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 text-center border rounded-3 card-overlap">
+          <div class="img-overlap-wrap">
+            <!-- rounded-circle Bootstrap原生圆形类，控制圆形 -->
+            <img src="https://picsum.photos/id/101/400"
+                 alt="Liquid Silicone Rubber Injection Molding"
+                 class="img-fluid rounded-circle"
+                 style="max-height:140px; object-fit:cover;">
+          </div>
+          <div class="card-body px-4 pt-0">
+            <h4 class="card-title text-primary fs-5 mb-3">Liquid Silicone Rubber Injection Molding</h4>
+            <p class="card-text text-secondary fs-6">
+              With extensive experience in liquid silicone rubber injection molding services, Tayang offers an array of custom LSR products, including silicone rubber buttons, keypads, housings and other silicone rubber parts.
+            </p>
+          </div>
+          <div class="card-footer bg-transparent border-0 pb-4">
+            <button class="btn btn-primary">Read More</button>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- 100% Inspection -->
-    <section class="py-5 bg-light" id="inspection">
-        <div class="container">
-            <div class="row index-container-style">
-                <div class="col-md-5">
-                    <img alt="about-us" src="{{ url_for('static', filename='img/inspection.jpg') }}"
-                         style="width: 520px;height: auto;" class="image-fluid w-100 company-image-style">
-                </div>
-                <div class="col-md-7 d-flex align-items-center">
-                    <div class="px-5">
-                        <h3 class="mb-5">100% Inspection</h3>
-                        <p class="lh-lg mb-5">Quality is the foundation of the company. We know how important quality is
-                            to a company. We use high precision measurement tools and advanced devices to check strictly
-                            and carefully all parts.
-                            No matter how big of your order, our inspection process is the same to ensure that customers
-                            receive satisfied products.
-                        </p>
-                    </div>
-                </div>
-            </div>
+      <!-- 卡片2 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 text-center border rounded-3 card-overlap">
+          <div class="img-overlap-wrap">
+            <img src="https://picsum.photos/id/102/400"
+                 alt="Silicone Rubber Compression Molding"
+                 class="img-fluid rounded-circle"
+                 style="max-height:140px; object-fit:cover;">
+          </div>
+          <div class="card-body px-4 pt-0">
+            <h4 class="card-title text-primary fs-5 mb-3">Silicone Rubber Compression Molding</h4>
+            <p class="card-text text-secondary fs-6">
+              With nearly 30 years of experience,Tayang has the expertise necessary for providing an outstanding silicone rubber compression molding service. We offer small-volume silicone rubber compression molding products, including keypads, gaskets, key fobs, decorated plastic parts and more.
+            </p>
+          </div>
+          <div class="card-footer bg-transparent border-0 pb-4">
+            <button class="btn btn-primary">Read More</button>
+          </div>
         </div>
-    </section>
+      </div>
+
+      <!-- 卡片3 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 text-center border rounded-3 card-overlap">
+          <div class="img-overlap-wrap">
+            <img src="https://picsum.photos/id/103/400"
+                 alt="Liquid Silicone Rubber Overmolding"
+                 class="img-fluid rounded-circle"
+                 style="max-height:140px; object-fit:cover;">
+          </div>
+          <div class="card-body px-4 pt-0">
+            <h4 class="card-title text-primary fs-5 mb-3">Liquid Silicone Rubber Overmolding</h4>
+            <p class="card-text text-secondary fs-6">
+              The silicone overmolding (also called two shot molding) is a process in which the silicone rubber is molded over a plastic or metal substrate. This process is designed to improve product quality and performance, simplify assembly, increase airtightness, and ensure waterproof, dustproof ...
+            </p>
+          </div>
+          <div class="card-footer bg-transparent border-0 pb-4">
+            <button class="btn btn-primary">Read More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 {% endblock %}

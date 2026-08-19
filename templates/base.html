@@ -48,6 +48,10 @@
                        href="{{ url_for('company') }}">COMPANY</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {% block nav_tec %}{% endblock %}"
+                       href="#">TECHNOLOGY</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {% block nav_contact %}{% endblock %}"
                        href="{{ url_for('contact') }}">CONTACT</a>
                 </li>
@@ -84,7 +88,8 @@
                 {{ websiteinfo.quick_information | safe }}
             </p>
             <span class="ms-5 me-3 fs-1"><a href="https://www.instagram.com/hanyunmold2010/"
-                                       class="instagram-icon" target="_blank"><i class="fa-brands fa-instagram"></i></a></span>
+                                            class="instagram-icon" target="_blank"><i
+                    class="fa-brands fa-instagram"></i></a></span>
             <span class="mx-3 fs-1"><a href="https://www.linkedin.com/in/karen-wen-a253b9329"
                                        class="linkedin-icon" target="_blank"><i
                     class="fa-brands fa-linkedin"></i></a></span>

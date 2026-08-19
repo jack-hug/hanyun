@@ -423,3 +423,94 @@
 section {
     padding: 2rem 0;
 }
+
+/* 产品自定义样式，覆盖或补充 Bootstrap */
+.product-card {
+    display: block; /* 让 a 标签表现为块级元素 */
+    text-decoration: none; /* 去掉下划线 */
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 2rem 1.5rem;
+    background-color: #fff;
+    height: 100%; /* 填满父容器高度 */
+    color: inherit; /* 继承默认文字颜色 */
+}
+
+/* 鼠标悬停效果 - 应用于整个卡片 */
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); /* 阴影加深 */
+    text-decoration: none;
+    color: inherit;
+}
+
+.sub-title {
+    font-size: 0.8rem;
+    color: #999;
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+}
+
+.main-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 1rem;
+}
+
+/* 图片容器 - 统一对齐底部 */
+.product-img-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/*!* 左侧大卡片图片高度 *!*/
+/*.big-card .product-img-wrapper {*/
+/*    height: 320px;*/
+/*}*/
+
+/*!* 右侧小卡片图片高度 *!*/
+/*.small-card .product-img-wrapper {*/
+/*    height: 140px;*/
+/*}*/
+
+.product-img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* 专门针对右侧小卡片内部的标题调整字体大小 */
+.small-card .main-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.small-card .icon-btn {
+    width: 26px;
+    height: 26px;
+    margin-bottom: 1rem;
+}
+
+
+.card-overlap {
+  overflow: visible !important;
+  position: relative;
+  margin-top: 70px; /* 卡片向下预留圆形图片空间 */
+}
+
+.img-overlap-wrap {
+  position: absolute;
+  top: -70px; /* 向上偏移，遮挡卡片上边框，按需调整 */
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+/* 给卡片内容顶部留白，避免文字被圆形图片压住 */
+.card-overlap .card-body {
+  padding-top: 100px !important;
+}
