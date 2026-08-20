@@ -105,8 +105,8 @@ def fake_advantage():
 
 def fake_website_info():
     website_info = WebsiteInfo(
-        company_name='Shenzhen Hanyun Mold Co.,Ltd',
-        company_address='Shenzhen, Guangdong, China',
+        company_name='Haimbo Silicone & Rubber Co., Ltd.',
+        company_address='Dong Guan, Guangdong, China',
         company_phone='+86',
         company_email='karen@hanyunmold.com',
         quick_information='Hanyun mold have more than 10 years of experience<br> in making slide core units.',
