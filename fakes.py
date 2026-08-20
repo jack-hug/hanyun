@@ -23,16 +23,12 @@ products = [
 ]  # 10 products
 
 categories = [
-    'Electronic Accessories',
-    'Electrical Appliance Accessories',
-    'Medical & Rehabilitation Products',
-    'Auto Parts',
-    'Beauty Care Products',
-    'Kitchen & Daily Goods',
-    'Custom Promotional Gifts',
-    'Pet Toys',
-    'Outdoor Accessories',
+    'Baby & Maternity Silicone Products',
+    'Medical‑Grade Silicone Parts',
+    'Electronic Silicone Accessories',
+    'Industrial Silicone Components',
 ]
+
 
 
 def fake_products():

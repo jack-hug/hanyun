@@ -18,23 +18,39 @@
                            class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">HOME
                         </a>
                     </li>
-                    <li class="breadcrumb-item">{{ category.name }}</li>
-                    <li class="breadcrumb-item active" aria-current="page">Products</li>
+                    {% if category %}
+                        <li class="breadcrumb-item">{{ category.name }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">Products</li>
+                    {% else %}
+                        <li class="breadcrumb-item active" aria-current="page">All Products</li>
+                    {% endif %}
                 </ol>
             </nav>
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-group">
                         <li class="list-group-item bg-light fw-bold">Category</li>
-                        {% for category in categories %}
-                            <a href="{{ url_for('category', category_id=category.id) }}"
-                               class="list-group-item list-group-item-action {% if category.id == category_id %}active
-                               {% endif %}">{{ category.name }}</a>
+                        <!-- 添加"所有产品"选项 -->
+                        <a href="{{ url_for('category', category_id=0) }}"
+                           class="list-group-item list-group-item-action {% if category_id == 0 %}active{% endif %}">
+                            All Products
+                        </a>
+                        {% for category_item in categories %}
+                            <a href="{{ url_for('category', category_id=category_item.id) }}"
+                               class="list-group-item list-group-item-action {% if category and category_item.id == category.id %}active{% endif %}">
+                                {{ category_item.name }}
+                            </a>
                         {% endfor %}
                     </ul>
                 </div>
                 <div class="col-md-9">
-                    <div class="py-3 bg-white shadow">{{ category.name }}</div>
+                    <div class="py-3 bg-white shadow">
+                        {% if category %}
+                            {{ category.name }}
+                        {% else %}
+                            All Products
+                        {% endif %}
+                    </div>
                     <div class="row">
                         {% if products %}
                             {% for product in products %}

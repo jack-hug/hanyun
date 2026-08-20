@@ -37,6 +37,10 @@
                         PRODUCTS
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('category', category_id=0) }}" class="dropdown-item">All Products</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         {% for category in categories %}
                             <li><a href="{{ url_for('category', category_id=category.id) }}"
                                    class="dropdown-item">{{ category.name }}</a></li>

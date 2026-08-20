@@ -275,9 +275,14 @@ def index():
 
 @app.route('/category/<int:category_id>', methods=['GET', 'POST'])
 def category(category_id):
-    category = Category.query.get_or_404(category_id)
-    products = Product.query.filter_by(category_id=category_id).all()
-    return render_template('products.html', products=products, category_id=category_id, category=category)
+    if category_id == 0:
+        products = Product.query.order_by(Product.clicks.desc()).all()
+        category = None
+        return render_template('products.html', products=products, category_id=0, category=category)
+    else:
+        category = Category.query.get_or_404(category_id)
+        products = Product.query.filter_by(category_id=category_id).all()
+        return render_template('products.html', products=products, category_id=category_id, category=category)
 
 @app.route('/company')  # 公司介绍
 def company():
