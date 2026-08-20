@@ -311,7 +311,12 @@ def product(product_id):
     recommends_products = Product.query.filter(Product.id != product_id).all()
     return render_template('product.html', product=product, recommends_products=recommends_products)
 
+@app.route('/technology', methods=['GET', 'POST'])
+def technology():
+    return render_template('technology.html')
 
+
+# 后台管理页面
 @app.route('/admin/products', methods=['GET', 'POST'])  # 后台
 @login_required
 def admin():
