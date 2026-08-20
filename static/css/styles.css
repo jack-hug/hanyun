@@ -514,3 +514,22 @@ section {
 .card-overlap .card-body {
   padding-top: 100px !important;
 }
+
+/* technology 页面 图片容器样式  */
+.tech-img-wrap {
+    overflow: hidden;
+    border-radius: 1rem;
+    transition: box-shadow 0.4s ease;
+}
+.tech-img-wrap img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: block;
+}
+.tech-img-wrap:hover img {
+    transform: scale(1.06);
+}
+.tech-img-wrap:hover {
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.2) !important;
+}

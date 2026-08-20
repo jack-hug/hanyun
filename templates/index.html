@@ -52,8 +52,9 @@
             <div class="row g-2">
                 <!-- 图片 1 -->
                 <div class="col-md-4 col-sm-6 col-12">
-                    <a href="#" class="image-card" target="_blank"> <!-- target="_blank" 可选，新窗口打开 -->
-                        <img src="{{ url_for('static', filename='img/mold-design.jpg') }}" alt="Mold Design" class="img-fluid">
+                    <a href="#" class="image-card">
+                        <img src="{{ url_for('static', filename='img/mold-design.jpg') }}" alt="Mold Design"
+                             class="img-fluid">
                         <div class="overlay">
                             <p>Mold Design</p>
                         </div>
@@ -61,8 +62,9 @@
                 </div>
                 <!-- 图片 2 -->
                 <div class="col-md-4 col-sm-6 col-12">
-                    <a href="#" class="image-card" target="_blank">
-                        <img src="{{ url_for('static', filename='img/mold-marking.jpg') }}" alt="Mold Making" class="img-fluid">
+                    <a href="#" class="image-card">
+                        <img src="{{ url_for('static', filename='img/mold-marking.jpg') }}" alt="Mold Making"
+                             class="img-fluid">
                         <div class="overlay">
                             <p>Mold Making</p>
                         </div>
@@ -70,7 +72,7 @@
                 </div>
                 <!-- 图片 3 -->
                 <div class="col-md-4 col-sm-6 col-12">
-                    <a href="#" class="image-card" target="_blank">
+                    <a href="#" class="image-card">
                         <img src="{{ url_for('static', filename='img/molding.jpg') }}" alt="Molding" class="img-fluid">
                         <div class="overlay">
                             <p>Molding</p>
@@ -119,7 +121,7 @@
                             <h3 class="main-title d-inline-block align-middle mb-0">HOT-SALE PRODUCTS</h3>
                         </div>
                         <div class="product-img-wrapper">
-                            <img src="{{ url_for('static', filename='img/hot-sale-all.png') }}"
+                            <img src="{{ url_for('static', filename='img/hot-sale000.png') }}"
                                  alt="HOT-SALE PRODUCTS">
                         </div>
                     </a>
@@ -139,7 +141,7 @@
                                         Products</h3>
                                 </div>
                                 <div class="product-img-wrapper">
-                                    <img src="{{ url_for('static', filename='img/hot-sale02.png') }}"
+                                    <img src="{{ url_for('static', filename='img/hot-sale002.png') }}"
                                          alt="Baby & Maternity Silicone Products">
                                 </div>
                             </a>
@@ -155,7 +157,7 @@
                                         Parts</h3>
                                 </div>
                                 <div class="product-img-wrapper">
-                                    <img src="{{ url_for('static', filename='img/hot-sale01.png') }}"
+                                    <img src="{{ url_for('static', filename='img/hot-sale001.png') }}"
                                          alt="Medical‑Grade Silicone Parts">
                                 </div>
                             </a>
@@ -171,7 +173,7 @@
                                         Accessories</h3>
                                 </div>
                                 <div class="product-img-wrapper">
-                                    <img src="{{ url_for('static', filename='img/hot-sale03.png') }}"
+                                    <img src="{{ url_for('static', filename='img/hot-sale003.png') }}"
                                          alt="Electronic Silicone Accessories">
                                 </div>
                             </a>
@@ -187,7 +189,7 @@
                                         Components</h3>
                                 </div>
                                 <div class="product-img-wrapper">
-                                    <img src="{{ url_for('static', filename='img/hot-sale04.png') }}"
+                                    <img src="{{ url_for('static', filename='img/hot-sale004.png') }}"
                                          alt="Industrial Silicone Components">
                                 </div>
                             </a>
@@ -200,80 +202,86 @@
     </section>
 
     <section class="py-5 bg-white mb-5">
-  <div class="container">
-    <!-- 标题 -->
-    <div class="row mb-5">
-      <div class="col text-center">
-        <h2 class="fw-bold">Technical Capabilities</h2>
-      </div>
-    </div>
+        <div class="container">
+            <!-- 标题 -->
+            <div class="row mb-5">
+                <div class="col text-center">
+                    <h2 class="fw-bold">Technical Capabilities</h2>
+                </div>
+            </div>
 
-    <div class="row g-4">
-      <!-- 卡片1 -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 text-center border rounded-3 card-overlap">
-          <div class="img-overlap-wrap">
-            <!-- rounded-circle Bootstrap原生圆形类，控制圆形 -->
-            <img src="{{ url_for('static', filename='img/rounded-image01.jpg') }}"
-                 alt="Liquid Silicone Rubber Injection Molding"
-                 class="img-fluid rounded-circle"
-                 style="max-height:140px; object-fit:cover;">
-          </div>
-          <div class="card-body px-4 pt-0">
-            <h4 class="card-title text-primary fs-4 mb-3">Liquid Silicone Rubber Injection Molding</h4>
-            <p class="card-text text-secondary fs-5">
-              With rich expertise in LSR injection molding, we deliver custom liquid silicone components, such as silicone buttons, keypads, housings and various custom silicone parts.
-            </p>
-          </div>
-          <div class="card-footer bg-transparent border-0 pb-4">
-            <button class="btn btn-primary">Read More</button>
-          </div>
-        </div>
-      </div>
+            <div class="row g-4">
+                <!-- 卡片1 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 text-center border rounded-3 card-overlap">
+                        <div class="img-overlap-wrap">
+                            <!-- rounded-circle Bootstrap原生圆形类，控制圆形 -->
+                            <img src="{{ url_for('static', filename='img/rounded-image01.jpg') }}"
+                                 alt="Liquid Silicone Rubber Injection Molding"
+                                 class="img-fluid rounded-circle"
+                                 style="max-height:140px; object-fit:cover;">
+                        </div>
+                        <div class="card-body px-4 pt-0">
+                            <h4 class="card-title text-primary fs-4 mb-3">Liquid Silicone Rubber Injection Molding</h4>
+                            <p class="card-text text-secondary fs-5">
+                                With rich expertise in LSR injection molding, we deliver custom liquid silicone
+                                components, such as silicone buttons, keypads, housings and various custom silicone
+                                parts.
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pb-4">
+                            <a href="{{ url_for('technology') }}#lsr-injection-molding" class="btn btn-primary ms-auto">Read More</a>
+                        </div>
+                    </div>
+                </div>
 
-      <!-- 卡片2 -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 text-center border rounded-3 card-overlap">
-          <div class="img-overlap-wrap">
-            <img src="{{ url_for('static', filename='img/rounded-image02.jpg') }}"
-                 alt="Silicone Rubber Compression Molding"
-                 class="img-fluid rounded-circle"
-                 style="max-height:140px; object-fit:cover;">
-          </div>
-          <div class="card-body px-4 pt-0">
-            <h4 class="card-title text-primary fs-4 mb-3">Silicone Rubber Compression Molding</h4>
-            <p class="card-text text-secondary fs-5">
-              Backed by decades of industry experience, we provide premium solid silicone compression molding solutions. We support both small‑batch and mass production of keypads, gaskets, key fobs and other silicone molded items.
-            </p>
-          </div>
-          <div class="card-footer bg-transparent border-0 pb-4">
-            <button class="btn btn-primary">Read More</button>
-          </div>
-        </div>
-      </div>
+                <!-- 卡片2 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 text-center border rounded-3 card-overlap">
+                        <div class="img-overlap-wrap">
+                            <img src="{{ url_for('static', filename='img/rounded-image02.jpg') }}"
+                                 alt="Silicone Rubber Compression Molding"
+                                 class="img-fluid rounded-circle"
+                                 style="max-height:140px; object-fit:cover;">
+                        </div>
+                        <div class="card-body px-4 pt-0">
+                            <h4 class="card-title text-primary fs-4 mb-3">Silicone Rubber Compression Molding</h4>
+                            <p class="card-text text-secondary fs-5">
+                                Backed by decades of industry experience, we provide premium solid silicone compression
+                                molding solutions. We support both small‑batch and mass production of keypads, gaskets,
+                                key fobs and other silicone molded items.
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pb-4">
+                            <a href="{{ url_for('technology') }}#compression-molding" class="btn btn-primary ms-auto">Read More</a>
+                        </div>
+                    </div>
+                </div>
 
-      <!-- 卡片3 -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 text-center border rounded-3 card-overlap">
-          <div class="img-overlap-wrap">
-            <img src="{{ url_for('static', filename='img/rounded-image03.jpg') }}"
-                 alt="Liquid Silicone Rubber Overmolding"
-                 class="img-fluid rounded-circle"
-                 style="max-height:140px; object-fit:cover;">
-          </div>
-          <div class="card-body px-4 pt-0">
-            <h4 class="card-title text-primary fs-4 mb-3">Liquid Silicone Rubber Overmolding</h4>
-            <p class="card-text text-secondary fs-5">
-              Also known as two‑shot molding, silicone overmolding bonds liquid silicone onto plastic or metal substrates. This technology enhances product performance, simplifies assembly, and delivers superior waterproof and dustproof sealing performance.
-            </p>
-          </div>
-          <div class="card-footer bg-transparent border-0 pb-4">
-            <button class="btn btn-primary">Read More</button>
-          </div>
+                <!-- 卡片3 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 text-center border rounded-3 card-overlap">
+                        <div class="img-overlap-wrap">
+                            <img src="{{ url_for('static', filename='img/rounded-image03.jpg') }}"
+                                 alt="Liquid Silicone Rubber Overmolding"
+                                 class="img-fluid rounded-circle"
+                                 style="max-height:140px; object-fit:cover;">
+                        </div>
+                        <div class="card-body px-4 pt-0">
+                            <h4 class="card-title text-primary fs-4 mb-3">Liquid Silicone Rubber Overmolding</h4>
+                            <p class="card-text text-secondary fs-5">
+                                Also known as two‑shot molding, silicone overmolding bonds liquid silicone onto plastic
+                                or metal substrates. This technology enhances product performance, simplifies assembly,
+                                and delivers superior waterproof and dustproof sealing performance.
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pb-4">
+                            <a href="{{ url_for('technology') }}#overmolding" class="btn btn-primary ms-auto">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
 {% endblock %}

@@ -7,161 +7,122 @@
 
 {% block content %}
     <div class="section bg-secondary custom-container">
-        <img src="{{ url_for('static', filename='img/technology-image.png') }}" alt="background-image" class="img-fluid">
+        <img src="{{ url_for('static', filename='img/technology-image.png') }}" alt="background-image"
+             class="img-fluid">
     </div>
 
-    <section class="bg-light">
-        <div class="container pt-5">
-            <!-- about us -->
-            <div class="row py-4 company-style">
-                <h1 class="text-center py-2">About Us</h1>
-                <div><hr class="mx-4"></div>
-                <div class="col-md-5 g-0 d-flex align-items-center mt-2">
-                    <div class="mx-3 p-4 company-hover">
-                        <p class="lh-lg">HANYUN MOLD was founded in 2010, is a factory specializing in the
-                            production of standard slide core unit, precision positioning, various types of sliders,
-                            non-standard slide core units etc. The company is located in Shenzhen and continues to
-                            develop with its superior geographical location. With more than 10 years of experience in
-                            slide core units, we have mastered every production step and know how to produce
-                            high-quality slides at low cost. In order to shorten the delivery time, we always keep a
-                            large of semi-inventory and finished products all over year. Looking forward to hearing from
-                            you soon.</p>
-                    </div>
-                </div>
-                <div class="col-md-7 g-0  mt-2" style="overflow: hidden;">
-                    <img alt="about-us" src="{{ url_for('static', filename='img/company-image01.jpg') }}"
-                         class="image-fluid h-100 company-image-style">
-                </div>
-            </div>
-        </div>
-        </section>
 
-    <section class="bg-white">
-        <div class="container pt-5">
-            <!-- Production Equipment -->
-            <div class="row text-center py-4 company-style">
-                <h1>Production Workshop</h1>
-                <div><hr class="mx-4"></div>
-                <p class="lh-lg">With Advanced Production Equipment, such as Agie Charmilles CUT 20P wire cutting, EDM
-                    (Taiwan miki),
-                    surface grinding machine (Taiwan DAWN and Japan OKAMOTO), CNC (Taiwan and Japan Mori Seiki) etc, we
-                    always provide you high quality products. </p>
-                <div class="col-md-3">
-                    <div class="card company-image-style">
-                        <img src="{{ url_for('static', filename='img/company-image02.jpg') }}" alt="company-image"
-                             class="image-fluid w-100">
-                        <div class="card-body">
-                            <p class="card-text">CNC Machine</p>
-                        </div>
+    <section id="lsr-injection-molding" class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="tech-img-wrap shadow">
+                        <img src="{{ url_for('static', filename='img/rounded-image01.jpg') }}"
+                             alt="Liquid Silicone Rubber Injection Molding"
+                             class="img-fluid rounded-4 shadow">
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card company-image-style">
-                        <img src="{{ url_for('static', filename='img/company-image03.jpg') }}" alt="company-image"
-                             class="image-fluid w-100">
-                        <div class="card-body">
-                            <p class="card-text">Milling Machine</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card company-image-style">
-                        <img src="{{ url_for('static', filename='img/company-image04.jpg') }}" alt="company-image"
-                             class="image-fluid w-100">
-                        <div class="card-body">
-                            <p class="card-text">EDM Machine</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card company-image-style">
-                        <img src="{{ url_for('static', filename='img/company-image05.jpg') }}" alt="company-image"
-                             class="image-fluid w-100">
-                        <div class="card-body">
-                            <p class="card-text">Grinding Machine</p>
-                        </div>
-                    </div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-3">Liquid Silicone Rubber Injection Molding</h2>
+                    <p class="fs-5 text-secondary">
+                        Liquid Silicone Rubber (LSR) injection molding is a high-precision manufacturing process
+                        that produces complex silicone components with exceptional consistency and quality.
+                        Our advanced LSR injection molding capabilities enable us to create intricate geometries
+                        with tight tolerances, making it ideal for applications requiring durability, flexibility,
+                        and biocompatibility.
+                    </p>
+                    <h5 class="fw-semibold mt-4">Key Advantages:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>High-volume production
+                            with consistent quality
+                        </li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Complex geometry and
+                            tight tolerance capabilities
+                        </li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Excellent heat
+                            resistance and chemical stability
+                        </li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>FDA-compliant
+                            materials for medical and food applications
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="bg-light">
-        <div class="container pt-5">
-            <!-- Quality department -->
-            <div class="row text-center py-4 company-style">
-                <h1>Quality Department</h1>
-                <div><hr class="mx-4"></div>
-                <p class="lh-lg px-5">We firmly believe that good quality is the long-term development of an enterprise,
-                    so
-                    we inspect every production step. We have professional inspection personnel to ensure that every
-                    product is 100% inspected. Customer satisfaction is our goal.</p>
-                <div class="col-md-3">
-                    <div class="card company-image-style">
-                        <img src="{{ url_for('static', filename='img/qualitydepartment01.jpg') }}" alt="company-image"
-                             class="image-fluid h-100">
-                        <div class="card-body">
-                            <p class="card-text">Laser Machine</p>
-                        </div>
+    <section id="compression-molding" class="py-5 bg-white">
+        <div class="container">
+            <div class="row align-items-center flex-row-reverse">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="tech-img-wrap shadow">
+                        <img src="{{ url_for('static', filename='img/rounded-image02.jpg') }}"
+                             alt="Silicone Rubber Compression Molding"
+                             class="img-fluid rounded-4 shadow">
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card company-image-style">
-                        <img src="{{ url_for('static', filename='img/qualitydepartment02.jpg') }}" alt="company-image"
-                             class="image-fluid h-100">
-                        <div class="card-body">
-                            <p class="card-text">Height Measurer</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card company-image-style">
-                        <img src="{{ url_for('static', filename='img/qualitydepartment03.jpg') }}" alt="company-image"
-                             class="image-fluid h-100">
-                        <div class="card-body">
-                            <p class="card-text">Hardness Tester</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card company-image-style">
-                        <img src="{{ url_for('static', filename='img/qualitydepartment04.jpg') }}" alt="company-image"
-                             class="image-fluid h-100">
-                        <div class="card-body">
-                            <p class="card-text">CMM</p>
-                        </div>
-                    </div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-3">Silicone Rubber Compression Molding</h2>
+                    <p class="fs-5 text-secondary">
+                        With decades of industry expertise, our silicone rubber compression molding service delivers
+                        premium solid silicone components for a wide range of applications. This versatile manufacturing
+                        process is ideal for producing durable, high-performance parts with excellent mechanical
+                        properties, making it a cost-effective solution for both prototyping and mass production.
+                    </p>
+                    <h5 class="fw-semibold mt-4">Key Advantages:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Cost-effective for
+                            small to medium production runs
+                        </li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Excellent material
+                            strength and durability
+                        </li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Ideal for thick-walled
+                            and large components
+                        </li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Wide material
+                            selection for diverse applications
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="bg-white">
-        <div class="container pt-5">
-            <!-- WAREHOUSE  -->
-            <div class="row text-center py-4 company-style">
-                <h1>Warehouse</h1>
-                <div><hr class="mx-4"></div>
-                <p class="lh-lg px-5">In order to keep a large amount of semi-finished products and finished products
-                    all
-                    over year, the warehouse is very important to us. Our warehouse has an area of 200 square meters.
-                    All
-                    products are placed according to their names and models, it is easy for us to find the corresponding
-                    location of the product and to know the remaining quantity in the warehouse, and we can quickly ship
-                    the
-                    goods to customers.
-                </p>
-                <div class="col-md-6">
-                    <div class="card company-image-style">
-                        <img src="{{ url_for('static', filename='img/warehouse01.jpg') }}" alt="company-image"
-                             class="image-fluid w-100">
+    <section id="overmolding" class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="tech-img-wrap shadow">
+                        <img src="{{ url_for('static', filename='img/rounded-image03.jpg') }}"
+                             alt="Liquid Silicone Rubber Overmolding"
+                             class="img-fluid rounded-4 shadow">
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card company-image-style">
-                        <img src="{{ url_for('static', filename='img/warehouse02.jpg') }}" alt="company-image"
-                             class="image-fluid w-100">
-                    </div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-3">Liquid Silicone Rubber Overmolding</h2>
+                    <p class="fs-5 text-secondary">
+                        Liquid Silicone Rubber overmolding, also known as two-shot molding, is an advanced manufacturing
+                        technique that bonds liquid silicone directly onto plastic or metal substrates. This innovative
+                        process enhances product performance by creating a seamless, integrated component with superior
+                        sealing, comfort, and aesthetic properties, while simplifying assembly and reducing production
+                        costs.
+                    </p>
+                    <h5 class="fw-semibold mt-4">Key Advantages:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Superior waterproof
+                            and dustproof sealing performance
+                        </li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Enhanced product
+                            ergonomics and comfort
+                        </li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Eliminates secondary
+                            assembly operations
+                        </li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Excellent chemical and
+                            environmental resistance
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
