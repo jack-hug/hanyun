@@ -105,7 +105,7 @@ def fake_advantage():
 
 def fake_website_info():
     website_info = WebsiteInfo(
-        company_name='Haimbo Silicone & Rubber Co., Ltd.',
+        company_name='Dong Guan HMB Silicone & Rubber Co., Ltd.',
         company_address='Dong Guan, Guangdong, China',
         company_phone='+86',
         company_email='karen@hanyunmold.com',
