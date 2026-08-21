@@ -109,7 +109,7 @@ def fake_website_info():
         company_address='Dong Guan, Guangdong, China',
         company_phone='+86',
         company_email='karen@hanyunmold.com',
-        quick_information='Hanyun mold have more than 10 years of experience<br> in making slide core units.',
+        quick_information='Dongguan-based silicone & rubber manufacturer with 1,000-ton annual capacity, ISO9001 certified, and FDA/RoHS compliant. We offer eco-friendly custom parts with strong resistance to temperature, chemicals, oil, abrasion, and corrosion, plus adjustable hardness. One-stop service from design to mass production.',
         facebook='karen',
         twitter='karen',
         skype='karen',

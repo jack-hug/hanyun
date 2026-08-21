@@ -285,6 +285,9 @@
 
 .company-style {
     box-shadow: 0 0 10px #e6e6e6;
+    background-color: #f8fafc; /* 柔和背景，与圆形成对比 */
+    border-radius: 1rem;
+    padding: 2rem 1rem;
 }
 
 .company-image-style {
@@ -497,22 +500,22 @@ section {
 
 
 .card-overlap {
-  overflow: visible !important;
-  position: relative;
-  margin-top: 70px; /* 卡片向下预留圆形图片空间 */
+    overflow: visible !important;
+    position: relative;
+    margin-top: 70px; /* 卡片向下预留圆形图片空间 */
 }
 
 .img-overlap-wrap {
-  position: absolute;
-  top: -70px; /* 向上偏移，遮挡卡片上边框，按需调整 */
-  left: 0;
-  width: 100%;
-  text-align: center;
+    position: absolute;
+    top: -70px; /* 向上偏移，遮挡卡片上边框，按需调整 */
+    left: 0;
+    width: 100%;
+    text-align: center;
 }
 
 /* 给卡片内容顶部留白，避免文字被圆形图片压住 */
 .card-overlap .card-body {
-  padding-top: 100px !important;
+    padding-top: 100px !important;
 }
 
 /* technology 页面 图片容器样式  */
@@ -521,15 +524,152 @@ section {
     border-radius: 1rem;
     transition: box-shadow 0.4s ease;
 }
+
 .tech-img-wrap img {
     width: 100%;
     height: auto;
     transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     display: block;
 }
+
 .tech-img-wrap:hover img {
     transform: scale(1.06);
 }
+
 .tech-img-wrap:hover {
-    box-shadow: 0 1rem 3rem rgba(0,0,0,0.2) !important;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2) !important;
+}
+
+
+/* company 页面 样式 */
+
+/* 图片卡片 – 干净简洁，图片下方带描述 */
+.img-card {
+    background: #ffffff;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 20, 40, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(200, 215, 230, 0.3);
+}
+
+.img-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px rgba(0, 30, 60, 0.08);
+}
+
+.img-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* 确保图片统一裁剪，保持比例 */
+    background-color: #e9edf2; /* 占位底色 */
+    display: block;
+}
+
+.img-card .card-body {
+    padding: 0.9rem 0.8rem 1rem;
+    text-align: center;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-card .card-body p {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1f405b;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
+}
+
+/* 针对小屏调整图片高度 */
+@media (max-width: 576px) {
+    .img-card img {
+        height: 160px;
+    }
+
+    .display-section h2 {
+        font-size: 1.4rem;
+        padding-left: 0.8rem;
+    }
+}
+
+/* 保持 hr 原有样式 */
+.company-style hr {
+    opacity: 0.4;
+    border-top: 2px solid #bacddc;
+    margin: 0.25rem 0 0.5rem;
+}
+
+/* 圆形卡片区域（保留之前样式，与展示区共存） */
+.circle-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem 2.5rem;
+    margin: 2rem 0 0.5rem;
+}
+
+.circle-item {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #ffffff, #f0f4fa);
+    box-shadow: 0 12px 28px rgba(0, 20, 40, 0.08), 0 4px 12px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 0.4rem;
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.circle-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 36px rgba(0, 30, 60, 0.12);
+    background: linear-gradient(145deg, #ffffff, #eef3f9);
+}
+
+.circle-stat {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #0b2b44;
+    margin-bottom: 0.1rem;
+}
+
+.circle-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #2c4b66;
+    line-height: 1.3;
+    max-width: 130px;
+    margin: 0 auto;
+}
+
+@media (max-width: 576px) {
+    .circle-item {
+        width: 140px;
+        height: 140px;
+    }
+
+    .circle-stat {
+        font-size: 1.6rem;
+    }
+
+    .circle-label {
+        font-size: 0.7rem;
+        max-width: 110px;
+    }
+
+    .circle-wrapper {
+        gap: 1rem 1.2rem;
+    }
 }
