@@ -308,9 +308,15 @@ def contact():
 
 @app.route('/product/<int:product_id>')  # 产品详情
 def product(product_id):
-    product = Product.query.get(product_id)
+    product = Product.query.get_or_404(product_id)
     recommends_products = Product.query.filter(Product.id != product_id).all()
-    return render_template('product.html', product=product, recommends_products=recommends_products)
+
+    photo_list = product.photos.all()
+    for p in recommends_products:
+        p.photos = p.photos.all()
+    product.clicks += 1
+    db.session.commit()
+    return render_template('product.html', product=product, recommends_products=recommends_products, photo_list=photo_list)
 
 @app.route('/technology', methods=['GET', 'POST'])
 def technology():
@@ -566,7 +572,7 @@ if __name__ == '__main__':
 
 @app.cli.command()  # 生成数据
 def forge():
-    from fakes import fake_products, fake_about, fake_advantage, fake_categories, fake_website_info
+    from fakes import fake_categories, fake_products, fake_about, fake_advantage,  fake_website_info
     click.echo('Drop tables....')
     db.drop_all()
     click.echo('Delete uploads photo...')
@@ -575,14 +581,14 @@ def forge():
         os.mkdir(current_app.config['HY_UPLOAD_PATH'])
     click.echo('Initialized database......')
     db.create_all()
+    click.echo('Generating categories...')
+    fake_categories()
     click.echo('Generating products...')
     fake_products()
     click.echo('Generating about_us text...')
     fake_about()
     click.echo('Generating advantage text...')
     fake_advantage()
-    click.echo('Generating categories...')
-    fake_categories()
     click.echo('Generating website info...')
     fake_website_info()
 

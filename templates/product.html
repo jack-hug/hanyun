@@ -7,7 +7,7 @@
 
 {% block content %}
     <div class="section bg-secondary custom-container">
-        <img src="{{ url_for('static', filename='img/product-image.jpg') }}" alt="background-image" class="img-fluid">
+        <img src="{{ url_for('static', filename='img/product-image.png') }}" alt="product-background-image" class="img-fluid">
     </div>
     <section class="py-3 bg-light">
         <div class="container">
@@ -20,7 +20,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ url_for('category', category_id=product.category.id) }}"
-                           class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">PRODUCTS
+                           class="link-underline link-underline-opacity-0 link-underline-opacity-75-hover">{{ product.category.name }}
                         </a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
@@ -28,7 +28,7 @@
             </nav>
             <div class="row">
                 <div class="col-md-6 d-flex flex-column align-items-center">
-                    {% if product.photos %}
+                    {% if photo_list %}
                         <img src="{{ url_for('get_image', filename=product.photos[0].filename) }}" alt="product-image"
                              class="product-image img-fluid" id="main-image">
                         <div class="mt-3">

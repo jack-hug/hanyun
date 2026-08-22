@@ -23,12 +23,17 @@ products = [
 ]  # 10 products
 
 categories = [
-    'Baby & Maternity Silicone Products',
-    'Medical‑Grade Silicone Parts',
-    'Electronic Silicone Accessories',
-    'Industrial Silicone Components',
+    'Household Products',
+    'Industrial Components',
+    'Electronic Accessories',
+    'Medical-Grade Parts',
 ]
 
+def fake_categories():
+    for category_name in categories:
+        category = Category(name=category_name)
+        db.session.add(category)
+    db.session.commit()
 
 
 def fake_products():
@@ -45,16 +50,10 @@ def fake_products():
             level='High Quality',
             oem='Welcome',
             clicks=0,
+            category_id=random.choice(Category.query.all()).id,
             timestamp=datetime.now()
         )
         db.session.add(product)
-    db.session.commit()
-
-
-def fake_categories():
-    for category_name in categories:
-        category = Category(name=category_name)
-        db.session.add(category)
     db.session.commit()
 
 
