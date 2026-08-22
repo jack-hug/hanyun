@@ -59,7 +59,7 @@ def fake_categories():
 
 
 def fake_about():
-    about_us = '''Haimbo Silicone & Rubber Co., Ltd.
+    about_us = '''Dong Guan HMB Silicone & Rubber Co., Ltd.
 We are located in Dong Guan City, with convenient transport links to Dongguan and Hong Kong. As a professional manufacturer specialized in silicone and rubber product development & production, we are equipped with full modern production lines and experienced technical teams.
 Our annual capacity reaches nearly 1,000 tons of silicone & rubber components. We adopt eco-friendly materials to customize parts with excellent performance: high & low temperature resistance, acid & alkali resistance, weathering, ozone resistance, oil resistance, abrasion resistance, anti-tear, anti-corrosion, and adjustable hardness.
 
@@ -108,8 +108,8 @@ def fake_website_info():
         company_name='Dong Guan HMB Silicone & Rubber Co., Ltd.',
         company_address='Dong Guan, Guangdong, China',
         company_phone='+86',
-        company_email='karen@hanyunmold.com',
-        quick_information='Dongguan-based silicone & rubber manufacturer with 1,000-ton annual capacity, ISO9001 certified, and FDA/RoHS compliant. We offer eco-friendly custom parts with strong resistance to temperature, chemicals, oil, abrasion, and corrosion, plus adjustable hardness. One-stop service from design to mass production.',
+        company_email='winnie@hmbmold.com',
+        quick_information='With more than 10 years of experience in silicone and rubber product development & production, we are equipped with complete modern production lines and an experienced technical team.',
         facebook='karen',
         twitter='karen',
         skype='karen',

@@ -30,7 +30,8 @@ load_dotenv('.env')
 
 app = Flask(__name__)
 
-app.config.from_object(config['development'])
+config_name = os.environ.get('FLASK_CONFIG','development')
+app.config.from_object(config[config_name])
 
 db = SQLAlchemy(app)
 fake = Faker()
@@ -565,7 +566,7 @@ if __name__ == '__main__':
 
 @app.cli.command()  # 生成数据
 def forge():
-    from fakes import fake_products, fake_about, fake_advantage, fake_categories
+    from fakes import fake_products, fake_about, fake_advantage, fake_categories, fake_website_info
     click.echo('Drop tables....')
     db.drop_all()
     click.echo('Delete uploads photo...')
@@ -582,17 +583,11 @@ def forge():
     fake_advantage()
     click.echo('Generating categories...')
     fake_categories()
-
-    click.echo('Done.')
-
-
-@app.cli.command()
-def website():
-    from fakes import fake_website_info
     click.echo('Generating website info...')
     fake_website_info()
 
     click.echo('Done.')
+
 
 
 @app.cli.command()
