@@ -23,10 +23,10 @@ products = [
 ]  # 10 products
 
 categories = [
-    'Household Products',
-    'Industrial Components',
-    'Electronic Accessories',
-    'Medical-Grade Parts',
+    'Household Silicone Products',
+    'Industrial Silicone Components',
+    'Electronic Silicone Accessories',
+    'Medical‑Grade Silicone Parts',
 ]
 
 def fake_categories():

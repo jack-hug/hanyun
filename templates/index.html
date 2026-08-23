@@ -108,8 +108,8 @@
     <section class="py-5 bg-light">
         <h2 class="text-center">PRODUCT CATEGORY</h2>
         <h4 class="text-center text-secondary pb-5">Focus on providing customers with high-quality products</h4>
-        <div class="container">
-            <div class="row g-2">
+        <div class="container-fluid">
+            <div class="row g-3">
 
                 <!-- 左侧卡片  -->
                 <div class="col-lg-5">
@@ -129,7 +129,23 @@
 
                 <!-- 右侧卡片 -->
                 <div class="col-lg-7">
-                    <div class="row g-2">
+                    <div class="row g-3">
+{#                        {% for category in categories %}#}
+{#                        <div class="col-6">#}
+{#                            <a href="{{ url_for('category', category_id=category.id) }}" class="product-card small-card">#}
+{#                                <div class="sub-title">HOT-SALE</div>#}
+{#                                <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">#}
+{#                                    <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"#}
+{#                                       style="color: rgb(0, 166, 60);"></i>#}
+{#                                    <h3 class="main-title d-inline-block align-middle mb-0">{{ category.name }}</h3>#}
+{#                                </div>#}
+{#                                <div class="product-img-wrapper">#}
+{#                                    <img src="{{ url_for('static', filename='img/hot-sale002.png') }}"#}
+{#                                         alt="{{ category.name }}">#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                        {% endfor %}#}
                         <!-- 小卡片 1 -->
                         <div class="col-6">
                             <a href="{{ url_for('category', category_id=1) }}" class="product-card small-card">
@@ -137,12 +153,11 @@
                                 <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">
                                     <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"
                                        style="color: rgb(0, 166, 60);"></i>
-                                    <h3 class="main-title d-inline-block align-middle mb-0">Baby & Maternity Silicone
-                                        Products</h3>
+                                    <h3 class="main-title d-inline-block align-middle mb-0">Household Silicone Products</h3>
                                 </div>
                                 <div class="product-img-wrapper">
                                     <img src="{{ url_for('static', filename='img/hot-sale002.png') }}"
-                                         alt="Baby & Maternity Silicone Products">
+                                         alt="Household Silicone Products">
                                 </div>
                             </a>
                         </div>
@@ -202,7 +217,7 @@
     </section>
 
     <section class="py-5 bg-white mb-5">
-        <div class="container">
+        <div class="container-fluid">
             <!-- 标题 -->
             <div class="row mb-5">
                 <div class="col text-center">

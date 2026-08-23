@@ -260,6 +260,7 @@ def allowed_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     products = Product.query.order_by(Product.id.asc()).limit(8).all()
+    categories = Category.query.all()
     messageform = MessageForm()
     if messageform.validate_on_submit():
         message = Message(name=messageform.name.data, email=messageform.email.data, content=messageform.content.data)
@@ -271,7 +272,7 @@ def index():
         messageform.name.data = ''
         messageform.email.data = ''
         messageform.content.data = ''
-    return render_template('index.html', products=products, messageform=messageform)
+    return render_template('index.html', products=products, messageform=messageform, categories=categories)
 
 
 @app.route('/category/<int:category_id>', methods=['GET', 'POST'])
