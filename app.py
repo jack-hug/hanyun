@@ -21,6 +21,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, current_user, login_user, login_required, logout_user
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap5
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 from emails import send_new_message_email
 
@@ -41,6 +43,7 @@ moment = Moment(app)
 mail = Mail(app)
 migrate = Migrate(app, db)
 bootstrap = Bootstrap5(app)
+limiter = Limiter(app, key_func=get_remote_address)
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -441,6 +444,8 @@ def get_image(filename):
 
 
 @app.route('/admin/login', methods=['GET', 'POST'])  # 登录
+@limiter.limit("5 per minute")  # 每分钟最多5次请求
+@limiter.limit("3 per 5 minutes")  # 每5分钟最多3次请求
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('admin'))
