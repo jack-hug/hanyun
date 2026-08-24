@@ -10,17 +10,19 @@ from app import Advantage, About, db, Product, Admin, WebsiteInfo, Category
 fake = Faker()
 
 products = [
-    'KOCUF',
-    'KOCUM',
-    'KPHF',
-    'MTGL',
-    'SCZA',
-    'SCZAP',
-    'SCZN',
-    'SCZNP',
-    'RCSUF',
-    'RCSUM'
-]  # 10 products
+    'Household Product',
+    'Industrial Component',
+    'Electronic Accessories',
+    'Medical‑Grade Parts',
+    'Household Product',
+    'Industrial Component',
+    'Electronic Accessories',
+    'Medical‑Grade Parts',
+    'Household Product',
+    'Industrial Component',
+    'Electronic Accessories',
+    'Medical‑Grade Parts',
+]  # 12 products
 
 categories = [
     'Household Silicone Products',
@@ -38,15 +40,10 @@ def fake_categories():
 
 def fake_products():
     for product_name in products:
-        if product_name == 'SCZAP':
-            material = 'Brass+Graphite'
-        else:
-            material = 'S45C +Brass+Graphite'
-
         product = Product(
             name=product_name,
             price='0.0',
-            material=material,
+            material='Silicone',
             level='High Quality',
             oem='Welcome',
             clicks=0,
