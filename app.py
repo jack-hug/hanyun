@@ -22,7 +22,6 @@ from flask_login import LoginManager, UserMixin, current_user, login_user, login
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap5
 from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 
 from emails import send_new_message_email
 
@@ -43,7 +42,11 @@ moment = Moment(app)
 mail = Mail(app)
 migrate = Migrate(app, db)
 bootstrap = Bootstrap5(app)
-limiter = Limiter(app, key_func=get_remote_address)
+limiter = Limiter(
+    app,
+    default_limits=["200 per day", "50 per hour"],
+    storage_uri="memory://"
+)
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -337,6 +340,7 @@ def admin():
 
 @app.route('/admin/edit_product/<int:product_id>', methods=['GET', 'POST'])  # 编辑产品
 @login_required
+@limiter.exempt()
 def edit_product(product_id):
     form = EditProductForm()
     product = Product.query.get_or_404(product_id)
@@ -374,6 +378,7 @@ def edit_product(product_id):
 
 @app.route('/upload', methods=['POST'])  # 上传图片
 @login_required
+@limiter.exempt()
 def upload():
     f = request.files.get('upload')
     if not allowed_file(f.filename):
@@ -387,6 +392,7 @@ def upload():
 
 @app.route('/admin/add_product', methods=['GET', 'POST'])  # 添加产品
 @login_required
+@limiter.exempt()
 def add_product():
     form = AddProductForm()
     categories = Category.query.all()
@@ -420,6 +426,7 @@ def add_product():
 
 @app.route('/delete_product/<int:product_id>', methods=['GET', 'POST'])  # 删除产品
 @login_required
+@limiter.exempt()
 def delete_product(product_id):
     product = Product.query.get(product_id)
     db.session.delete(product)
@@ -430,6 +437,7 @@ def delete_product(product_id):
 
 @app.route('/delete_photo/<int:photo_id>', methods=['POST'])  # 删除图片
 @login_required
+@limiter.exempt()
 def delete_photo(photo_id):
     photo = Photo.query.get_or_404(photo_id)
     db.session.delete(photo)
