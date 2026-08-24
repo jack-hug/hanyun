@@ -31,7 +31,7 @@ load_dotenv('.env')
 
 app = Flask(__name__)
 
-config_name = os.environ.get('FLASK_CONFIG','development')
+config_name = os.environ.get('FLASK_CONFIG', 'development')
 app.config.from_object(config[config_name])
 
 db = SQLAlchemy(app)
@@ -248,7 +248,8 @@ class EditCategoryForm(FlaskForm):
 @app.context_processor
 def make_template_context():
     return dict(
-        products=Product.query.order_by(Product.id.asc()).all(),
+        # products=Product.query.order_by(Product.id.asc()).all(),
+        products=Product.query.order_by(Product.timestamp.desc()).all(),
         about=About.query.order_by(About.timestamp.desc()).first(),
         advantages=Advantage.query.order_by(Advantage.id.asc()).all(),
         websiteinfo=WebsiteInfo.query.order_by(WebsiteInfo.id.desc()).first(),
@@ -292,6 +293,7 @@ def category(category_id):
         products = Product.query.filter_by(category_id=category_id).all()
         return render_template('products.html', products=products, category_id=category_id, category=category)
 
+
 @app.route('/company')  # 公司介绍
 def company():
     return render_template('company.html')
@@ -323,7 +325,9 @@ def product(product_id):
         p.photos = p.photos.all()
     product.clicks += 1
     db.session.commit()
-    return render_template('product.html', product=product, recommends_products=recommends_products, photo_list=photo_list)
+    return render_template('product.html', product=product, recommends_products=recommends_products,
+                           photo_list=photo_list)
+
 
 @app.route('/technology', methods=['GET', 'POST'])
 def technology():
@@ -586,7 +590,7 @@ if __name__ == '__main__':
 
 @app.cli.command()  # 生成数据
 def forge():
-    from fakes import fake_categories, fake_products, fake_about, fake_advantage,  fake_website_info
+    from fakes import fake_categories, fake_products, fake_about, fake_advantage, fake_website_info
     click.echo('Drop tables....')
     db.drop_all()
     click.echo('Delete uploads photo...')
@@ -607,7 +611,6 @@ def forge():
     fake_website_info()
 
     click.echo('Done.')
-
 
 
 @app.cli.command()
