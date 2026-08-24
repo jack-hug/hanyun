@@ -84,7 +84,7 @@ def save_uploaded_files(request_files, product):  # 封装上传图片函数
 class Product(db.Model):  # 产品表
     __tablename__ = 'product'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20))
+    name = db.Column(db.String(100))
     price = db.Column(db.Float)
     material = db.Column(db.String(200))
     level = db.Column(db.String(200))
