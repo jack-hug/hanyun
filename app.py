@@ -170,7 +170,7 @@ class Category(db.Model):
 
 
 class EditProductForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    name = StringField('Name', validators=[DataRequired(), Length(1, 100)])
     category = SelectField('Category', coerce=int)
     price = StringField('Price', validators=[DataRequired(), Length(1, 20)])
     material = StringField('Material', validators=[Length(0, 200)])
@@ -182,7 +182,7 @@ class EditProductForm(FlaskForm):
 
 
 class AddProductForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired(), Length(1, 20)])
+    name = StringField('Name', validators=[DataRequired(), Length(1, 100)])
     category = SelectField('Category', coerce=int)
     price = StringField('Price', validators=[DataRequired(), Length(1, 20)])
     material = StringField('Material', validators=[Length(0, 200)])
