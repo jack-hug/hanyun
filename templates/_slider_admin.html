@@ -7,6 +7,7 @@
                class="list-group-item {% if request.endpoint == 'websiteinfo' %}active{% endif %}">网站信息</a>
             <a href="{{ url_for('change_password') }}"
                class="list-group-item {% if request.endpoint == 'change_password' %}active{% endif %}">修改管理员密码</a>
+            <a href="{{ url_for('change_about_us') }}" class="list-group-item {% if request.endpoint == 'change_about_us' %}active{% endif %}">关于我们</a>
         {% endif %}
 
         <a href="{{ url_for('message') }}"

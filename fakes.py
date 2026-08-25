@@ -55,7 +55,7 @@ def fake_products():
 
 
 def fake_about():
-    about_us = '''Dong Guan HMB Silicone & Rubber Co., Ltd.
+    about_us = '''Shen Zhen HMB Silicone & Rubber Co., Ltd.
 We are located in Dong Guan City, with convenient transport links to Dongguan and Hong Kong. As a professional manufacturer specialized in silicone and rubber product development & production, we are equipped with full modern production lines and experienced technical teams.
 Our annual capacity reaches nearly 1,000 tons of silicone & rubber components. We adopt eco-friendly materials to customize parts with excellent performance: high & low temperature resistance, acid & alkali resistance, weathering, ozone resistance, oil resistance, abrasion resistance, anti-tear, anti-corrosion, and adjustable hardness.
 

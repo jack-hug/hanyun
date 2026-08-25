@@ -485,6 +485,7 @@ def logout():
 
 
 @app.route('/admin/websiteinfo', methods=['GET', 'POST'])  # 网站信息
+@login_required
 def websiteinfo():
     websiteinfo = WebsiteInfo.query.first()
     form = WebsiteInfoForm()
@@ -511,6 +512,25 @@ def websiteinfo():
     form.facebook.data = websiteinfo.facebook
     form.line.data = websiteinfo.line
     return render_template('websiteinfo.html', form=form)
+
+
+class AboutForm(FlaskForm):
+    """About Us Form"""
+    about_us = TextAreaField('关于我们内容', validators=[DataRequired(), Length(1, 3000)], render_kw={"rows": 20, "cols": 30})
+    submit = SubmitField('Submit')
+
+@app.route('/admin/change_about_us', methods=['GET', 'POST'])
+@login_required
+def change_about_us():
+    change_about_us = About.query.first()
+    form = AboutForm()
+    if form.validate_on_submit():
+        change_about_us.content = form.about_us.data
+        db.session.commit()
+        flash('修改成功.', 'success')
+        return redirect(url_for('change_about_us'))
+    form.about_us.data = change_about_us.content
+    return render_template('change_about_us.html', form=form, change_about_us=change_about_us)
 
 
 @app.route('/admin/message', methods=['GET', 'POST'])
