@@ -92,11 +92,6 @@
 
 }
 
-.product-image {
-    height: 300px;
-    width: auto;
-}
-
 .thumbnail-image {
     width: 70px;
     height: 70px;
@@ -672,4 +667,70 @@ section {
     .circle-wrapper {
         gap: 1rem 1.2rem;
     }
+}
+
+/* 产品缩略图放大效果 */
+
+.product-image {
+    height: 300px;
+    width: auto;
+    cursor: crosshair;
+}
+
+.thumbnail-image {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+    margin: 0 5px;
+}
+
+.thumbnail-image:hover,
+.thumbnail-image.active {
+    border-color: #007bff;
+}
+
+/* 放大镜容器 - 绝对定位，不影响原布局 */
+.magnifier-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* 放大镜镜头 - 跟随鼠标的小方块 */
+.magnifier-lens {
+    position: absolute;
+    border: 2px solid #ccc;
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 150px;
+    height: 150px;
+    cursor: none;
+    display: none;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* 放大结果窗口 - 显示放大的图片 */
+.magnifier-result {
+    position: fixed;
+    /* 或 absolute */
+    width: 500px;
+    height: 500px;
+    border: 2px solid #ddd;
+    background-color: white;
+    overflow: hidden;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    pointer-events: none;
+    /* 确保不遮挡鼠标操作 */
+}
+
+.magnifier-result img {
+    position: absolute;
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
 }
