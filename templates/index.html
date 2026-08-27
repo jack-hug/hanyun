@@ -5,6 +5,16 @@
     active
 {% endblock %}
 
+{% set category_images = {
+    1: 'hot-sale001.png',
+    2: 'hot-sale002.png',
+    3: 'hot-sale003.png',
+    4: 'hot-sale004.png',
+    5: 'hot-sale005.png',
+    6: 'hot-sale006.png'
+} %}
+
+
 {% block content %}
     <!-- banner -->
     <div class="container-fluid custom-container">
@@ -105,112 +115,29 @@
         </div>
     </section>
 
+    <!-- 产品类别 -->
     <section class="py-5 bg-light">
         <h2 class="text-center">PRODUCT CATEGORY</h2>
         <h4 class="text-center text-secondary pb-5">Focus on providing customers with high-quality products</h4>
         <div class="container-fluid">
             <div class="row g-3">
-
-                <!-- 左侧卡片  -->
-                <div class="col-lg-5">
-                    <a href="{{ url_for('category', category_id=0) }}" class="product-card big-card">
-                        <div class="sub-title">HOT-SALE</div>
-                        <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">
-                            <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"
-                               style="color: rgb(0, 166, 60);"></i>
-                            <h3 class="main-title d-inline-block align-middle mb-0">HOT-SALE PRODUCTS</h3>
-                        </div>
-                        <div class="product-img-wrapper">
-                            <img src="{{ url_for('static', filename='img/hot-sale000.png') }}"
-                                 alt="HOT-SALE PRODUCTS">
-                        </div>
-                    </a>
-                </div>
-
-                <!-- 右侧卡片 -->
-                <div class="col-lg-7">
-                    <div class="row g-3">
-{#                        {% for category in categories %}#}
-{#                        <div class="col-6">#}
-{#                            <a href="{{ url_for('category', category_id=category.id) }}" class="product-card small-card">#}
-{#                                <div class="sub-title">HOT-SALE</div>#}
-{#                                <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">#}
-{#                                    <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"#}
-{#                                       style="color: rgb(0, 166, 60);"></i>#}
-{#                                    <h3 class="main-title d-inline-block align-middle mb-0">{{ category.name }}</h3>#}
-{#                                </div>#}
-{#                                <div class="product-img-wrapper">#}
-{#                                    <img src="{{ url_for('static', filename='img/hot-sale002.png') }}"#}
-{#                                         alt="{{ category.name }}">#}
-{#                                </div>#}
-{#                            </a>#}
-{#                        </div>#}
-{#                        {% endfor %}#}
-                        <!-- 小卡片 1 -->
-                        <div class="col-6">
-                            <a href="{{ url_for('category', category_id=1) }}" class="product-card small-card">
-                                <div class="sub-title">HOT-SALE</div>
-                                <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">
-                                    <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"
-                                       style="color: rgb(0, 166, 60);"></i>
-                                    <h3 class="main-title d-inline-block align-middle mb-0">Household Silicone Products</h3>
-                                </div>
-                                <div class="product-img-wrapper">
-                                    <img src="{{ url_for('static', filename='img/hot-sale002.png') }}"
-                                         alt="Household Silicone Products">
-                                </div>
-                            </a>
-                        </div>
-                        <!-- 小卡片 2 -->
-                        <div class="col-6">
-                            <a href="{{ url_for('category', category_id=2) }}" class="product-card small-card">
-                                <div class="sub-title">HOT-SALE</div>
-                                <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">
-                                    <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"
-                                       style="color: rgb(0, 166, 60);"></i>
-                                    <h3 class="main-title d-inline-block align-middle mb-0">Medical‑Grade Silicone
-                                        Parts</h3>
-                                </div>
-                                <div class="product-img-wrapper">
-                                    <img src="{{ url_for('static', filename='img/hot-sale001.png') }}"
-                                         alt="Medical‑Grade Silicone Parts">
-                                </div>
-                            </a>
-                        </div>
-                        <!-- 小卡片 3 -->
-                        <div class="col-6">
-                            <a href="{{ url_for('category', category_id=3) }}" class="product-card small-card">
-                                <div class="sub-title">HOT-SALE</div>
-                                <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">
-                                    <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"
-                                       style="color: rgb(0, 166, 60);"></i>
-                                    <h3 class="main-title d-inline-block align-middle mb-0">Electronic Silicone
-                                        Accessories</h3>
-                                </div>
-                                <div class="product-img-wrapper">
-                                    <img src="{{ url_for('static', filename='img/hot-sale003.png') }}"
-                                         alt="Electronic Silicone Accessories">
-                                </div>
-                            </a>
-                        </div>
-                        <!-- 小卡片 4 -->
-                        <div class="col-6">
-                            <a href="{{ url_for('category', category_id=4) }}" class="product-card small-card">
-                                <div class="sub-title">HOT-SALE</div>
-                                <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">
-                                    <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"
-                                       style="color: rgb(0, 166, 60);"></i>
-                                    <h3 class="main-title d-inline-block align-middle mb-0">Industrial Silicone
-                                        Components</h3>
-                                </div>
-                                <div class="product-img-wrapper">
-                                    <img src="{{ url_for('static', filename='img/hot-sale004.png') }}"
-                                         alt="Industrial Silicone Components">
-                                </div>
-                            </a>
-                        </div>
+                {% for category in categories[:6] %}
+                    <div class="col-4">
+                        <a href="{{ url_for('category', category_id=category.id) }}" class="product-card small-card">
+                            <div class="sub-title">HOT-SALE</div>
+                            <div class="d-flex align-items-center gap-2 mb-3 icon-btn-wrapper">
+                                <i class="fa-solid fa-circle-chevron-right fa-2x align-middle"
+                                   style="color: rgb(0, 166, 60);"></i>
+                                <h3 class="main-title d-inline-block align-middle mb-0">{{ category.name }}</h3>
+                            </div>
+                            <div class="product-img-wrapper">
+                                <img src="{{ url_for('static', filename='img/' ~ category_images.get(category.id, 'default.png')) }}"
+                                     alt="{{ category.name }}">
+                            </div>
+                        </a>
                     </div>
-                </div>
+                {% endfor %}
+
 
             </div>
         </div>
@@ -245,7 +172,8 @@
                             </p>
                         </div>
                         <div class="card-footer bg-transparent border-0 pb-4">
-                            <a href="{{ url_for('technology') }}#lsr-injection-molding" class="btn btn-primary ms-auto">Read More</a>
+                            <a href="{{ url_for('technology') }}#lsr-injection-molding" class="btn btn-primary ms-auto">Read
+                                More</a>
                         </div>
                     </div>
                 </div>
@@ -268,7 +196,8 @@
                             </p>
                         </div>
                         <div class="card-footer bg-transparent border-0 pb-4">
-                            <a href="{{ url_for('technology') }}#compression-molding" class="btn btn-primary ms-auto">Read More</a>
+                            <a href="{{ url_for('technology') }}#compression-molding" class="btn btn-primary ms-auto">Read
+                                More</a>
                         </div>
                     </div>
                 </div>
@@ -291,7 +220,8 @@
                             </p>
                         </div>
                         <div class="card-footer bg-transparent border-0 pb-4">
-                            <a href="{{ url_for('technology') }}#overmolding" class="btn btn-primary ms-auto">Read More</a>
+                            <a href="{{ url_for('technology') }}#overmolding" class="btn btn-primary ms-auto">Read
+                                More</a>
                         </div>
                     </div>
                 </div>

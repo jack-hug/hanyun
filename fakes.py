@@ -29,6 +29,8 @@ categories = [
     'Industrial Silicone Components',
     'Electronic Silicone Accessories',
     'Medical‑Grade Silicone Parts',
+    'Pet Series',
+    'Rubber Series'
 ]
 
 def fake_categories():
